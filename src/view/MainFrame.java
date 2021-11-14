@@ -10,7 +10,7 @@ import javax.swing.JMenuBar;
 import javax.swing.WindowConstants;
 
 public class MainFrame extends JFrame {
-	
+
 	public MainFrame() {
 		super();
 		
@@ -21,12 +21,12 @@ public class MainFrame extends JFrame {
 		setLocationRelativeTo(null);
 		
 		setTitle("Studentska Služba");
-		setVisible(true);
+		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		//Making the Menu Bar
 		JMenuBar menubar = new JMenuBar();
-		super.add(menubar, BorderLayout.NORTH);
+		//super.add(menubar, BorderLayout.NORTH);
 		
 		JMenu file = new JMenu("File");
 		menubar.add(file);
@@ -35,6 +35,12 @@ public class MainFrame extends JFrame {
 		JMenu help = new JMenu("Help");
 		menubar.add(help);
 		
+		this.setJMenuBar(menubar);
+		
+		//Making Toolbar for this frame
+		ToolBar toolbar = new ToolBar();
+		add(toolbar, BorderLayout.NORTH);
+		setVisible(true);
 	}
 	
 }
