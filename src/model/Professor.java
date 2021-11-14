@@ -3,7 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Profesor {
+public class Professor {
 
 		private String surname;
 		private String name;
@@ -17,7 +17,7 @@ public class Profesor {
 		private Integer workingYears;
 		private ArrayList<Subject> subjects;
 		
-		public Profesor(String surname, String name, LocalDate dateOfBirth, Address homeAdress, String phoneNumber,
+		public Professor(String surname, String name, LocalDate dateOfBirth, Address homeAdress, String phoneNumber,
 				String emailAdress, Address officeAdress, String idNumber, String title, Integer workingYears,
 				ArrayList<Subject> subjects) {
 			super();
