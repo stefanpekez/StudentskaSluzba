@@ -2,8 +2,10 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -21,6 +23,9 @@ public class MainFrame extends JFrame {
 		setLocationRelativeTo(null);
 		
 		setTitle("Studentska Služba");
+		
+		Image img = kit.getImage("images/ftn.png");
+		setIconImage(img);
 		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
