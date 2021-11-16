@@ -22,13 +22,12 @@ public class Student {
 	private int currentYearOfStudy;
 	private StudentStatus status;
 	private double avgGrade;
-	private ArrayList<Integer> passedExams;
-	private ArrayList<Integer> remainingExams;
+	private ArrayList<Grade> passedExams;
+	private ArrayList<Grade> remainingExams;
 	
 	public Student(String surname, String name, LocalDate dateOfBirth, Address homeAddress, String phoneNumber,
 			String emailAddress, String indexNum, int yearOfEnrollment, int currentYearOfStudy, StudentStatus status,
-			double avgGrade, ArrayList<Integer> passedExams, ArrayList<Integer> remainingExams) {
-		
+			double avgGrade, ArrayList<Grade> passedExams, ArrayList<Grade> remainingExams) {
 		super();
 		this.surname = surname;
 		this.name = name;
@@ -133,24 +132,22 @@ public class Student {
 		this.avgGrade = avgGrade;
 	}
 
-	public ArrayList<Integer> getPassedExams() {
+	public ArrayList<Grade> getPassedExams() {
 		return passedExams;
 	}
 
-	public void setPassedExams(ArrayList<Integer> passedExams) {
+	public void setPassedExams(ArrayList<Grade> passedExams) {
 		this.passedExams = passedExams;
 	}
 
-	public ArrayList<Integer> getRemainingExams() {
+	public ArrayList<Grade> getRemainingExams() {
 		return remainingExams;
 	}
 
-	public void setRemainingExams(ArrayList<Integer> remainingExams) {
+	public void setRemainingExams(ArrayList<Grade> remainingExams) {
 		this.remainingExams = remainingExams;
 	}
 	
-	
-
 	
 	
 }

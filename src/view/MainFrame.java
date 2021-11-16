@@ -29,16 +29,9 @@ public class MainFrame extends JFrame {
 		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
-		//Making the Menu Bar
-		JMenuBar menubar = new JMenuBar();
-		//super.add(menubar, BorderLayout.NORTH);
-		
-		JMenu file = new JMenu("File");
-		menubar.add(file);
-		JMenu edit = new JMenu("Edit");
-		menubar.add(edit);
-		JMenu help = new JMenu("Help");
-		menubar.add(help);
+		//Making the MenuBar
+		MenuBar menubar = new MenuBar();
+		//add(menubar);
 		
 		this.setJMenuBar(menubar);
 		

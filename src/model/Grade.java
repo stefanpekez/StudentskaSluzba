@@ -5,15 +5,15 @@ import java.time.LocalDate;
 public class Grade {
 	private Student student;
 	private Subject subject;
-	private int grade;
+	private int gradeValue;
 	private LocalDate dateOfPassingExam;
 	
-	public Grade(Student student, Subject subject, int grade, LocalDate dateOfPassingExam) {
+	public Grade(Student student, Subject subject, int gradeValue, LocalDate dateOfPassingExam) {
 		super();
 		this.student = student;
 		this.subject = subject;
-		if (grade >= 6 && grade <= 10)
-			this.grade = grade;
+		if (gradeValue >= 6 && gradeValue <= 10)
+			this.gradeValue = gradeValue;
 		this.dateOfPassingExam = dateOfPassingExam;
 	}
 
@@ -33,12 +33,13 @@ public class Grade {
 		this.subject = subject;
 	}
 
-	public int getGrade() {
-		return grade;
+	public int getGradeValue() {
+		return gradeValue;
 	}
 
-	public void setGrade(int grade) {
-		this.grade = grade;
+	public void setGradeValue(int gradeValue) {
+		if (gradeValue >= 6 && gradeValue <= 10)
+			this.gradeValue = gradeValue;
 	}
 
 	public LocalDate getDateOfPassingExam() {
