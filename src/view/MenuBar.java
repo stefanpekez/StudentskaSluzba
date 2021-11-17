@@ -26,14 +26,34 @@ public class MenuBar extends JMenuBar {
 		file_save.setIcon(new ImageIcon("images/save.png"));
 		file_save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		
-		//Open option
-		JMenuItem file_open = new JMenuItem("Open");
+		//Open menu
+		JMenu file_open = new JMenu("Open");
 		file_open.setIcon(new ImageIcon("images/open.png"));
-		file_open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-		//file_open.setMnemonic('O');
 		
-		//JMenuItem student = new JMenuItem("Student");
-		//file_open.add(student);
+		//Show student tab
+		JMenuItem students = new JMenuItem("Students");
+		students.setIcon(new ImageIcon("images/students.png"));
+		
+		//Show subject tab
+		JMenuItem subjects = new JMenuItem("Subjects");
+		subjects.setIcon(new ImageIcon("images/subjects.png"));
+		
+		//Show professor tab
+		JMenuItem professors = new JMenuItem("Professors");
+		professors.setIcon(new ImageIcon("images/professors.png"));
+		
+		//Show department tab
+		JMenuItem departments = new JMenuItem("Departments");
+		departments.setIcon(new ImageIcon("images/departments.png"));
+		
+		
+		file_open.add(students);
+		file_open.addSeparator();
+		file_open.add(subjects);
+		file_open.addSeparator();
+		file_open.add(professors);
+		file_open.addSeparator();
+		file_open.add(departments);
 		
 		//Close option
 		JMenuItem file_close = new JMenuItem("Close");
