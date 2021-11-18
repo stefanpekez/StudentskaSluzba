@@ -14,8 +14,7 @@ public class Subject {
 	private ArrayList<Student> studentsFAILED;
 
 	public Subject(String subjectID, String subjectName, String currentSemester, String year,
-			Professor subjectProfessor, int eSPB, ArrayList<Student> studentsPASSED,
-			ArrayList<Student> studentsFAILED) {
+			Professor subjectProfessor, int eSPB) {
 		super();
 		this.subjectID = subjectID;
 		this.subjectName = subjectName;
@@ -23,8 +22,8 @@ public class Subject {
 		this.year = year;
 		this.subjectProfessor = subjectProfessor;
 		ESPB = eSPB;
-		this.studentsPASSED = studentsPASSED;
-		this.studentsFAILED = studentsFAILED;
+		this.studentsPASSED = new ArrayList<Student>();
+		this.studentsFAILED = new ArrayList<Student>();
 	}
 
 	public String getSubjectID() {
@@ -90,7 +89,5 @@ public class Subject {
 	public void setStudentsFAILED(ArrayList<Student> studentsFAILED) {
 		this.studentsFAILED = studentsFAILED;
 	}
-	
-	
 	
 }

@@ -27,7 +27,7 @@ public class Student {
 	
 	public Student(String surname, String name, LocalDate dateOfBirth, Address homeAddress, String phoneNumber,
 			String emailAddress, String indexNum, int yearOfEnrollment, int currentYearOfStudy, StudentStatus status,
-			double avgGrade, ArrayList<Grade> passedExams, ArrayList<Grade> remainingExams) {
+			double avgGrade) {
 		super();
 		this.surname = surname;
 		this.name = name;
@@ -40,8 +40,8 @@ public class Student {
 		this.currentYearOfStudy = currentYearOfStudy;
 		this.status = status;
 		this.avgGrade = avgGrade;
-		this.passedExams = passedExams;
-		this.remainingExams = remainingExams;
+		this.passedExams = new ArrayList<Grade>();
+		this.remainingExams = new ArrayList<Grade>();
 	}
 
 	public String getSurname() {

@@ -31,13 +31,12 @@ public class MainFrame extends JFrame {
 		
 		//Making the MenuBar
 		MenuBar menubar = new MenuBar();
-		//add(menubar);
-		
 		this.setJMenuBar(menubar);
 		
 		//Making Toolbar for this frame
 		ToolBar toolbar = new ToolBar();
 		add(toolbar, BorderLayout.NORTH);
+		
 		setVisible(true);
 	}
 	

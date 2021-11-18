@@ -8,12 +8,12 @@ public class Department {
 	private Professor departmentHead;
 	private ArrayList<Professor> professors;
 	
-	public Department(String serialCode, String name, Professor departmentHead, ArrayList<Professor> professors) {
+	public Department(String serialCode, String name, Professor departmentHead) {
 		super();
 		this.serialCode = serialCode;
 		this.name = name;
 		this.departmentHead = departmentHead;
-		this.professors = professors;
+		this.professors = new ArrayList<Professor>();
 	}
 
 	public String getSerialCode() {
