@@ -14,11 +14,11 @@ public class Professor {
 		private Address officeAdress;
 		private String idNumber;
 		private String title;
-		private Integer workingYears;
+		private int workingYears;
 		private ArrayList<Subject> subjects;
 		
 		public Professor(String surname, String name, LocalDate dateOfBirth, Address homeAdress, String phoneNumber,
-				String emailAdress, Address officeAdress, String idNumber, String title, Integer workingYears) {
+				String emailAdress, Address officeAdress, String idNumber, String title, int workingYears) {
 			super();
 			this.surname = surname;
 			this.name = name;
@@ -105,11 +105,11 @@ public class Professor {
 			this.title = title;
 		}
 
-		public Integer getWorkingYears() {
+		public int getWorkingYears() {
 			return workingYears;
 		}
 
-		public void setWorkingYears(Integer workingYears) {
+		public void setWorkingYears(int workingYears) {
 			this.workingYears = workingYears;
 		}
 

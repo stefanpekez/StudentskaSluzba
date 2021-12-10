@@ -28,6 +28,7 @@ public class MenuBar extends JMenuBar {
 		
 		//Open menu
 		JMenu file_open = new JMenu("Open");
+		file_open.setMnemonic(KeyEvent.VK_O);
 		file_open.setIcon(new ImageIcon("images/open.png"));
 		
 		//Show student tab

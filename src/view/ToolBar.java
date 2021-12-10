@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -47,6 +49,25 @@ public class ToolBar extends JToolBar {
 		
 		txtF = new JTextField("Search...", 15);
 		txtF.setMaximumSize(new Dimension(0, 25));
+		txtF.addMouseListener(new MouseListener(){
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+			}
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+			}
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+			}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+			}
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.out.println("Kliknut search bar.");
+				txtF.setText("");
+			}
+		});
 		add(txtF);
 		
 		btnSearch = new JButton();
