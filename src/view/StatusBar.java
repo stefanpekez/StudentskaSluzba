@@ -16,11 +16,15 @@ import controller.DynamicClock;
 
 public class StatusBar extends JPanel {
 
+	private JLabel opentab;
 	public StatusBar() {
+		opentab = new JLabel("Student");
+		
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
-		JLabel StudentskaSluzba = new JLabel("  Studentska služba");
+		JLabel StudentskaSluzba = new JLabel("  Studentska služba - ");
 		add(StudentskaSluzba);
+		add(opentab);
 		
 		add(Box.createHorizontalGlue());
 		
@@ -32,21 +36,16 @@ public class StatusBar extends JPanel {
 		
 		JLabel dateLabel = new JLabel(dateFormat.format(date));
 		
-		Font fSS = StudentskaSluzba.getFont();
-		StudentskaSluzba.setFont(fSS.deriveFont(fSS.getStyle() | Font.BOLD));
-		
-		Font fTime = timeLabel.getFont();
-		timeLabel.setFont(fTime.deriveFont(fTime.getStyle() | Font.BOLD));
-		
-		Font fDate = timeLabel.getFont();
-		dateLabel.setFont(fDate.deriveFont(fDate.getStyle() | Font.BOLD));
-		
 		add(timeLabel);
 		add(dateLabel);
 		
-		setBorder(BorderFactory.createMatteBorder(2, 0, 0, 0, Color.BLACK));
+		setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK));
 		setBackground(new Color(230, 230, 230));
 		
+	}
+	
+	public JLabel getOpenTab() {
+		return opentab;
 	}
 	
 }

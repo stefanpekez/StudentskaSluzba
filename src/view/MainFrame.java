@@ -34,12 +34,14 @@ public class MainFrame extends JFrame {
 		ToolBar toolbar = new ToolBar();
 		add(toolbar, BorderLayout.NORTH);
 		
-		TabbedPane tp = new TabbedPane();
-		add(tp, BorderLayout.CENTER);
-		
 		//Making the StatusBar
 		StatusBar statusbar = new StatusBar();
 		add(statusbar, BorderLayout.SOUTH);
+		
+		TabbedPane tp = new TabbedPane(statusbar);
+		add(tp, BorderLayout.CENTER);
+		
+		
 	
 		
 		setVisible(true);
