@@ -2,6 +2,8 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
@@ -21,13 +23,36 @@ public class ToolBar extends JToolBar {
 	JButton btnTrash;
 	JButton btnSearch;
 	JTextField txtF;
+	TabbedPane tables;
 	
-	public ToolBar() {
+	public ToolBar(TabbedPane tables) {
 		super(SwingConstants.HORIZONTAL);
+		
+		this.tables = tables;
 		
 		btnNew = new JButton();
 		btnNew.setToolTipText("New");
 		btnNew.setIcon(new ImageIcon("images/upload.png"));
+		btnNew.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switch (tables.getSelectedIndex()) {
+				case 0: 
+					System.out.println("Student");
+					break;
+				case 1:
+					System.out.println("Professor");
+					break;
+				case 2:
+					System.out.println("Subject");
+					break;
+				default:
+					throw new IllegalArgumentException("Unexpected value: " + tables.getSelectedIndex());
+				}
+			}
+			
+		});
 		add(btnNew);
 		
 		addSeparator();
