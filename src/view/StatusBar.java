@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import controller.DynamicClock;
 
 public class StatusBar extends JPanel {
-	
+
 	public StatusBar() {
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		

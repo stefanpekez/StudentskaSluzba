@@ -2,6 +2,7 @@ package main;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
+import model.DBStudent;
 import model.DBSubject;
 import view.MainFrame;
 
@@ -9,7 +10,10 @@ public class MyApp {
 
 	public static void main(String[] args) {
 		FlatLightLaf.setup();
+		
 		DBSubject.getInstance();
+		DBStudent.getInstance();
+		
 		MainFrame mainWindow = new MainFrame();	
 	}
 	

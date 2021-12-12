@@ -27,13 +27,13 @@ public class TabbedPane extends JTabbedPane {
 		
 		setBorder(new EmptyBorder(20, 50, 20, 50));
 		
-		tabStudent = new TablePanel("Tabela studenata", TypeOfTab.STUDENT);
+		tabStudent = new TablePanel(TypeOfTab.STUDENT);
 		addTab("Studenti", tabStudent);
 		
-		tabProfessor = new TablePanel("Tabela profesora", TypeOfTab.PROFESSOR);
+		tabProfessor = new TablePanel(TypeOfTab.PROFESSOR);
 		addTab("Profesori", tabProfessor);
 		
-		tabSubject = new TablePanel("Tabela predmeta", TypeOfTab.SUBJECT);
+		tabSubject = new TablePanel(TypeOfTab.SUBJECT);
 		addTab("Predmeti", tabSubject);
 	}
 	
@@ -43,21 +43,23 @@ public class TabbedPane extends JTabbedPane {
 		private JLabel tableName;
 		private JTable table;
 		
-		public TablePanel(String name, TypeOfTab type) {
-			tableName = new JLabel(name);
-			
+		public TablePanel(TypeOfTab type) {
 			setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 			
-			add(tableName);
 
 			switch (type) {
 			case SUBJECT:
 				table = new SubjectTable();
 				add(new JScrollPane(table), BorderLayout.CENTER);
+				break;
 			case PROFESSOR:
 				//TODO add professor table
+				break;
 			case STUDENT:
 				//TODO add student table
+				table = new StudentTable();
+				add(new JScrollPane(table), BorderLayout.CENTER);
+				break;
 			default:
 				System.out.println("Something Went Wrong");
 			}
