@@ -40,6 +40,11 @@ public class MainFrame extends JFrame {
 		TabbedPane tp = new TabbedPane();
 		add(tp, BorderLayout.CENTER);
 		
+		//Making the StatusBar
+		StatusBar statusbar = new StatusBar();
+		add(statusbar, BorderLayout.SOUTH);
+	
+		
 		setVisible(true);
 	}
 	
