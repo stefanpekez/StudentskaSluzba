@@ -1,8 +1,18 @@
 package view;
 
 import java.awt.BorderLayout;
+<<<<<<< HEAD
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+=======
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+>>>>>>> dev
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -101,6 +111,8 @@ public class TabbedPane extends JTabbedPane {
 				break;
 			case PROFESSOR:
 				//TODO add professor table
+				table = new ProfessorTable();
+				add(new JScrollPane(table), BorderLayout.CENTER);
 				break;
 			case STUDENT:
 				//TODO add student table
