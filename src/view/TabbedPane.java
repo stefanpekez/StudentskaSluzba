@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -21,13 +23,58 @@ public class TabbedPane extends JTabbedPane {
 	private TablePanel tabStudent;
 	private TablePanel tabProfessor;
 	private TablePanel tabSubject;
+	private StatusBar statusbar;
 	
-	
-	public TabbedPane() {
+	public TabbedPane(StatusBar statusbar) {
+		this.statusbar = statusbar;
 		
 		setBorder(new EmptyBorder(20, 50, 20, 50));
 		
 		tabStudent = new TablePanel(TypeOfTab.STUDENT);
+		addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // TODO Auto-generated method stub
+                
+                switch(getSelectedIndex()) {
+                	case 0:
+                		statusbar.getOpenTab().setText("Student");
+                		break;
+                	case 1:
+                		statusbar.getOpenTab().setText("Professor");
+                		break;
+                	case 2:
+                		statusbar.getOpenTab().setText("Subject");
+                		break;
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
 		addTab("Studenti", tabStudent);
 		
 		tabProfessor = new TablePanel(TypeOfTab.PROFESSOR);
