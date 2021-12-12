@@ -14,13 +14,13 @@ public class Subject {
 	private ArrayList<Student> studentsFAILED;
 
 	public Subject(String subjectID, String subjectName, String currentSemester, String year,
-			Professor subjectProfessor, int eSPB) {
+			/*Professor subjectProfessor,*/ int eSPB) {
 		super();
 		this.subjectID = subjectID;
 		this.subjectName = subjectName;
 		this.currentSemester = currentSemester;
 		this.year = year;
-		this.subjectProfessor = subjectProfessor;
+		//this.subjectProfessor = subjectProfessor;
 		ESPB = eSPB;
 		this.studentsPASSED = new ArrayList<Student>();
 		this.studentsFAILED = new ArrayList<Student>();
