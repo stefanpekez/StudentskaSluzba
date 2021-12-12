@@ -16,6 +16,8 @@ import controller.DynamicClock;
 
 public class StatusBar extends JPanel {
 	
+	//Tabbed pane
+	
 	public StatusBar() {
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
@@ -48,5 +50,7 @@ public class StatusBar extends JPanel {
 		setBackground(new Color(230, 230, 230));
 		
 	}
+	
+	//funnction za lebelu
 	
 }

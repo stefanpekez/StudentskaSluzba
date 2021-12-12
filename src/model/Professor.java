@@ -32,6 +32,12 @@ public class Professor {
 			this.workingYears = workingYears;
 			this.subjects = new ArrayList<Subject>();
 		}
+		
+		public Professor(String name, String surname, String title) {
+			this.name = name;
+			this.surname = surname;
+			this.title = title;
+		}
 
 		public String getSurname() {
 			return surname;
