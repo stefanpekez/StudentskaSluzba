@@ -44,7 +44,6 @@ public class ToolBar extends JToolBar {
 		btnTrash.setIcon(new ImageIcon("images/garbage.png"));
 		add(btnTrash);
 		
-		//addSeparator(new Dimension(620, 0));
 		add(Box.createHorizontalGlue());
 		
 		txtF = new JTextField("Search...", 15);
@@ -73,6 +72,29 @@ public class ToolBar extends JToolBar {
 		btnSearch = new JButton();
 		btnSearch.setToolTipText("Search");
 		btnSearch.setIcon(new ImageIcon("images/magnifying-glass.png"));
+		btnSearch.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("Kliknuto search dugme");
+				//funkcija za pretragu
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+			}
+		});
 		add(btnSearch);
 		
 		setFloatable(false);	
