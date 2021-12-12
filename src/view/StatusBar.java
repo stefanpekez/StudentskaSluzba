@@ -16,7 +16,9 @@ import controller.DynamicClock;
 
 public class StatusBar extends JPanel {
 
+
 	private JLabel opentab;
+
 	public StatusBar() {
 		opentab = new JLabel("Student");
 		
@@ -47,5 +49,6 @@ public class StatusBar extends JPanel {
 	public JLabel getOpenTab() {
 		return opentab;
 	}
+
 	
 }

@@ -29,10 +29,7 @@ public class MainFrame extends JFrame {
 		//Making the MenuBar
 		MenuBar menubar = new MenuBar();
 		this.setJMenuBar(menubar);
-		
-		//Making Toolbar for this frame
-		ToolBar toolbar = new ToolBar();
-		add(toolbar, BorderLayout.NORTH);
+			
 		
 		//Making the StatusBar
 		StatusBar statusbar = new StatusBar();
@@ -41,8 +38,9 @@ public class MainFrame extends JFrame {
 		TabbedPane tp = new TabbedPane(statusbar);
 		add(tp, BorderLayout.CENTER);
 		
-		
-	
+		//Making Toolbar for this frame
+		ToolBar toolbar = new ToolBar(tp);
+		add(toolbar, BorderLayout.NORTH);
 		
 		setVisible(true);
 	}
