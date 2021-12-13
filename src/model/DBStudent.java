@@ -73,6 +73,7 @@ public class DBStudent {
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + column);
 		}
+	
 	}
 	
 }

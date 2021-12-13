@@ -1,11 +1,8 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -16,14 +13,19 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
+import view.dialogue.DeleteProfessorDialogue;
+import view.dialogue.NewProfessorDialogue;
+
 public class ToolBar extends JToolBar {
 	
-	JButton btnNew;
-	JButton btnWrite;
-	JButton btnTrash;
-	JButton btnSearch;
-	JTextField txtF;
-	TabbedPane tables;
+	private JButton btnNew;
+	private JButton btnWrite;
+	private JButton btnTrash;
+	private JButton btnSearch;
+	private JTextField txtF;
+	private TabbedPane tables;
+	private NewProfessorDialogue newProf;
+	private DeleteProfessorDialogue delProf;
 	
 	public ToolBar(TabbedPane tables) {
 		super(SwingConstants.HORIZONTAL);
@@ -41,9 +43,13 @@ public class ToolBar extends JToolBar {
 				case 0: 
 					System.out.println("Student");
 					break;
-				case 1:
+				case 1:{
 					System.out.println("Professor");
+					//open dialogue
+					newProf = new NewProfessorDialogue(getParent(), tables.getProfessorTab());
+					newProf.setVisible(true);
 					break;
+				}
 				case 2:
 					System.out.println("Subject");
 					break;
@@ -67,6 +73,28 @@ public class ToolBar extends JToolBar {
 		btnTrash = new JButton();
 		btnTrash.setToolTipText("Delete");
 		btnTrash.setIcon(new ImageIcon("images/garbage.png"));
+		btnTrash.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Brisanje");
+				switch (tables.getSelectedIndex()) {
+				case 0: 
+					break;
+				case 1:{
+					delProf = new DeleteProfessorDialogue(getParent(), tables.getProfessorTab());
+					delProf.setVisible(true);
+					break;
+				}
+				case 2:
+					break;
+				default:
+					throw new IllegalArgumentException("Unexpected value: " + tables.getSelectedIndex());
+				}
+			}
+			
+		});
 		add(btnTrash);
 		
 		add(Box.createHorizontalGlue());

@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DBProfessor {
@@ -58,5 +59,15 @@ public class DBProfessor {
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + column);
 		}
+	}
+	
+	public void addNewProfessor(String surname, String name, LocalDate dateOfBirth, Address homeAdress, String phoneNumber, 
+								String emailAdress, Address officeAdress, String idNumber, String title, int workingYears) {
+		
+		professors.add(new Professor(surname, name, dateOfBirth,homeAdress, phoneNumber, emailAdress, officeAdress,idNumber, title, workingYears));
+	}
+	
+	public void deleteProfessor(int row) {
+		professors.remove(row);
 	}
 }
