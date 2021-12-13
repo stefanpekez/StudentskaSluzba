@@ -12,6 +12,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
+import controller.AbstractTableModelProfessor;
+
 enum TypeOfTab{
 	STUDENT,
 	PROFESSOR,
@@ -84,10 +86,12 @@ public class TabbedPane extends JTabbedPane {
 		private static final long serialVersionUID = 2825309443790400810L;
 		
 		private JTable table;
+		private TypeOfTab type;
 		
 		
 		public TablePanel(TypeOfTab type) {
 			setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+			this.type = type;
 			
 
 			switch (type) {
@@ -110,9 +114,18 @@ public class TabbedPane extends JTabbedPane {
 			}
 			
 		}
+		
+		public JTable getTable() {
+			return table;
+		}
+		
 		public void updateView() {
 			//TODO update view when on table changed
-			System.out.println("Niggas");
+			if(type == TypeOfTab.PROFESSOR) {
+				AbstractTableModelProfessor model = (AbstractTableModelProfessor) table.getModel();
+				model.fireTableDataChanged();
+				validate();
+			}
 		}
 		
 	}
