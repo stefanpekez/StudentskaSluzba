@@ -51,7 +51,7 @@ public class NewTF extends JPanel {
 		
 		dgs = dialogue;
 		this.name = new JLabel(name);
-		field = new JTextField(preset,15);
+		field = new JTextField(preset, 15);
 		
 		init();
 		

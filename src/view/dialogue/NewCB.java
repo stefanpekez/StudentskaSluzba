@@ -25,7 +25,8 @@ public class NewCB extends JPanel {
 		cb.setPrototypeDisplayValue("XXXXXXXXXXXXXX");
 		add(cb);
 		
-		setVisible(true);
+		
+		//setVisible(true);
 	}
 	
 	public JComboBox getComboBox() {

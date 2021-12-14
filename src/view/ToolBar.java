@@ -14,6 +14,7 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import view.dialogue.DeleteProfessorDialogue;
+import view.dialogue.DeleteStudentDialogue;
 import view.dialogue.NewProfessorDialogue;
 import view.dialogue.NewStudentDialogue;
 
@@ -83,6 +84,11 @@ public class ToolBar extends JToolBar {
 				System.out.println("Brisanje");
 				switch (tables.getSelectedIndex()) {
 				case 0: 
+					if(tables.getStudentTab().getTable().getSelectedRow() == -1) {
+						System.out.println("Select a student");
+					} else {
+						DeleteStudentDialogue deleteStudent = new DeleteStudentDialogue(getParent(), tables.getStudentTab());
+					}
 					break;
 				case 1:{
 					delProf = new DeleteProfessorDialogue(getParent(), tables.getProfessorTab());
