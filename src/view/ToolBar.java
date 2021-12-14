@@ -104,7 +104,7 @@ public class ToolBar extends JToolBar {
 				// TODO Auto-generated method stub
 				System.out.println("Brisanje");
 				switch (tables.getSelectedIndex()) {
-				case 0: 
+				case 0:
 					break;
 				case 1:
 					if(tables.getProfessorTab().getTable().getSelectedRow() != -1) {

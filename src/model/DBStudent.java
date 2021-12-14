@@ -84,4 +84,8 @@ public class DBStudent {
 				index, yearOfEnrollment, currentYearOfStudy, status));
 	}
 	
+	public void deleteStudent(int deleteIndex) {
+		students.remove(deleteIndex);
+	}
+	
 }
