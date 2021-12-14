@@ -14,8 +14,10 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import view.dialogue.DeleteProfessorDialogue;
+import view.dialogue.DeleteSubjectDialogue;
 import view.dialogue.NewProfessorDialogue;
 import view.dialogue.NewStudentDialogue;
+import view.dialogue.edit.EditProfessorDialogue;
 
 public class ToolBar extends JToolBar {
 	
@@ -25,8 +27,6 @@ public class ToolBar extends JToolBar {
 	private JButton btnSearch;
 	private JTextField txtF;
 	private TabbedPane tables;
-	private NewProfessorDialogue newProf;
-	private DeleteProfessorDialogue delProf;
 	
 	public ToolBar(TabbedPane tables) {
 		super(SwingConstants.HORIZONTAL);
@@ -45,13 +45,11 @@ public class ToolBar extends JToolBar {
 					System.out.println("Student");
 					NewStudentDialogue newStudent = new NewStudentDialogue(getParent(), tables.getStudentTab());
 					break;
-				case 1:{
+				case 1:
 					System.out.println("Professor");
 					//open dialogue
-					newProf = new NewProfessorDialogue(getParent(), tables.getProfessorTab());
-					newProf.setVisible(true);
+					new NewProfessorDialogue(getParent(), tables.getProfessorTab()).setVisible(true);;
 					break;
-				}
 				case 2:
 					System.out.println("Subject");
 					break;
@@ -68,6 +66,30 @@ public class ToolBar extends JToolBar {
 		btnWrite = new JButton();
 		btnWrite.setToolTipText("Write");
 		btnWrite.setIcon(new ImageIcon("images/edit.png"));
+		btnWrite.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				switch (tables.getSelectedIndex()) {
+				case 0: 
+					
+					break;
+				case 1:
+					if(tables.getProfessorTab().getTable().getSelectedRow() != -1) {
+						new EditProfessorDialogue(getParent(), tables.getProfessorTab());
+					} else {
+						System.out.println("Please select a row to edit");
+					}
+					break;
+				case 2:
+					break;
+				default:
+					throw new IllegalArgumentException("Unexpected value: " + tables.getSelectedIndex());
+				}
+			}
+			
+		});
 		add(btnWrite);
 		
 		addSeparator();
@@ -84,12 +106,19 @@ public class ToolBar extends JToolBar {
 				switch (tables.getSelectedIndex()) {
 				case 0: 
 					break;
-				case 1:{
-					delProf = new DeleteProfessorDialogue(getParent(), tables.getProfessorTab());
-					delProf.setVisible(true);
+				case 1:
+					if(tables.getProfessorTab().getTable().getSelectedRow() != -1) {
+						new DeleteProfessorDialogue(getParent(), tables.getProfessorTab()).setVisible(true);
+					} else {
+						System.out.println("Please select a row to delete");
+					}
 					break;
-				}
 				case 2:
+					if(tables.getSubjectTab().getTable().getSelectedRow() != -1) {
+						new DeleteSubjectDialogue(getParent(), tables.getSubjectTab()).setVisible(true);
+					} else {
+						System.out.println("Please select a row to delete");
+					}
 					break;
 				default:
 					throw new IllegalArgumentException("Unexpected value: " + tables.getSelectedIndex());
