@@ -15,6 +15,7 @@ import javax.swing.SwingConstants;
 
 import view.dialogue.DeleteProfessorDialogue;
 import view.dialogue.NewProfessorDialogue;
+import view.dialogue.NewStudentDialogue;
 
 public class ToolBar extends JToolBar {
 	
@@ -42,6 +43,7 @@ public class ToolBar extends JToolBar {
 				switch (tables.getSelectedIndex()) {
 				case 0: 
 					System.out.println("Student");
+					NewStudentDialogue newStudent = new NewStudentDialogue(getParent(), tables.getStudentTab());
 					break;
 				case 1:{
 					System.out.println("Professor");

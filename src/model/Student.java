@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 enum StudentStatus {
@@ -13,7 +14,7 @@ public class Student {
 
 	private String surname;
 	private String name;
-	private LocalDate dateOfBirth;
+	private Date dateOfBirth;
 	private Address homeAddress;
 	private String phoneNumber;
 	private String emailAddress;
@@ -43,6 +44,30 @@ public class Student {
 		this.passedExams = new ArrayList<Grade>();
 		this.remainingExams = new ArrayList<Grade>();
 	}
+	
+	public Student (String name, String surname, LocalDate date, String homeAdress, String phoneNumber, String emailAddress, 
+			String index, int yearOfEnrollment, int currentYearOfStudy, int status) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		
+		this.dateOfBirth = dateOfBirth;
+		//this.homeAddress = homeAddress;
+		
+		this.phoneNumber = phoneNumber;
+		this.emailAddress = emailAddress;
+		this.indexNum = index;
+		this.yearOfEnrollment = yearOfEnrollment;
+		this.currentYearOfStudy = currentYearOfStudy;
+		if(status == 0)
+			this.status = StudentStatus.B;
+		else
+			this.status = StudentStatus.S;
+		
+		//this.avgGrade = avgGrade;
+		//this.passedExams = new ArrayList<Grade>();
+		//this.remainingExams = new ArrayList<Grade>();
+	}
 
 	public String getSurname() {
 		return surname;
@@ -60,11 +85,11 @@ public class Student {
 		this.name = name;
 	}
 
-	public LocalDate getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(LocalDate dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 

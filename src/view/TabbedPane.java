@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import controller.AbstractTableModelProfessor;
+import controller.AbstractTableModelStudent;
 
 enum TypeOfTab{
 	STUDENT,
@@ -124,6 +125,10 @@ public class TabbedPane extends JTabbedPane {
 			if(type == TypeOfTab.PROFESSOR) {
 				AbstractTableModelProfessor model = (AbstractTableModelProfessor) table.getModel();
 				model.fireTableDataChanged();
+				validate();
+			} else if(type == TypeOfTab.STUDENT) {
+				AbstractTableModelStudent studentModel = (AbstractTableModelStudent) table.getModel();
+				studentModel.fireTableDataChanged();
 				validate();
 			}
 		}

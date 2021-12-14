@@ -36,6 +36,12 @@ public class DeleteProfessorDialogue extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Brisi ovog profu");
+				int row = tab.getTable().getSelectedRow();
+                if(row == -1) {
+                    System.out.println("Please select a row");
+                    setVisible(false);
+                    return;
+                }
 				ProfessorController.getInstance().deleteProfessor(tab.getTable().getSelectedRow());
 				tab.updateView();
 				setVisible(false);
