@@ -3,11 +3,13 @@ package controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import model.Address;
 import model.DBProfessor;
+import model.Professor;
 import view.dialogue.NewTF;
 
 public class ProfessorController {
@@ -67,7 +69,30 @@ public class ProfessorController {
 		
 		System.out.println(date);
 		
-		DBProfessor.getInstance().addNewProfessor(psurname, pname, date,new Address("",0,"",""), pphoneNumber, pemailAdress,new Address("",0,"",""), pidNumber, ptitle, pworkingYears);
+		DBProfessor.getInstance().addNewProfessor(psurname, pname, date,new Address(paddress,0,"",""), pphoneNumber, pemailAdress,new Address(pofficeAdress,0,"",""), pidNumber, ptitle, pworkingYears);
+		
+		return true;
+	}
+	
+	public boolean editProfessor(int row, String surname, String name, String dateOfBirth, String address, String phoneNumber, String emailAdress, 
+								   String officeAdress, String idNumber, String title, String workingYears) {
+		
+		LocalDate date;
+		int yrs;
+		
+		try {
+			date = LocalDate.parse(dateOfBirth);
+			yrs = Integer.parseInt(workingYears);	
+		} catch (DateTimeParseException e) {
+			System.out.println("Wrong date format");
+			return false;
+		} catch (NumberFormatException e) {
+			System.out.println("Cant convert to int");
+			return false;
+		}
+		
+		
+		DBProfessor.getInstance().editProfessor(row, surname, name, date, new Address(address,0,"",""), phoneNumber, emailAdress, new Address(officeAdress,0,"",""), idNumber, title, yrs);
 		
 		return true;
 	}
@@ -76,5 +101,40 @@ public class ProfessorController {
 		DBProfessor.getInstance().deleteProfessor(rowindex);
 		return true;
 	}
+	
+	public String getSurname(int row){
+		return DBProfessor.getInstance().getProfessor(row).getSurname();
+	}
+	public String getName(int row){
+		return DBProfessor.getInstance().getProfessor(row).getName();
+	}
+	public String getDateOfBirth(int row){
+		LocalDate date = DBProfessor.getInstance().getProfessor(row).getDateOfBirth();
+		if(date != null) return date.toString();
+		
+		return "";
+	}
+	public String getAddress(int row){
+		return DBProfessor.getInstance().getProfessor(row).getHomeAdress().getStreet();
+	}
+	public String getPhoneNumber(int row){
+		return DBProfessor.getInstance().getProfessor(row).getPhoneNumber();
+	}
+	public String getEmailAddress(int row){
+		return DBProfessor.getInstance().getProfessor(row).getEmailAdress();
+	}
+	public String getOfficeAddress(int row){
+		return DBProfessor.getInstance().getProfessor(row).getOfficeAdress().getStreet();
+	}
+	public String getIdNumber(int row){
+		return DBProfessor.getInstance().getProfessor(row).getIdNumber();
+	}
+	public String getTitle(int row){
+		return DBProfessor.getInstance().getProfessor(row).getTitle();
+	}
+	public String getWorkingYears(int row){
+		return Integer.toString(DBProfessor.getInstance().getProfessor(row).getWorkingYears());
+	}
+
 	
 }

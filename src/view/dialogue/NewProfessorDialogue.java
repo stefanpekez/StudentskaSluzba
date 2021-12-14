@@ -61,7 +61,7 @@ public class NewProfessorDialogue extends JDialog {
 					System.out.println("Something went wrong");
 				}
 				panel.updateView();
-				setVisible(false);
+				dispose();
 			}
 		});
 		
@@ -69,7 +69,7 @@ public class NewProfessorDialogue extends JDialog {
 		exit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
+				dispose();
 			}
 		});
 		

@@ -12,18 +12,19 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import controller.ProfessorController;
+import controller.SubjectController;
 import view.TabbedPane.TablePanel;
 
-public class DeleteProfessorDialogue extends JDialog {
+public class DeleteSubjectDialogue extends JDialog {
 
-	private static final long serialVersionUID = -7617807751227349718L;
+	private static final long serialVersionUID = 4886275935152179917L;
 	
 	private JLabel message;
-	
-	public DeleteProfessorDialogue(Component parent, TablePanel tab) {
-		message = new JLabel("Are you sure you want to delete this professor?", SwingConstants.CENTER);
+
+	public DeleteSubjectDialogue(Component parent, TablePanel tab) {
+		message = new JLabel("Are you sure you want to delete this subject?", SwingConstants.CENTER);
 		
-		setTitle("Delete Professor");
+		setTitle("Delete Subject");
 		setSize(450,100);
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setLocationRelativeTo(parent);
@@ -35,9 +36,9 @@ public class DeleteProfessorDialogue extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ProfessorController.getInstance().deleteProfessor(tab.getTable().getSelectedRow());
+				SubjectController.getInstance().deleteSubject(tab.getTable().getSelectedRow());
 				tab.updateView();
-				setVisible(false);
+				dispose();
 			}
 			
 		});
@@ -47,7 +48,7 @@ public class DeleteProfessorDialogue extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
+				dispose();
 			}
 			
 		});
@@ -58,5 +59,4 @@ public class DeleteProfessorDialogue extends JDialog {
 		add(message);
 		add(buttons);
 	}
-	
 }
