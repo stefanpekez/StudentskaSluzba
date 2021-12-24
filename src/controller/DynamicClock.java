@@ -17,7 +17,7 @@ public class DynamicClock{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Date date = new Date();
-				DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+				DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 				clock.setText(dateFormat.format(date));
 			}
 		};

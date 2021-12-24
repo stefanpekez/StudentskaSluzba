@@ -14,7 +14,7 @@ public class Student {
 
 	private String surname;
 	private String name;
-	private Date dateOfBirth;
+	private LocalDate dateOfBirth;
 	private Address homeAddress;
 	private String phoneNumber;
 	private String emailAddress;
@@ -26,8 +26,8 @@ public class Student {
 	private ArrayList<Grade> passedExams;
 	private ArrayList<Grade> remainingExams;
 	
-	public Student(String surname, String name, /*LocalDate dateOfBirth, Address homeAddress, String phoneNumber,
-			String emailAddress, */String indexNum, /*int yearOfEnrollment,*/ int currentYearOfStudy, StudentStatus status,
+	public Student(String surname, String name, LocalDate dateOfBirth, Address homeAddress, String phoneNumber,
+			String emailAddress, String indexNum, int yearOfEnrollment, int currentYearOfStudy, StudentStatus status,
 			double avgGrade) {
 		super();
 		this.surname = surname;
@@ -45,14 +45,38 @@ public class Student {
 		this.remainingExams = new ArrayList<Grade>();
 	}
 	
+	public Student (String name, String surname, LocalDate date, Address homeAdress, String phoneNumber, String emailAddress, 
+			String index, int yearOfEnrollment, int currentYearOfStudy, int status, double avgGrade) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		
+		this.dateOfBirth = date;
+		this.homeAddress.setStreet(homeAdress.getStreet());
+		
+		this.phoneNumber = phoneNumber;
+		this.emailAddress = emailAddress;
+		this.indexNum = index;
+		this.yearOfEnrollment = yearOfEnrollment;
+		this.currentYearOfStudy = currentYearOfStudy;
+		if(status == 0)
+			this.status = StudentStatus.B;
+		else
+			this.status = StudentStatus.S;
+		
+		this.avgGrade = avgGrade;
+		//this.passedExams = new ArrayList<Grade>();
+		//this.remainingExams = new ArrayList<Grade>();
+	}
+	
 	public Student (String name, String surname, LocalDate date, String homeAdress, String phoneNumber, String emailAddress, 
 			String index, int yearOfEnrollment, int currentYearOfStudy, int status) {
 		super();
 		this.name = name;
 		this.surname = surname;
 		
-		this.dateOfBirth = dateOfBirth;
-		//this.homeAddress = homeAddress;
+		this.dateOfBirth = date;
+		this.homeAddress = new Address(homeAdress, 0, "", "");
 		
 		this.phoneNumber = phoneNumber;
 		this.emailAddress = emailAddress;
@@ -85,11 +109,11 @@ public class Student {
 		this.name = name;
 	}
 
-	public Date getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -141,12 +165,12 @@ public class Student {
 		this.currentYearOfStudy = currentYearOfStudy;
 	}
 
-	public StudentStatus getStatus() {
-		return status;
+	public int getStatus() {
+		return this.status == StudentStatus.B ? 0 : 1;
 	}
 
-	public void setStatus(StudentStatus status) {
-		this.status = status;
+	public void setStatus(int status) {
+		this.status = status == 0 ? StudentStatus.B : StudentStatus.S;
 	}
 
 	public double getAvgGrade() {

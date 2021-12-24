@@ -42,11 +42,11 @@ public class NewStudentDialogue extends JDialog {
 		
 		namePanel = new NewTF("Ime*", this, "");
 		surnamePanel = new NewTF("Prezime*", this, "");
-		dateOfBirthPanel = new NewTF("Datum rodjenja*", this, "dd.mm.yyyy");
-		homeAddressPanel = new NewTF("Adresa*", this, "");
+		dateOfBirthPanel = new NewTF("Datum rodjenja*", this, "dd/mm/yyyy");
+		homeAddressPanel = new NewTF("Adresa*", this, "Ulica Broj, Mesto, Drzava");
 		phoneNumberPanel = new NewTF("Broj telefona*", this, "");
 		emailAddressPanel = new NewTF("E-mail*", this, "example@email.com");
-		indexPanel = new NewTF("Index*", this, "");
+		indexPanel = new NewTF("Index*", this, "xx-yyy-zzzz (x-smer, y-broj, z-godina upisa)");
 		yoePanel = new NewTF("Godina upisa*", this, "");
 		cyosPanel = new NewCB("Trenutna godina studija*", currentYearOfStudy);
 		budgetPanel = new NewCB("Nacin finansiranja*          ", financing);
@@ -90,6 +90,7 @@ public class NewStudentDialogue extends JDialog {
 		add(budgetPanel);
 		add(buttonsPanel);
 		
+		setResizable(false);
 		setVisible(true);
 	}
 	

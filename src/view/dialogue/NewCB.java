@@ -12,7 +12,7 @@ public class NewCB extends JPanel {
 	private JLabel name;
 	private JComboBox cb;
 	
-	public NewCB(String name, String[] currentYearOfStudy) {
+	public NewCB(String name, String[] list) {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		setBorder(new EmptyBorder(10, 60, 10, 60));
 		
@@ -21,7 +21,7 @@ public class NewCB extends JPanel {
 		
 		add(Box.createHorizontalGlue());
 		
-		cb = new JComboBox<>(currentYearOfStudy);
+		cb = new JComboBox<>(list);
 		cb.setPrototypeDisplayValue("XXXXXXXXXXXXXX");
 		add(cb);
 		

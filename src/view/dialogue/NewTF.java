@@ -22,6 +22,11 @@ public class NewTF extends JPanel {
 	private NewStudentDialogue dgs;
 	private boolean gainedFocusOnce;
 	
+	JTextField streetName;
+	JTextField streetNum;
+	JTextField city;
+	JTextField country;
+	
 	public NewTF(String name, NewProfessorDialogue dialogue, String preset) {
 		dg = dialogue;
 		this.name = new JLabel(name);
@@ -47,11 +52,13 @@ public class NewTF extends JPanel {
 		add();
 	}
 	
-	public NewTF(String name, NewStudentDialogue dialogue, String preset) {
+	public NewTF(String name, NewStudentDialogue dialogue, String tooltipText) {
 		
 		dgs = dialogue;
 		this.name = new JLabel(name);
-		field = new JTextField(preset, 15);
+		
+		field = new JTextField(15);
+		field.setToolTipText(tooltipText);
 		
 		init();
 		
