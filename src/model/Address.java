@@ -14,6 +14,31 @@ public class Address {
 		this.country = country;
 	}
 	
+	public Address(String unparsed) {
+		String[] split = unparsed.split(",");
+		
+		if(split.length == 4) {
+			this.street = split[0];
+			
+			try {
+				this.number = Integer.parseInt(split[1].replaceAll("\\W", ""));
+			} catch (Exception e) {
+				// TODO: handle exception
+				this.number = -1;
+			}
+			
+			this.city = split[2];
+			this.country = split[3];
+		} else {
+			this.street = unparsed;
+			this.number = 0;
+			this.city = "";
+			this.country = "";
+			System.out.println("Address coulnt be split");
+		}
+			
+	}
+	
 	public String getStreet() {
 		return street;
 	}
@@ -46,4 +71,14 @@ public class Address {
 		this.country = country;
 	}
 
+	@Override
+	public String toString() {
+		if(number == 0 && city == "" && country == "") {
+			return street;
+		} else {
+			return String.format("%s, %d, %s, %s", street, number, city, country);
+		}
+	}
+	
+	
 }

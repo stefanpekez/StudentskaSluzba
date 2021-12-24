@@ -3,6 +3,7 @@ package view;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -59,6 +60,7 @@ public class ToolBar extends JToolBar {
 			}
 			
 		});
+		btnNew.setMnemonic(KeyEvent.VK_F1);
 		add(btnNew);
 		
 		addSeparator();
@@ -90,6 +92,7 @@ public class ToolBar extends JToolBar {
 			}
 			
 		});
+		btnWrite.setMnemonic(KeyEvent.VK_F2);
 		add(btnWrite);
 		
 		addSeparator();
@@ -126,6 +129,7 @@ public class ToolBar extends JToolBar {
 			}
 			
 		});
+		btnTrash.setMnemonic(KeyEvent.VK_F3);
 		add(btnTrash);
 		
 		add(Box.createHorizontalGlue());

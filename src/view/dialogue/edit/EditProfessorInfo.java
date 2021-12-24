@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import controller.ProfessorController;
 import model.Professor;
+import utilities.FormatCheckRegex;
 import view.TabbedPane.TablePanel;
 
 public class EditProfessorInfo extends JPanel {
@@ -87,9 +88,9 @@ public class EditProfessorInfo extends JPanel {
 	}
 	
 	public void checkAllFields() {
-		if(surname.checkField() && name.checkField() && dateOfBirth.checkField() && address.checkField() && 
-			phoneNumber.checkField() && emailAdress.checkField() && officeAdress.checkField() && 
-			idNumber.checkField() && title.checkField() && workingYears.checkField()) {
+		if(surname.checkField(FormatCheckRegex.NAME_REG) && name.checkField(FormatCheckRegex.NAME_REG) && dateOfBirth.checkField(FormatCheckRegex.DATE1_REG) && address.checkField(FormatCheckRegex.ADDRESS_REG) && 
+			phoneNumber.checkField(FormatCheckRegex.PHONE_REG) && emailAdress.checkField(FormatCheckRegex.EMAIL_REG) && officeAdress.checkField(FormatCheckRegex.ADDRESS_REG) && 
+			idNumber.checkField(FormatCheckRegex.NUMBERS_REG) && title.checkField(FormatCheckRegex.NAME_REG) && workingYears.checkField(FormatCheckRegex.NUMBERS_REG)) {
 			
 			ok.setEnabled(true);
 			return;

@@ -1,12 +1,17 @@
 package view.dialogue.edit;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -24,6 +29,8 @@ public class EditTF extends JPanel {
 		
 		field = new JTextField(preset,15);
 		field.setMaximumSize(new Dimension(1000, 40));
+		Border bordergray = BorderFactory.createLineBorder(Color.GRAY, 1);
+		field.setBorder(bordergray);
 		field.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
@@ -54,5 +61,26 @@ public class EditTF extends JPanel {
 		}
 		
 		return true;
+	}
+	
+	public boolean checkField(String regex) {
+		if(field.getText().replaceAll("\\W", "").equals("")) {
+			Border borderred = BorderFactory.createLineBorder(Color.RED, 1);
+			field.setBorder(borderred);
+			return false;
+		}
+		
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(field.getText());
+		boolean matchfound = matcher.find();
+		
+		if(matchfound){
+			Border bordergray = BorderFactory.createLineBorder(Color.GRAY, 1);
+			field.setBorder(bordergray);
+		} else {
+			Border borderred = BorderFactory.createLineBorder(Color.RED, 1);
+			field.setBorder(borderred);
+		}
+		return matchfound;
 	}
 }

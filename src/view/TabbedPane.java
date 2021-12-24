@@ -121,7 +121,6 @@ public class TabbedPane extends JTabbedPane {
 		}
 		
 		public void updateView() {
-			//TODO update view when on table changed
 			if(type == TypeOfTab.PROFESSOR) {
 				AbstractTableModelProfessor model = (AbstractTableModelProfessor) table.getModel();
 				model.fireTableDataChanged();
