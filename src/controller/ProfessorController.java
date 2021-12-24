@@ -69,7 +69,7 @@ public class ProfessorController {
 		
 		System.out.println(date);
 		
-		DBProfessor.getInstance().addNewProfessor(psurname, pname, date,new Address(paddress,0,"",""), pphoneNumber, pemailAdress,new Address(pofficeAdress,0,"",""), pidNumber, ptitle, pworkingYears);
+		DBProfessor.getInstance().addNewProfessor(psurname, pname, date,new Address(paddress), pphoneNumber, pemailAdress,new Address(pofficeAdress), pidNumber, ptitle, pworkingYears);
 		
 		return true;
 	}
@@ -92,7 +92,7 @@ public class ProfessorController {
 		}
 		
 		
-		DBProfessor.getInstance().editProfessor(row, surname, name, date, new Address(address,0,"",""), phoneNumber, emailAdress, new Address(officeAdress,0,"",""), idNumber, title, yrs);
+		DBProfessor.getInstance().editProfessor(row, surname, name, date, new Address(address), phoneNumber, emailAdress, new Address(officeAdress), idNumber, title, yrs);
 		
 		return true;
 	}
@@ -115,7 +115,7 @@ public class ProfessorController {
 		return "";
 	}
 	public String getAddress(int row){
-		return DBProfessor.getInstance().getProfessor(row).getHomeAdress().getStreet();
+		return DBProfessor.getInstance().getProfessor(row).getHomeAdress().toString();
 	}
 	public String getPhoneNumber(int row){
 		return DBProfessor.getInstance().getProfessor(row).getPhoneNumber();
@@ -124,7 +124,7 @@ public class ProfessorController {
 		return DBProfessor.getInstance().getProfessor(row).getEmailAdress();
 	}
 	public String getOfficeAddress(int row){
-		return DBProfessor.getInstance().getProfessor(row).getOfficeAdress().getStreet();
+		return DBProfessor.getInstance().getProfessor(row).getOfficeAdress().toString();
 	}
 	public String getIdNumber(int row){
 		return DBProfessor.getInstance().getProfessor(row).getIdNumber();
