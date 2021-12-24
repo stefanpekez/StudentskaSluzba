@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DBProfessor {
@@ -28,8 +29,8 @@ public class DBProfessor {
 	private void initProfessors() {
 		professors = new ArrayList<Professor>();
 		
-		professors.add(new Professor("Nebojsa", "Ralevic", "Redovni profesor"));
-		professors.add(new Professor("Milos", "Rapajic", "GOAT"));
+		professors.add(new Professor("Ralevic", "Nebojsa", LocalDate.parse("1970-01-11"), new Address("nme",0,"",""), "21839264", "nema", new Address("nme",0,"",""), "217361287461", "Redovni profesor", 4));
+		professors.add(new Professor("Rapajic", "Milos", LocalDate.parse("1970-01-11"), new Address("nme",0,"",""), "21839264", "nema", new Address("nme",0,"",""), "217361287461", "Redovni profesor", 4));
 		
 	}
 	
@@ -58,5 +59,34 @@ public class DBProfessor {
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + column);
 		}
+	}
+	
+	public void addNewProfessor(String surname, String name, LocalDate dateOfBirth, Address homeAdress, String phoneNumber, 
+								String emailAdress, Address officeAdress, String idNumber, String title, int workingYears) {
+		
+		professors.add(new Professor(surname, name, dateOfBirth,homeAdress, phoneNumber, emailAdress, officeAdress,idNumber, title, workingYears));
+	}
+	
+	public void editProfessor(int row, String surname, String name, LocalDate dateOfBirth, Address address, String phoneNumber, String emailAdress, 
+								   Address officeAdress, String idNumber, String title, int workingYears) {
+		Professor edit = professors.get(row);
+		edit.setSurname(surname);
+		edit.setName(name);
+		edit.setDateOfBirth(dateOfBirth);
+		edit.setHomeAdress(address);
+		edit.setPhoneNumber(phoneNumber);
+		edit.setEmailAdress(emailAdress);
+		edit.setOfficeAdress(officeAdress);
+		edit.setIdNumber(idNumber);
+		edit.setTitle(title);
+		edit.setWorkingYears(workingYears);
+	}
+	
+	public void deleteProfessor(int row) {
+		professors.remove(row);
+	}
+	
+	public Professor getProfessor(int row) {
+		return professors.get(row);
 	}
 }

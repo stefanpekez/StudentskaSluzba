@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DBStudent {
@@ -73,6 +74,14 @@ public class DBStudent {
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + column);
 		}
+	
+	}
+	
+	public void addNewStudent(String name, String surname, LocalDate date, String homeAdress, String phoneNumber, 
+			String emailAddress, String index, int yearOfEnrollment, int currentYearOfStudy, int status) {
+
+		students.add(new Student(name, surname, date, homeAdress, phoneNumber, emailAddress, 
+				index, yearOfEnrollment, currentYearOfStudy, status));
 	}
 	
 }

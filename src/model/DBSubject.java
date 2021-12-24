@@ -66,4 +66,7 @@ public class DBSubject {
 		}
 	}
 	
+	public void deleteSubject(int row) {
+		subjects.remove(row);
+	}
 }

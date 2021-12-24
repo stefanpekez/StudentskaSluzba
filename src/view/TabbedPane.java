@@ -2,22 +2,18 @@ package view;
 
 import java.awt.BorderLayout;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
+import controller.AbstractTableModelProfessor;
+import controller.AbstractTableModelStudent;
 
 enum TypeOfTab{
 	STUDENT,
@@ -37,69 +33,66 @@ public class TabbedPane extends JTabbedPane {
 		
 		setBorder(new EmptyBorder(20, 50, 20, 50));
 		
-		tabStudent = new TablePanel(TypeOfTab.STUDENT);
+		
 		addMouseListener(new MouseListener() {
-
             @Override
-            public void mouseClicked(MouseEvent e) {
-                // TODO Auto-generated method stub
-                
-                switch(getSelectedIndex()) {
-                	case 0:
-                		statusbar.getOpenTab().setText("Student");
-                		break;
-                	case 1:
-                		statusbar.getOpenTab().setText("Professor");
-                		break;
-                	case 2:
-                		statusbar.getOpenTab().setText("Subject");
-                		break;
-                }
-            }
-
+            public void mouseClicked(MouseEvent e) {}
             @Override
             public void mousePressed(MouseEvent e) {
-                // TODO Auto-generated method stub
-
+            	   switch(getSelectedIndex()) {
+               	case 0:
+               		statusbar.getOpenTab().setText("Student");
+             
+               		break;
+               	case 1:
+               		statusbar.getOpenTab().setText("Professor");
+               		break;
+               	case 2:
+               		statusbar.getOpenTab().setText("Subject");
+               		break;
+               }
             }
-
             @Override
-            public void mouseReleased(MouseEvent e) {
-                // TODO Auto-generated method stub
-
-            }
-
+            public void mouseReleased(MouseEvent e) {}
             @Override
-            public void mouseEntered(MouseEvent e) {
-                // TODO Auto-generated method stub
-
-            }
-
+            public void mouseEntered(MouseEvent e) {}
             @Override
-            public void mouseExited(MouseEvent e) {
-                // TODO Auto-generated method stub
-
-            }
+            public void mouseExited(MouseEvent e) {}
 
         });
-		addTab("Studenti", tabStudent);
+		
+		tabStudent = new TablePanel(TypeOfTab.STUDENT);
+		addTab("Students", tabStudent);
 		
 		tabProfessor = new TablePanel(TypeOfTab.PROFESSOR);
-		addTab("Profesori", tabProfessor);
+		addTab("Professors", tabProfessor);
 		
 		tabSubject = new TablePanel(TypeOfTab.SUBJECT);
-		addTab("Predmeti", tabSubject);
+		addTab("Subjects", tabSubject);
+	}
+	
+	public TablePanel getStudentTab() {
+		return tabStudent;
+	}
+	
+	public TablePanel getProfessorTab() {
+		return tabProfessor;
+	}
+	
+	public TablePanel getSubjectTab() {
+		return tabSubject;
 	}
 	
 	public class TablePanel extends JPanel {
 		private static final long serialVersionUID = 2825309443790400810L;
 		
-		private JLabel tableName;
 		private JTable table;
+		private TypeOfTab type;
 		
 		
 		public TablePanel(TypeOfTab type) {
 			setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+			this.type = type;
 			
 
 			switch (type) {
@@ -122,8 +115,21 @@ public class TabbedPane extends JTabbedPane {
 			}
 			
 		}
+		
+		public JTable getTable() {
+			return table;
+		}
+		
 		public void updateView() {
-			//TODO update view when on table changed
+			if(type == TypeOfTab.PROFESSOR) {
+				AbstractTableModelProfessor model = (AbstractTableModelProfessor) table.getModel();
+				model.fireTableDataChanged();
+				validate();
+			} else if(type == TypeOfTab.STUDENT) {
+				AbstractTableModelStudent studentModel = (AbstractTableModelStudent) table.getModel();
+				studentModel.fireTableDataChanged();
+				validate();
+			}
 		}
 		
 	}
