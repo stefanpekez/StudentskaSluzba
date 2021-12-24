@@ -26,17 +26,16 @@ public class MainFrame extends JFrame {
 		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
-		//Making the MenuBar
-		MenuBar menubar = new MenuBar();
-		this.setJMenuBar(menubar);
-			
-		
 		//Making the StatusBar
 		StatusBar statusbar = new StatusBar();
 		add(statusbar, BorderLayout.SOUTH);
 		
 		TabbedPane tp = new TabbedPane(statusbar);
 		add(tp, BorderLayout.CENTER);
+		
+		//Making the MenuBar
+		MenuBar menubar = new MenuBar(tp);
+		this.setJMenuBar(menubar);
 		
 		//Making Toolbar for this frame
 		ToolBar toolbar = new ToolBar(tp);

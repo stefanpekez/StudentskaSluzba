@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
@@ -9,9 +10,22 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import view.dialogue.DeleteProfessorDialogue;
+import view.dialogue.DeleteStudentDialogue;
+import view.dialogue.DeleteSubjectDialogue;
+import view.dialogue.NewProfessorDialogue;
+import view.dialogue.NewStudentDialogue;
+import view.dialogue.edit.EditProfessorDialogue;
+import view.dialogue.edit.EditStudentDialogue;
+
 public class MenuBar extends JMenuBar {
 	
-	public MenuBar() {
+	private TabbedPane tables;
+	
+	public MenuBar(TabbedPane tables) {
+		
+		this.tables = tables;
+		
 		//File drop-down menu
 		JMenu file = new JMenu("File");
 		file.setMnemonic(KeyEvent.VK_F);
@@ -19,11 +33,37 @@ public class MenuBar extends JMenuBar {
 		//New option
 		JMenuItem file_new = new JMenuItem("New");
 		file_new.setIcon(new ImageIcon("images/new.png"));
+		file_new.setMnemonic(KeyEvent.VK_N);
 		file_new.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+		
+		file_new.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switch (tables.getSelectedIndex()) {
+				case 0: 
+					System.out.println("Student");
+					new NewStudentDialogue(getParent(), tables.getStudentTab());
+					break;
+				case 1:
+					System.out.println("Professor");
+					//open dialogue
+					new NewProfessorDialogue(getParent(), tables.getProfessorTab()).setVisible(true);;
+					break;
+				case 2:
+					System.out.println("Subject");
+					break;
+				default:
+					throw new IllegalArgumentException("Unexpected value: " + tables.getSelectedIndex());
+				}
+			}
+			
+		});
 		
 		//Save option
 		JMenuItem file_save = new JMenuItem("Save");
 		file_save.setIcon(new ImageIcon("images/save.png"));
+		file_save.setMnemonic(KeyEvent.VK_S);
 		file_save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		
 		//Open menu
@@ -34,14 +74,41 @@ public class MenuBar extends JMenuBar {
 		//Show student tab
 		JMenuItem students = new JMenuItem("Students");
 		students.setIcon(new ImageIcon("images/students.png"));
+		students.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tables.getStatusBar().getOpenTab().setText("Student");
+				tables.setSelectedIndex(0);
+			}
+			
+		});
 		
 		//Show subject tab
 		JMenuItem subjects = new JMenuItem("Subjects");
 		subjects.setIcon(new ImageIcon("images/subjects.png"));
+		subjects.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tables.getStatusBar().getOpenTab().setText("Subject");
+				tables.setSelectedIndex(2);
+			}
+			
+		});
 		
 		//Show professor tab
 		JMenuItem professors = new JMenuItem("Professors");
 		professors.setIcon(new ImageIcon("images/professors.png"));
+		professors.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tables.getStatusBar().getOpenTab().setText("Professor");
+				tables.setSelectedIndex(1);
+			}
+			
+		});
 		
 		//Show department tab
 		JMenuItem departments = new JMenuItem("Departments");
@@ -59,7 +126,16 @@ public class MenuBar extends JMenuBar {
 		//Close option
 		JMenuItem file_close = new JMenuItem("Close");
 		file_close.setIcon(new ImageIcon("images/close.png"));
+		file_close.setMnemonic(KeyEvent.VK_C);
 		file_close.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
+		file_close.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+			
+		});
 		
 		file.add(file_new);
 		file.addSeparator();
@@ -76,12 +152,74 @@ public class MenuBar extends JMenuBar {
 		//Edit option
 		JMenuItem edit_edit = new JMenuItem("Edit");
 		edit_edit.setIcon(new ImageIcon("images/menubar_edit.png"));
+		edit_edit.setMnemonic(KeyEvent.VK_E);
 		edit_edit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
+		
+		edit_edit.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				switch (tables.getSelectedIndex()) {
+				case 0: 
+					new EditStudentDialogue(getParent(), tables.getStudentTab());
+					break;
+				case 1:
+					if(tables.getProfessorTab().getTable().getSelectedRow() != -1) {
+						new EditProfessorDialogue(getParent(), tables.getProfessorTab());
+					} else {
+						System.out.println("Please select a row to edit");
+					}
+					break;
+				case 2:
+					break;
+				default:
+					throw new IllegalArgumentException("Unexpected value: " + tables.getSelectedIndex());
+				}
+			}
+			
+		});
 		
 		//Delete option
 		JMenuItem edit_delete = new JMenuItem("Delete");
 		edit_delete.setIcon(new ImageIcon("images/delete.png"));
+		edit_delete.setMnemonic(KeyEvent.VK_D);
 		edit_delete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
+		
+		edit_delete.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Brisanje");
+				switch (tables.getSelectedIndex()) {
+				case 0: 
+					if(tables.getStudentTab().getTable().getSelectedRow() == -1) {
+						System.out.println("Select a student");
+					} else {
+						DeleteStudentDialogue deleteStudent = new DeleteStudentDialogue(getParent(), tables.getStudentTab());
+					}
+					break;
+				case 1:
+					if(tables.getProfessorTab().getTable().getSelectedRow() != -1) {
+						new DeleteProfessorDialogue(getParent(), tables.getProfessorTab()).setVisible(true);
+					} else {
+						System.out.println("Please select a row to delete");
+					}
+					break;
+				case 2:
+					if(tables.getSubjectTab().getTable().getSelectedRow() != -1) {
+						new DeleteSubjectDialogue(getParent(), tables.getSubjectTab()).setVisible(true);
+					} else {
+						System.out.println("Please select a row to delete");
+					}
+					break;
+				default:
+					throw new IllegalArgumentException("Unexpected value: " + tables.getSelectedIndex());
+				}
+			}
+			
+		});
 		
 		edit.add(edit_edit);
 		edit.addSeparator();
@@ -94,11 +232,13 @@ public class MenuBar extends JMenuBar {
 		//Help option
 		JMenuItem help_help = new JMenuItem("Help");
 		help_help.setIcon(new ImageIcon("images/help.png"));
+		help_help.setMnemonic(KeyEvent.VK_H);
 		help_help.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK));
 		
 		//About option
 		JMenuItem help_about = new JMenuItem("About");
 		help_about.setIcon(new ImageIcon("images/about.png"));
+		help_about.setMnemonic(KeyEvent.VK_A);
 		help_about.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.SHIFT_MASK));
 		
 		help.add(help_help);

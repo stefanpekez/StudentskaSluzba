@@ -16,9 +16,11 @@ import javax.swing.SwingConstants;
 
 import view.dialogue.DeleteProfessorDialogue;
 import view.dialogue.DeleteSubjectDialogue;
+import view.dialogue.DeleteStudentDialogue;
 import view.dialogue.NewProfessorDialogue;
 import view.dialogue.NewStudentDialogue;
 import view.dialogue.edit.EditProfessorDialogue;
+import view.dialogue.edit.EditStudentDialogue;
 
 public class ToolBar extends JToolBar {
 	
@@ -44,7 +46,7 @@ public class ToolBar extends JToolBar {
 				switch (tables.getSelectedIndex()) {
 				case 0: 
 					System.out.println("Student");
-					NewStudentDialogue newStudent = new NewStudentDialogue(getParent(), tables.getStudentTab());
+					new NewStudentDialogue(getParent(), tables.getStudentTab());
 					break;
 				case 1:
 					System.out.println("Professor");
@@ -75,7 +77,7 @@ public class ToolBar extends JToolBar {
 				// TODO Auto-generated method stub
 				switch (tables.getSelectedIndex()) {
 				case 0: 
-					
+					new EditStudentDialogue(getParent(), tables.getStudentTab());
 					break;
 				case 1:
 					if(tables.getProfessorTab().getTable().getSelectedRow() != -1) {
@@ -108,6 +110,11 @@ public class ToolBar extends JToolBar {
 				System.out.println("Brisanje");
 				switch (tables.getSelectedIndex()) {
 				case 0: 
+					if(tables.getStudentTab().getTable().getSelectedRow() == -1) {
+						System.out.println("Select a student");
+					} else {
+						DeleteStudentDialogue deleteStudent = new DeleteStudentDialogue(getParent(), tables.getStudentTab());
+					}
 					break;
 				case 1:
 					if(tables.getProfessorTab().getTable().getSelectedRow() != -1) {

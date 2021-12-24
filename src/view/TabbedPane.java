@@ -42,7 +42,6 @@ public class TabbedPane extends JTabbedPane {
             	   switch(getSelectedIndex()) {
                	case 0:
                		statusbar.getOpenTab().setText("Student");
-             
                		break;
                	case 1:
                		statusbar.getOpenTab().setText("Professor");
@@ -133,4 +132,9 @@ public class TabbedPane extends JTabbedPane {
 		}
 		
 	}
+
+	public StatusBar getStatusBar() {
+		return this.statusbar;
+	}
+	
 }
