@@ -74,6 +74,8 @@ public class MenuBar extends JMenuBar {
 		//Show student tab
 		JMenuItem students = new JMenuItem("Students");
 		students.setIcon(new ImageIcon("images/students.png"));
+		students.setMnemonic(KeyEvent.VK_1);
+		students.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.CTRL_MASK));
 		students.addActionListener(new ActionListener() {
 
 			@Override
@@ -84,9 +86,26 @@ public class MenuBar extends JMenuBar {
 			
 		});
 		
+		//Show professor tab
+		JMenuItem professors = new JMenuItem("Professors");
+		professors.setIcon(new ImageIcon("images/professors.png"));
+		professors.setMnemonic(KeyEvent.VK_2);
+		professors.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.CTRL_MASK));
+		professors.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tables.getStatusBar().getOpenTab().setText("Professor");
+				tables.setSelectedIndex(1);
+			}
+					
+		});
+		
 		//Show subject tab
 		JMenuItem subjects = new JMenuItem("Subjects");
 		subjects.setIcon(new ImageIcon("images/subjects.png"));
+		subjects.setMnemonic(KeyEvent.VK_3);
+		subjects.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.CTRL_MASK));
 		subjects.addActionListener(new ActionListener() {
 
 			@Override
@@ -97,29 +116,17 @@ public class MenuBar extends JMenuBar {
 			
 		});
 		
-		//Show professor tab
-		JMenuItem professors = new JMenuItem("Professors");
-		professors.setIcon(new ImageIcon("images/professors.png"));
-		professors.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				tables.getStatusBar().getOpenTab().setText("Professor");
-				tables.setSelectedIndex(1);
-			}
-			
-		});
-		
 		//Show department tab
 		JMenuItem departments = new JMenuItem("Departments");
+		departments.setMnemonic(KeyEvent.VK_4);
+		departments.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, ActionEvent.CTRL_MASK));
 		departments.setIcon(new ImageIcon("images/departments.png"));
-		
 		
 		file_open.add(students);
 		file_open.addSeparator();
-		file_open.add(subjects);
-		file_open.addSeparator();
 		file_open.add(professors);
+		file_open.addSeparator();
+		file_open.add(subjects);
 		file_open.addSeparator();
 		file_open.add(departments);
 		
