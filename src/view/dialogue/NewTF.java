@@ -33,7 +33,7 @@ public class NewTF extends JPanel {
 		dg = dialogue;
 		this.name = new JLabel(name);
 		field = new JTextField(15);
-		field.setToolTipText(tooltip);
+		field.setToolTipText(preset);
 		
 		Border borderred = BorderFactory.createLineBorder(Color.RED, 1);
 		Border bordergray = BorderFactory.createLineBorder(Color.GRAY, 1);
