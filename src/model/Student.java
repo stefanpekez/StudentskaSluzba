@@ -24,7 +24,7 @@ public class Student {
 	private StudentStatus status;
 	private double avgGrade;
 	private ArrayList<Grade> passedExams;
-	private ArrayList<Grade> remainingExams;
+	private ArrayList<Subject> remainingExams;
 	
 	public Student(String surname, String name, LocalDate dateOfBirth, Address homeAddress, String phoneNumber,
 			String emailAddress, String indexNum, int yearOfEnrollment, int currentYearOfStudy, StudentStatus status,
@@ -42,7 +42,7 @@ public class Student {
 		this.status = status;
 		this.avgGrade = avgGrade;
 		this.passedExams = new ArrayList<Grade>();
-		this.remainingExams = new ArrayList<Grade>();
+		this.remainingExams = new ArrayList<Subject>();
 	}
 	
 	public Student (String name, String surname, LocalDate date, Address homeAdress, String phoneNumber, String emailAddress, 
@@ -189,14 +189,17 @@ public class Student {
 		this.passedExams = passedExams;
 	}
 
-	public ArrayList<Grade> getRemainingExams() {
+	public ArrayList<Subject> getRemainingExams() {
 		return remainingExams;
 	}
 
-	public void setRemainingExams(ArrayList<Grade> remainingExams) {
+	public void setRemainingExams(ArrayList<Subject> remainingExams) {
 		this.remainingExams = remainingExams;
 	}
 	
+	public void addRemainingExam(Subject exam) {
+		this.remainingExams.add(exam);
+	}
 	
 	
 }

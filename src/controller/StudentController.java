@@ -1,15 +1,14 @@
 package controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import model.DBProfessor;
+import model.DBExams;
 import model.DBStudent;
-import model.Student;
+import model.Subject;
 import view.dialogue.NewCB;
 import view.dialogue.NewTF;
 import view.dialogue.edit.EditCB;
@@ -131,6 +130,17 @@ public class StudentController {
 		DBStudent.getInstance().editStudent(selectedStudentIdx, studentName, studentSurname, date, studentHomeAddress, studentPhoneNumber, 
 				studentEmail, studentIndex, studentYOE, studentCYOS, studentFinansing);
 		
+	}
+	
+	public void setupCurrentExamsDB(int row) {
+		
+		ArrayList<Subject> subjects  = DBStudent.getInstance().getSelectedStudent(row).getRemainingExams();
+		
+		DBExams.getInstance().init(subjects);
+	}
+	
+	public void flushExamsDB() {
+		DBExams.getInstance().del();
 	}
 	
 	public String getName(int row){

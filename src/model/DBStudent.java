@@ -37,6 +37,8 @@ public class DBStudent {
 				"stefanpekez00@gmail.com", "ra-179-2019", 2019, 3, StudentStatus.B, 9.13));
 		students.add(new Student("Milosevic", "Filip", LocalDate.parse("2001-01-29"), new Address("nme","","",""), "00000000000", 
 				"milosevicfilip@gmail.com", "ra-193-2019", 2019, 3, StudentStatus.B, 10.0));
+		
+		students.get(students.size() - 1).addRemainingExam(new Subject("39","Analiza","1","1",4));
 	}
 	
 	public int getRowCount() {

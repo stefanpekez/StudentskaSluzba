@@ -27,6 +27,9 @@ public class DBExams {
 		exams = subjects;
 	}
 	
+	public void del() {
+		exams.clear();
+	}
 	public int getRowCount() {
 		return exams.size();
 	}
