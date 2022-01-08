@@ -16,6 +16,7 @@ public class EditProfessorTabbedPane extends JTabbedPane {
 		
 		info = new EditProfessorInfo(dialogue, panel);
 		
+		
 		add("Info", info);
 	}
 }

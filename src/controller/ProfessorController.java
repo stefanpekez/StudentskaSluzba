@@ -69,9 +69,8 @@ public class ProfessorController {
 		
 		System.out.println(date);
 		
-		DBProfessor.getInstance().addNewProfessor(psurname, pname, date,new Address(paddress), pphoneNumber, pemailAdress,new Address(pofficeAdress), pidNumber, ptitle, pworkingYears);
+		return DBProfessor.getInstance().addNewProfessor(psurname, pname, date,new Address(paddress), pphoneNumber, pemailAdress,new Address(pofficeAdress), pidNumber, ptitle, pworkingYears);
 		
-		return true;
 	}
 	
 	public boolean editProfessor(int row, String surname, String name, String dateOfBirth, String address, String phoneNumber, String emailAdress, 
@@ -92,9 +91,8 @@ public class ProfessorController {
 		}
 		
 		
-		DBProfessor.getInstance().editProfessor(row, surname, name, date, new Address(address), phoneNumber, emailAdress, new Address(officeAdress), idNumber, title, yrs);
+		return DBProfessor.getInstance().editProfessor(row, surname, name, date, new Address(address), phoneNumber, emailAdress, new Address(officeAdress), idNumber, title, yrs);
 		
-		return true;
 	}
 	
 	public boolean deleteProfessor(int rowindex) {

@@ -76,7 +76,7 @@ public class Student {
 		this.surname = surname;
 		
 		this.dateOfBirth = date;
-		this.homeAddress = new Address(homeAdress, 0, "", "");
+		this.homeAddress = new Address(homeAdress, "", "", "");
 		
 		this.phoneNumber = phoneNumber;
 		this.emailAddress = emailAddress;

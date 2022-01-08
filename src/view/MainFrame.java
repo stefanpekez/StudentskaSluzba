@@ -16,7 +16,7 @@ public class MainFrame extends JFrame {
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension d = kit.getScreenSize();
 		
-		setSize(d.width / 2, d.height / 2);
+		setSize(3*d.width / 4,3* d.height / 4);
 		setLocationRelativeTo(null);
 		
 		setTitle("Studentska Služba");

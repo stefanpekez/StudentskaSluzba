@@ -29,8 +29,7 @@ public class EditTF extends JPanel {
 		
 		field = new JTextField(preset,15);
 		field.setMaximumSize(new Dimension(1000, 40));
-		Border bordergray = BorderFactory.createLineBorder(Color.GRAY, 1);
-		field.setBorder(bordergray);
+		
 		field.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
@@ -95,8 +94,7 @@ public class EditTF extends JPanel {
 	
 	public boolean checkField(String regex) {
 		if(field.getText().replaceAll("\\W", "").equals("")) {
-			Border borderred = BorderFactory.createLineBorder(Color.RED, 1);
-			field.setBorder(borderred);
+			name.setForeground(Color.red);
 			return false;
 		}
 		
@@ -105,11 +103,9 @@ public class EditTF extends JPanel {
 		boolean matchfound = matcher.find();
 		
 		if(matchfound){
-			Border bordergray = BorderFactory.createLineBorder(Color.GRAY, 1);
-			field.setBorder(bordergray);
+			name.setForeground(Color.black);
 		} else {
-			Border borderred = BorderFactory.createLineBorder(Color.RED, 1);
-			field.setBorder(borderred);
+			name.setForeground(Color.red);
 		}
 		return matchfound;
 	}

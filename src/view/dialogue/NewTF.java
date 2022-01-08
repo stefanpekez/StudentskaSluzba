@@ -34,10 +34,7 @@ public class NewTF extends JPanel {
 		this.name = new JLabel(name);
 		field = new JTextField(15);
 		field.setToolTipText(preset);
-		
-		Border borderred = BorderFactory.createLineBorder(Color.RED, 1);
-		Border bordergray = BorderFactory.createLineBorder(Color.GRAY, 1);
-		field.setBorder(borderred);
+		this.name.setForeground(Color.red);
 		
 		init();
 		
@@ -94,16 +91,16 @@ public class NewTF extends JPanel {
 	
 	public boolean checkField() {
 		if(field.getText().replaceAll("\\W", "").equals("")) {
+			name.setForeground(Color.red);
 			return false;
 		}
-		
+		name.setForeground(Color.black);
 		return true;
 	}
 	
 	public boolean checkField(String regex) {
 		if(field.getText().replaceAll("\\W", "").equals("")) {
-			Border borderred = BorderFactory.createLineBorder(Color.RED, 1);
-			field.setBorder(borderred);
+			name.setForeground(Color.red);
 			return false;
 		}
 		
@@ -112,11 +109,9 @@ public class NewTF extends JPanel {
 		boolean matchfound = matcher.find();
 		
 		if(matchfound){
-			Border bordergray = BorderFactory.createLineBorder(Color.GRAY, 1);
-			field.setBorder(bordergray);
+			name.setForeground(Color.black);
 		} else {
-			Border borderred = BorderFactory.createLineBorder(Color.RED, 1);
-			field.setBorder(borderred);
+			name.setForeground(Color.red);
 		}
 		return matchfound;
 	}

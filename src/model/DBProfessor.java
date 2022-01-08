@@ -22,15 +22,16 @@ public class DBProfessor {
 		columns.add("NAME");
 		columns.add("SURNAME");
 		columns.add("TITLE");
-		
+		columns.add("EMAIL");
+
 		initProfessors();
 	}
 	
 	private void initProfessors() {
 		professors = new ArrayList<Professor>();
 		
-		professors.add(new Professor("Ralevic", "Nebojsa", LocalDate.parse("1970-01-11"), new Address("nme",0,"",""), "21839264", "nema", new Address("nme",0,"",""), "217361287461", "Redovni profesor", 4));
-		professors.add(new Professor("Rapajic", "Milos", LocalDate.parse("1970-01-11"), new Address("nme",0,"",""), "21839264", "nema", new Address("nme",0,"",""), "217361287461", "Redovni profesor", 4));
+		professors.add(new Professor("Ralevic", "Nebojsa", LocalDate.parse("1970-01-11"), new Address("BB","","",""), "21839264", "rale@uns.ac.rs", new Address("BB","","",""), "01A", "Redovni Profesor", 4));
+		professors.add(new Professor("Rapajic", "Milos", LocalDate.parse("1970-01-11"), new Address("BB","","",""), "21839264", "rapa@uns.ac.rs", new Address("BB","","",""), "02B", "Redovni Profesor", 4));
 		
 	}
 	
@@ -39,7 +40,7 @@ public class DBProfessor {
 	}
 	
 	public int getColumnCount() {
-		return 3;
+		return 4;
 	}
 	
 	public String getColumnName(int column) {
@@ -56,20 +57,31 @@ public class DBProfessor {
 			return prof.getSurname();
 		case 2:
 			return prof.getTitle();
+		case 3:
+			return prof.getEmailAdress();
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + column);
 		}
 	}
 	
-	public void addNewProfessor(String surname, String name, LocalDate dateOfBirth, Address homeAdress, String phoneNumber, 
+	public boolean addNewProfessor(String surname, String name, LocalDate dateOfBirth, Address homeAdress, String phoneNumber, 
 								String emailAdress, Address officeAdress, String idNumber, String title, int workingYears) {
 		
+		for(Professor s: professors) {
+			if(s.getIdNumber().equals(idNumber)) return false;
+		}
+		
 		professors.add(new Professor(surname, name, dateOfBirth,homeAdress, phoneNumber, emailAdress, officeAdress,idNumber, title, workingYears));
+		
+		return true;
 	}
 	
-	public void editProfessor(int row, String surname, String name, LocalDate dateOfBirth, Address address, String phoneNumber, String emailAdress, 
+	public boolean editProfessor(int row, String surname, String name, LocalDate dateOfBirth, Address address, String phoneNumber, String emailAdress, 
 								   Address officeAdress, String idNumber, String title, int workingYears) {
 		Professor edit = professors.get(row);
+		for(Professor s: professors) {
+			if(s != edit && s.getIdNumber().equals(idNumber)) return false;
+		}
 		edit.setSurname(surname);
 		edit.setName(name);
 		edit.setDateOfBirth(dateOfBirth);
@@ -80,6 +92,8 @@ public class DBProfessor {
 		edit.setIdNumber(idNumber);
 		edit.setTitle(title);
 		edit.setWorkingYears(workingYears);
+		
+		return true;
 	}
 	
 	public void deleteProfessor(int row) {

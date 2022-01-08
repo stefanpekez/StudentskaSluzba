@@ -33,9 +33,9 @@ public class DBStudent {
 	private void initStudents() {
 		students = new ArrayList<Student>();
 		
-		students.add(new Student("Pekez", "Stefan", LocalDate.parse("2000-11-27"), new Address("nme",0,"",""), "0645871486", 
+		students.add(new Student("Pekez", "Stefan", LocalDate.parse("2000-11-27"), new Address("nme","","",""), "0645871486", 
 				"stefanpekez00@gmail.com", "ra-179-2019", 2019, 3, StudentStatus.B, 9.13));
-		students.add(new Student("Milosevic", "Filip", LocalDate.parse("2001-01-29"), new Address("nme",0,"",""), "00000000000", 
+		students.add(new Student("Milosevic", "Filip", LocalDate.parse("2001-01-29"), new Address("nme","","",""), "00000000000", 
 				"milosevicfilip@gmail.com", "ra-193-2019", 2019, 3, StudentStatus.B, 10.0));
 	}
 	
