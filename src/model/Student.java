@@ -201,5 +201,17 @@ public class Student {
 		this.remainingExams.add(exam);
 	}
 	
+	public void removeUnpassedExam(Subject sub) {
+		int i = 0;
+		for(Subject s: remainingExams) {
+			if(sub.equals(s)) {
+				remainingExams.remove(i);
+			}
+			i++;
+		}
+	}
 	
+	public void addGrade(Grade g) {
+		passedExams.add(g);
+	}
 }

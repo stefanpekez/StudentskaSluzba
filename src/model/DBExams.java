@@ -42,6 +42,13 @@ public class DBExams {
 		return columns.get(column);
 	}
 	
+	public Subject getSelectedExam(int exam) {
+		return exams.get(exam);
+	}
+	
+	public void removeExam(int index) {
+		exams.remove(index);
+	}
 	public String getValueAt(int row, int column) {
 		Subject sub = exams.get(row);
 		

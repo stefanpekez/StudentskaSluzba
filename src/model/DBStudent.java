@@ -118,4 +118,13 @@ public class DBStudent {
 		return students.get(row);
 	}
 	
+	public void removeUnpassedExam(int student, Subject sub) {
+		students.get(student).removeUnpassedExam(sub);;
+		
+	}
+	
+	public void addGrade(Grade g, int student) {
+		students.get(student).addGrade(g);
+	}
+	
 }

@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 
 import model.DBExams;
 import model.DBStudent;
+import model.Grade;
+import model.Student;
 import model.Subject;
 import view.dialogue.NewCB;
 import view.dialogue.NewTF;
@@ -141,6 +143,43 @@ public class StudentController {
 	
 	public void flushExamsDB() {
 		DBExams.getInstance().del();
+	}
+	
+	public boolean forwardGrade(int subject, int student, int grade, String date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+		LocalDate datee;
+		datee = LocalDate.parse(date, formatter);
+		
+		//get subject
+		Subject subj = DBExams.getInstance().getSelectedExam(subject);
+		//get student
+		Student stud = DBStudent.getInstance().getSelectedStudent(student);
+		
+		//make grade
+		Grade gra = new Grade(stud, subj, grade + 6, datee);
+		
+		//add grade to the student
+		DBStudent.getInstance().addGrade(gra, student);
+		
+		//delete the exam from unpassed list
+		DBExams.getInstance().removeExam(subject);
+		DBStudent.getInstance().removeUnpassedExam(student, subj);
+		
+		return true;
+	}
+	
+	public void listPassedExams(int student) {
+		for(Grade g: DBStudent.getInstance().getSelectedStudent(student).getPassedExams()) {
+			System.out.println(g.toString());
+		}
+	}
+	
+	public String getExamID(int row) {
+		return DBExams.getInstance().getValueAt(row, 0);
+	}
+	
+	public String getExamName(int row) {
+		return DBExams.getInstance().getValueAt(row, 1);
 	}
 	
 	public String getName(int row){

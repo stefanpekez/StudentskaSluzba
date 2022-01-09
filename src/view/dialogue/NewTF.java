@@ -7,18 +7,16 @@ import java.awt.event.FocusListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.event.UndoableEditEvent;
-import javax.swing.event.UndoableEditListener;
+
+import view.dialogue.edit.GradeInputDialogue;
 
 public class NewTF extends JPanel {
 
@@ -83,6 +81,33 @@ public class NewTF extends JPanel {
 		
 		add();
 		
+	}
+	
+	public NewTF(String name, GradeInputDialogue dialogue, String preset) {
+
+		this.name = new JLabel(name);
+		field = new JTextField(15);
+		field.setToolTipText(preset);
+		this.name.setForeground(Color.red);
+		
+		init();
+		
+		field.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				dialogue.checkAllFields();
+			}
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				dialogue.checkAllFields();
+			}
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				dialogue.checkAllFields();
+			}
+		});
+		
+		add();
 	}
 	
 	public JTextField getTextField() {

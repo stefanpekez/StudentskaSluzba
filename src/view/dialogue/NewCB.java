@@ -29,6 +29,7 @@ public class NewCB extends JPanel {
 		//setVisible(true);
 	}
 	
+	
 	public JComboBox getComboBox() {
 		return this.cb;
 	}

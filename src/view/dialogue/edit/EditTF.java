@@ -80,6 +80,20 @@ public class EditTF extends JPanel {
 		
 	}
 	
+	public EditTF(String name, String preset) {
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		setBorder(new EmptyBorder(10, 50, 10, 50));
+		
+		this.name = new JLabel(name);
+		
+		field = new JTextField(preset,15);
+		field.setMaximumSize(new Dimension(1000, 40));
+		
+		add(this.name);
+		add(Box.createHorizontalGlue());
+		add(field);
+	}
+	
 	public JTextField getTextField() {
 		return field;
 	}
