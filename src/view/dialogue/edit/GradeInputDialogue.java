@@ -32,7 +32,8 @@ public class GradeInputDialogue extends JDialog{
 	public GradeInputDialogue(int selectedExam, int selectedStudent, EditStudentDialogue parent, JTable update) {
 		setTitle("New Grade");
 		
-		setSize(350, 350);
+		setSize(400, 250);
+		setResizable(false);
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setLocationRelativeTo(parent);
 		

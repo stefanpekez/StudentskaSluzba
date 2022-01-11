@@ -82,7 +82,7 @@ public class EditTF extends JPanel {
 	
 	public EditTF(String name, String preset) {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		setBorder(new EmptyBorder(10, 50, 10, 50));
+		setBorder(new EmptyBorder(10, 60, 10, 60));
 		
 		this.name = new JLabel(name);
 		

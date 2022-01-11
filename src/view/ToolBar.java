@@ -167,28 +167,14 @@ public class ToolBar extends JToolBar {
 		btnSearch = new JButton();
 		btnSearch.setToolTipText("Search");
 		btnSearch.setIcon(new ImageIcon("images/magnifying-glass.png"));
-		btnSearch.addMouseListener(new MouseListener() {
+		btnSearch.addActionListener(new ActionListener() {
+
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
 				System.out.println("Kliknuto search dugme");
-				//funkcija za pretragu
 			}
-			@Override
-			public void mousePressed(MouseEvent e) {
-				
-			}
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				
-			}
+			
 		});
 		add(btnSearch);
 		
