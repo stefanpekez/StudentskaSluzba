@@ -16,6 +16,8 @@ public class DBSubject {
 	private ArrayList<Subject> subjects;
 	private ArrayList<String> columns;
 	
+	private ArrayList<Subject> originalSubjects;
+	
 	private DBSubject() {
 		columns = new ArrayList<String>();
 		columns.add("ID");
@@ -30,9 +32,12 @@ public class DBSubject {
 	
 	private void initSubjects() {
 		subjects = new ArrayList<Subject>();
+		originalSubjects = new ArrayList<Subject>();
 		
 		subjects.add(new Subject("MA", "Matematicka Analiza I", "1", "1", 9));
 		subjects.add(new Subject("AR", "Arhitektura Racunara", "2", "1", 9));
+		
+		originalSubjects = subjects;
 	}
 	
 	public int getRowCount() {
@@ -64,6 +69,40 @@ public class DBSubject {
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + column);
 		}
+	}
+	
+	public void subjectSearchOne(String query) {
+		ArrayList<Subject> searchSubjects = new ArrayList<Subject>();
+		
+		if(query.isEmpty()) {
+			subjects = originalSubjects;
+			return;
+		}
+		
+		for(Subject s: subjects) {
+			if(s.getSubjectName().contains(query)) {
+				searchSubjects.add(s);
+			}
+		}
+		
+		subjects = searchSubjects;
+	}
+	
+	public void subjectSearchTwo(String queryOne, String queryTwo) {
+		ArrayList<Subject> searchSubjects = new ArrayList<Subject>();
+		
+		if(queryOne.isBlank() && queryTwo.isBlank()) {
+			subjects = originalSubjects;
+			return;
+		}
+		
+		for(Subject s: subjects) {
+			if(s.getSubjectName().contains(queryOne) && s.getSubjectID().contains(queryTwo)) {
+				searchSubjects.add(s);
+			}
+		}
+		
+		subjects = searchSubjects;
 	}
 	
 	public void deleteSubject(int row) {

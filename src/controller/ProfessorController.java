@@ -95,6 +95,23 @@ public class ProfessorController {
 		
 	}
 	
+	public void searchProfessor(String query) {
+		
+		String[] parsedQuery = query.split(",");
+		
+		switch (parsedQuery.length) {
+		case 1:
+			DBProfessor.getInstance().professorSearchOne(parsedQuery[0].replaceAll("\\W", ""));
+			break;
+		case 2:
+			DBProfessor.getInstance().professorSearchTwo(parsedQuery[0].replaceAll("\\W", ""), parsedQuery[1].replaceAll("\\W", ""));
+			break;
+		default:
+			System.out.println("Wrong query format");
+			break;
+		}
+	}
+	
 	public boolean deleteProfessor(int rowindex) {
 		DBProfessor.getInstance().deleteProfessor(rowindex);
 		return true;

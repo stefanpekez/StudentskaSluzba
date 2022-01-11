@@ -17,6 +17,8 @@ public class DBProfessor {
 	private ArrayList<Professor> professors;
 	private ArrayList<String> columns;
 	
+	private ArrayList<Professor> originalProfessors;
+	
 	public DBProfessor() {
 		columns = new ArrayList<String>();
 		columns.add("NAME");
@@ -29,10 +31,12 @@ public class DBProfessor {
 	
 	private void initProfessors() {
 		professors = new ArrayList<Professor>();
+		originalProfessors = new ArrayList<Professor>();
 		
 		professors.add(new Professor("Ralevic", "Nebojsa", LocalDate.parse("1970-01-11"), new Address("BB","","",""), "21839264", "rale@uns.ac.rs", new Address("BB","","",""), "01A", "Redovni Profesor", 4));
 		professors.add(new Professor("Rapajic", "Milos", LocalDate.parse("1970-01-11"), new Address("BB","","",""), "21839264", "rapa@uns.ac.rs", new Address("BB","","",""), "02B", "Redovni Profesor", 4));
 		
+		originalProfessors = professors;
 	}
 	
 	public int getRowCount() {
@@ -98,6 +102,40 @@ public class DBProfessor {
 	
 	public void deleteProfessor(int row) {
 		professors.remove(row);
+	}
+	
+	public void professorSearchOne(String query) {
+		ArrayList<Professor> searchProfessors = new ArrayList<Professor>();
+		
+		if(query.isEmpty()) {
+			professors = originalProfessors;
+			return;
+		}
+		
+		for(Professor s: professors) {
+			if(s.getSurname().contains(query)) {
+				searchProfessors.add(s);
+			}
+		}
+		
+		professors = searchProfessors;
+	}
+	
+	public void professorSearchTwo(String queryOne, String queryTwo) {
+		ArrayList<Professor> searchProfessors = new ArrayList<Professor>();
+		
+		if(queryOne.isBlank() && queryTwo.isBlank()) {
+			professors = originalProfessors;
+			return;
+		}
+		
+		for(Professor s: professors) {
+			if(s.getSurname().contains(queryOne) && s.getName().contains(queryTwo)) {
+				searchProfessors.add(s);
+			}
+		}
+		
+		professors = searchProfessors;
 	}
 	
 	public Professor getProfessor(int row) {

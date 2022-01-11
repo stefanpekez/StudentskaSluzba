@@ -1,10 +1,9 @@
 package view;
 
 import java.awt.BorderLayout;
-
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -14,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AbstractTableModelProfessor;
 import controller.AbstractTableModelStudent;
+import controller.AbstractTableModelSubject;
 
 enum TypeOfTab{
 	STUDENT,
@@ -127,6 +127,10 @@ public class TabbedPane extends JTabbedPane {
 			} else if(type == TypeOfTab.STUDENT) {
 				AbstractTableModelStudent studentModel = (AbstractTableModelStudent) table.getModel();
 				studentModel.fireTableDataChanged();
+				validate();
+			} else {
+				AbstractTableModelSubject subjectModel = (AbstractTableModelSubject) table.getModel();
+				subjectModel.fireTableDataChanged();
 				validate();
 			}
 		}
