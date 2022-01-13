@@ -10,7 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 
 import controller.AbstractTableModelExams;
+import controller.AbstractTableModelExamsPassed;
 import controller.StudentController;
+import model.DBExamsPassed;
 import utilities.FormatCheckRegex;
 import view.dialogue.NewCB;
 import view.dialogue.NewTF;
@@ -29,7 +31,7 @@ public class GradeInputDialogue extends JDialog{
 	private JButton ok;
 	private JButton exit;
 
-	public GradeInputDialogue(int selectedExam, int selectedStudent, EditStudentDialogue parent, JTable update) {
+	public GradeInputDialogue(int selectedExam, int selectedStudent, EditStudentDialogue parent, JTable update, EditStudentPassed updatePassed) {
 		setTitle("New Grade");
 		
 		setSize(400, 250);
@@ -61,6 +63,11 @@ public class GradeInputDialogue extends JDialog{
 				AbstractTableModelExams examsModel = (AbstractTableModelExams) update.getModel();
 				examsModel.fireTableDataChanged();
 				validate();
+				
+				AbstractTableModelExamsPassed examsModelPassed = (AbstractTableModelExamsPassed) updatePassed.getTable().getModel();
+				examsModelPassed.fireTableDataChanged();
+				validate();
+				
 				dispose();
 			}
 		});

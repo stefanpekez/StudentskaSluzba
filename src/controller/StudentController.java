@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import model.DBExams;
+import model.DBExamsPassed;
 import model.DBStudent;
 import model.Grade;
 import model.Student;
@@ -32,73 +33,10 @@ public class StudentController {
 			NewTF phoneNumberPanel, NewTF emailAddressPanel, NewTF indexPanel, NewTF yoePanel, NewCB cyosPanel, NewCB budgetPanel) {
 		
 		String studentName = namePanel.getTextField().getText();
-		//formatCheck("[A-Z]{1}[a-z]*$", studentName);
 		
 		String studentSurname = surnamePanel.getTextField().getText();
-		//formatCheck("[A-Z]{1}[a-z]*$", studentSurname);
 		
 		String studentBirth = dateOfBirthPanel.getTextField().getText();
-		//formatCheck("[0-9]{2}/[0-9]{2}/[0-9]{4}$", studentBirth);
-		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-		
-		LocalDate date;
-		String pdateOfBirth = dateOfBirthPanel.getTextField().getText();
-		
-		date = LocalDate.parse(pdateOfBirth, formatter);
-		
-		String studentHomeAddress = homeAddressPanel.getTextField().getText();
-		/*formatCheck("([A-Z]{1}[a-z]*\\s|[A-Z]{1}[a-z]*)|(\\s([A-Z]{1}[a-z]*|[a-z]*))\\s[0-9]{2,3},"
-				+ "\\s([A-Z]{1}[a-z]*\\s|[A-Z]{1}[a-z]*)+,"
-				+ "\\s([A-Z]{1}[a-z]*\\s|[A-Z]{1}[a-z]*)+$", studentHomeAddress);*/
-		
-		String studentPhoneNumber = phoneNumberPanel.getTextField().getText();
-		//formatCheck("[0-9]+$", studentPhoneNumber);
-		
-		String studentEmail = emailAddressPanel.getTextField().getText();
-		//formatCheck("[a-z]+@[a-z]+\\.(com|acs\\.rs)$", studentEmail);
-		
-		String studentIndex = indexPanel.getTextField().getText();
-		//formatCheck("[a-z]{2}-[0-9]{3}-[0-9]{4}$", studentIndex);
-		
-		int studentYOE = Integer.parseInt(yoePanel.getTextField().getText());
-		//formatCheck("[0-9]{4}$", yoePanel.getTextField().getText());
-		
-		int studentCYOS = 1 + cyosPanel.getComboBox().getSelectedIndex();
-		System.out.println(studentCYOS);
-		
-		int studentFinansing = budgetPanel.getComboBox().getSelectedIndex();
-		
-		DBStudent.getInstance().addNewStudent(studentName, studentSurname, date, studentHomeAddress, studentPhoneNumber, 
-				studentEmail, studentIndex, studentYOE, studentCYOS, studentFinansing);
-	}
-	
-	private void formatCheck(String regexPattern, String textField) {
-		Pattern pattern = Pattern.compile(regexPattern);
-	    Matcher matcher = pattern.matcher(textField);
-	    
-	    //Delete comments to check if regex worked
-	    //TODO implement dialog if regex is rejected
-	    
-	    /*boolean matchFound = matcher.find();
-	    if(matchFound) {
-	      System.out.println("Match " + textField + " found");
-	    } else {
-	      System.out.println("Match " + textField + " not found");
-	    }*/
-	}
-
-	public void editStudent(int selectedStudentIdx, EditTF namePanel, EditTF surnamePanel, EditTF dateOfBirthPanel, EditTF homeAddressPanel, 
-			EditTF phoneNumberPanel, EditTF emailAddressPanel, EditTF indexPanel, EditTF yoePanel, EditCB cyosPanel, EditCB budgetPanel) {
-		
-		String studentName = namePanel.getTextField().getText();
-		//formatCheck("[A-Z]{1}[a-z]*$", studentName);
-		
-		String studentSurname = surnamePanel.getTextField().getText();
-		//formatCheck("[A-Z]{1}[a-z]*$", studentSurname);
-		
-		String studentBirth = dateOfBirthPanel.getTextField().getText();
-		//formatCheck("[0-9]{2}/[0-9]{2}/[0-9]{4}$", studentBirth);
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
@@ -108,21 +46,44 @@ public class StudentController {
 		date = LocalDate.parse(pdateOfBirth, formatter);
 		
 		String studentHomeAddress = homeAddressPanel.getTextField().getText();
-		/*formatCheck("([A-Z]{1}[a-z]*\\s|[A-Z]{1}[a-z]*)|(\\s([A-Z]{1}[a-z]*|[a-z]*))\\s[0-9]{2,3},"
-				+ "\\s([A-Z]{1}[a-z]*\\s|[A-Z]{1}[a-z]*)+,"
-				+ "\\s([A-Z]{1}[a-z]*\\s|[A-Z]{1}[a-z]*)+$", studentHomeAddress);*/
 		
 		String studentPhoneNumber = phoneNumberPanel.getTextField().getText();
-		//formatCheck("[0-9]+$", studentPhoneNumber);
 		
 		String studentEmail = emailAddressPanel.getTextField().getText();
-		//formatCheck("[a-z]+@[a-z]+\\.(com|acs\\.rs)$", studentEmail);
 		
 		String studentIndex = indexPanel.getTextField().getText();
-		//formatCheck("[a-z]{2}-[0-9]{3}-[0-9]{4}$", studentIndex);
 		
 		int studentYOE = Integer.parseInt(yoePanel.getTextField().getText());
-		//formatCheck("[0-9]{4}$", yoePanel.getTextField().getText());
+		
+		int studentCYOS = 1 + cyosPanel.getComboBox().getSelectedIndex();
+		System.out.println(studentCYOS);
+		
+		int studentFinansing = budgetPanel.getComboBox().getSelectedIndex();
+		
+		DBStudent.getInstance().addNewStudent(studentName, studentSurname, date, studentHomeAddress, studentPhoneNumber, 
+				studentEmail, studentIndex, studentYOE, studentCYOS, studentFinansing);
+	}
+
+	public void editStudent(int selectedStudentIdx, EditTF namePanel, EditTF surnamePanel, EditTF dateOfBirthPanel, EditTF homeAddressPanel, 
+			EditTF phoneNumberPanel, EditTF emailAddressPanel, EditTF indexPanel, EditTF yoePanel, EditCB cyosPanel, EditCB budgetPanel) {
+		
+		String studentName = namePanel.getTextField().getText();
+		
+		String studentSurname = surnamePanel.getTextField().getText();
+		
+		String studentBirth = dateOfBirthPanel.getTextField().getText();
+		
+		LocalDate date = LocalDate.parse(studentBirth);
+		
+		String studentHomeAddress = homeAddressPanel.getTextField().getText();
+		
+		String studentPhoneNumber = phoneNumberPanel.getTextField().getText();
+		
+		String studentEmail = emailAddressPanel.getTextField().getText();
+		
+		String studentIndex = indexPanel.getTextField().getText();
+		
+		int studentYOE = Integer.parseInt(yoePanel.getTextField().getText());
 		
 		int studentCYOS = 1 + cyosPanel.getComboBox().getSelectedIndex();
 		System.out.println(studentCYOS);
@@ -140,6 +101,12 @@ public class StudentController {
 		
 		DBExams.getInstance().init(subjects);
 	}
+	
+	/*public void setupPassedExamsDB(int index) {
+		ArrayList<Grade> grades = DBStudent.getInstance().getSelectedStudent(index).getPassedExams();
+		
+		DBExamsPassed.getInstance().initPassedExams(grades);
+	}*/
 	
 	public void flushExamsDB() {
 		DBExams.getInstance().del();
@@ -160,6 +127,8 @@ public class StudentController {
 		
 		//add grade to the student
 		DBStudent.getInstance().addGrade(gra, student);
+		
+		DBExamsPassed.getInstance().initPassedExams(stud.getPassedExams());
 		
 		//delete the exam from unpassed list
 		DBExams.getInstance().removeExam(subject);

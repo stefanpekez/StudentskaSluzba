@@ -17,12 +17,12 @@ public class EditStudentUnpassed extends JPanel {
 
 	private static final long serialVersionUID = 1889083892971914516L;
 	
-	private JTable table;	
+	private JTable table;
 	private JButton add;
 	private JButton delete;
 	private JButton apply;
 	
-	public EditStudentUnpassed(EditStudentDialogue editDialogue, TablePanel tp) {
+	public EditStudentUnpassed(EditStudentDialogue editDialogue, TablePanel tp, EditStudentPassed tablePassed) {
 		
 		//TODO init database to store exams
 		int selectedStudent = tp.getTable().getSelectedRow();
@@ -42,10 +42,11 @@ public class EditStudentUnpassed extends JPanel {
 				
 				if(row != -1) {
 					//show dialogue thats going to take this selected row and prepopulate the required fields 
-					new GradeInputDialogue(row, selectedStudent, editDialogue, table).setVisible(true);;
+					new GradeInputDialogue(row, selectedStudent, editDialogue, table, tablePassed).setVisible(true);
 				} else {
 					System.out.println("Please select an exam that you want to mark as passed");
 				}
+				
 			}
 		});
 		//TODO show table here 
