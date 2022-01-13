@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Comparator;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -10,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableRowSorter;
 
 import controller.AbstractTableModelProfessor;
 import controller.AbstractTableModelStudent;
@@ -98,11 +100,15 @@ public class TabbedPane extends JTabbedPane {
 			case SUBJECT:
 				table = new SubjectTable();
 				add(new JScrollPane(table), BorderLayout.CENTER);
+				TableRowSorter<AbstractTableModelSubject> sortersub = new TableRowSorter(table.getModel());
+				table.setRowSorter(sortersub);
 				break;
 			case PROFESSOR:
 				//TODO add professor table
 				table = new ProfessorTable();
 				add(new JScrollPane(table), BorderLayout.CENTER);
+				TableRowSorter<AbstractTableModelProfessor> sorterprof = new TableRowSorter(table.getModel());
+				table.setRowSorter(sorterprof);
 				break;
 			case STUDENT:
 				//TODO add student table

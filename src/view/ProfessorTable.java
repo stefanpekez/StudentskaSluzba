@@ -11,5 +11,6 @@ public class ProfessorTable extends JTable{
 	public ProfessorTable() {
 		this.setRowSelectionAllowed(true);
 		this.setModel(new AbstractTableModelProfessor());
+		getTableHeader().setReorderingAllowed(false);
 	}
 }

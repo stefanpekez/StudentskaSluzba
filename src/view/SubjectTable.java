@@ -11,6 +11,7 @@ public class SubjectTable extends JTable {
 	public SubjectTable() {
 		this.setRowSelectionAllowed(true);
 		this.setModel(new AbstractTableModelSubject());
+		getTableHeader().setReorderingAllowed(false);
 	}
 	
 }
