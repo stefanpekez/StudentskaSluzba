@@ -40,7 +40,7 @@ public class MainFrame extends JFrame {
 		add(tp, BorderLayout.CENTER);
 		
 		//Making the MenuBar
-		MenuBar menubar = new MenuBar(tp);
+		MenuBar menubar = new MenuBar(tp, this);
 		this.setJMenuBar(menubar);
 		
 		//Making Toolbar for this frame
@@ -57,7 +57,7 @@ public class MainFrame extends JFrame {
 		setVisible(true);
 	}
 	
-	private void serialize() {
+	public void serialize() {
 		try {
 			DBProfessor.getInstance().serialize();
 			System.out.println("Serialized!");

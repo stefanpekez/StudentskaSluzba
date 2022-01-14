@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -22,7 +23,7 @@ public class MenuBar extends JMenuBar {
 	
 	private TabbedPane tables;
 	
-	public MenuBar(TabbedPane tables) {
+	public MenuBar(TabbedPane tables, MainFrame parent) {
 		
 		this.tables = tables;
 		
@@ -65,6 +66,15 @@ public class MenuBar extends JMenuBar {
 		file_save.setIcon(new ImageIcon("images/save.png"));
 		file_save.setMnemonic(KeyEvent.VK_S);
 		file_save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+		file_save.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				parent.serialize();
+			}
+			
+		});
 		
 		//Open menu
 		JMenu file_open = new JMenu("Open");
