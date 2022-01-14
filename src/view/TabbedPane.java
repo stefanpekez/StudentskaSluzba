@@ -101,6 +101,28 @@ public class TabbedPane extends JTabbedPane {
 				table = new SubjectTable();
 				add(new JScrollPane(table), BorderLayout.CENTER);
 				TableRowSorter<AbstractTableModelSubject> sortersub = new TableRowSorter(table.getModel());
+				sortersub.setComparator(0, new Comparator<String>() {
+
+					@Override
+					public int compare(String o1, String o2) {
+						// TODO Auto-generated method stub
+						String o1Letters = o1.replaceAll("[0-9]+", "");
+						String o2Letters = o2.replaceAll("[0-9]+", "");
+						
+						String o1Numbers = o1.replaceAll("[a-z]+", "");
+						String o2Numbers = o2.replaceAll("[a-z]+", "");
+						
+						
+						if(!o1Letters.equals(o2Letters)) {
+							return o1Letters.compareTo(o2Letters);
+						} else {
+							int num1 = Integer.parseInt(o1Numbers);
+							int num2 = Integer.parseInt(o2Numbers);
+							return Integer.compare(num1, num2);
+						}
+						
+					}
+				});
 				table.setRowSorter(sortersub);
 				break;
 			case PROFESSOR:
