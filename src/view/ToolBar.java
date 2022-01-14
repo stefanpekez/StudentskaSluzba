@@ -81,7 +81,10 @@ public class ToolBar extends JToolBar {
 				// TODO Auto-generated method stub
 				switch (tables.getSelectedIndex()) {
 				case 0: 
-					new EditStudentDialogue(getParent(), tables.getStudentTab());
+					if(tables.getStudentTab().getTable().getSelectedRow() != -1)
+						new EditStudentDialogue(getParent(), tables.getStudentTab());
+					else
+						System.out.println("Please select a student to edit");
 					break;
 				case 1:
 					if(tables.getProfessorTab().getTable().getSelectedRow() != -1) {
