@@ -128,13 +128,17 @@ public class StudentController {
 		//add grade to the student
 		DBStudent.getInstance().addGrade(gra, student);
 		
-		DBExamsPassed.getInstance().initPassedExams(stud.getPassedExams());
-		
 		//delete the exam from unpassed list
 		DBExams.getInstance().removeExam(subject);
 		DBStudent.getInstance().removeUnpassedExam(student, subj);
 		
 		return true;
+	}
+	
+	public void setupPassedExamsDB(int index) {
+		ArrayList<Grade> grades  = DBStudent.getInstance().getSelectedStudent(index).getPassedExams();
+		
+		DBExamsPassed.getInstance().init(grades);
 	}
 	
 	public void listPassedExams(int student) {
