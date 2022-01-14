@@ -33,6 +33,10 @@ public class Professor {
 			this.subjects = new ArrayList<Subject>();
 		}
 		
+		public Professor() {
+			this.subjects = new ArrayList<Subject>();
+		}
+		
 		
 		public Professor(String name, String surname, String title) {
 			this.name = name;

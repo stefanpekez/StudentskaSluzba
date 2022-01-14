@@ -7,18 +7,16 @@ import java.awt.event.FocusListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.event.UndoableEditEvent;
-import javax.swing.event.UndoableEditListener;
+
+import view.dialogue.edit.GradeInputDialogue;
 
 public class NewTF extends JPanel {
 
@@ -34,10 +32,7 @@ public class NewTF extends JPanel {
 		this.name = new JLabel(name);
 		field = new JTextField(15);
 		field.setToolTipText(preset);
-		
-		Border borderred = BorderFactory.createLineBorder(Color.RED, 1);
-		Border bordergray = BorderFactory.createLineBorder(Color.GRAY, 1);
-		field.setBorder(borderred);
+		this.name.setForeground(Color.red);
 		
 		init();
 		
@@ -88,22 +83,49 @@ public class NewTF extends JPanel {
 		
 	}
 	
+	public NewTF(String name, GradeInputDialogue dialogue, String preset) {
+
+		this.name = new JLabel(name);
+		field = new JTextField(15);
+		field.setToolTipText(preset);
+		this.name.setForeground(Color.red);
+		
+		init();
+		
+		field.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				dialogue.checkAllFields();
+			}
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				dialogue.checkAllFields();
+			}
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				dialogue.checkAllFields();
+			}
+		});
+		
+		add();
+	}
+	
 	public JTextField getTextField() {
 		return field;
 	}
 	
 	public boolean checkField() {
 		if(field.getText().replaceAll("\\W", "").equals("")) {
+			name.setForeground(Color.red);
 			return false;
 		}
-		
+		name.setForeground(Color.black);
 		return true;
 	}
 	
 	public boolean checkField(String regex) {
 		if(field.getText().replaceAll("\\W", "").equals("")) {
-			Border borderred = BorderFactory.createLineBorder(Color.RED, 1);
-			field.setBorder(borderred);
+			name.setForeground(Color.red);
 			return false;
 		}
 		
@@ -112,11 +134,9 @@ public class NewTF extends JPanel {
 		boolean matchfound = matcher.find();
 		
 		if(matchfound){
-			Border bordergray = BorderFactory.createLineBorder(Color.GRAY, 1);
-			field.setBorder(bordergray);
+			name.setForeground(Color.black);
 		} else {
-			Border borderred = BorderFactory.createLineBorder(Color.RED, 1);
-			field.setBorder(borderred);
+			name.setForeground(Color.red);
 		}
 		return matchfound;
 	}

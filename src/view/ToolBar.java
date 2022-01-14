@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
+import controller.ProfessorController;
+import controller.SubjectController;
 import view.dialogue.DeleteProfessorDialogue;
 import view.dialogue.DeleteSubjectDialogue;
 import view.dialogue.DeleteStudentDialogue;
@@ -30,6 +32,8 @@ public class ToolBar extends JToolBar {
 	private JButton btnSearch;
 	private JTextField txtF;
 	private TabbedPane tables;
+	
+	private boolean searchClickedOnce = false;
 	
 	public ToolBar(TabbedPane tables) {
 		super(SwingConstants.HORIZONTAL);
@@ -159,7 +163,10 @@ public class ToolBar extends JToolBar {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				System.out.println("Kliknut search bar.");
-				txtF.setText("");
+				if(!searchClickedOnce) {
+					txtF.setText("");
+					searchClickedOnce = true;
+				}
 			}
 		});
 		add(txtF);
@@ -167,28 +174,31 @@ public class ToolBar extends JToolBar {
 		btnSearch = new JButton();
 		btnSearch.setToolTipText("Search");
 		btnSearch.setIcon(new ImageIcon("images/magnifying-glass.png"));
-		btnSearch.addMouseListener(new MouseListener() {
+		btnSearch.addActionListener(new ActionListener() {
+
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println("Kliknuto search dugme");
-				//funkcija za pretragu
-			}
-			@Override
-			public void mousePressed(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				
+				switch (tables.getSelectedIndex()) {
+				case 0:
+					System.out.println("Student search");
+					break;
+				case 1:
+					System.out.println("Professor search");
+					//call controller and send him the text in search field
+					ProfessorController.getInstance().searchProfessor(txtF.getText());
+					tables.getProfessorTab().updateView();
+					break;
+				case 2:
+					System.out.println("Subject search");
+					SubjectController.getInstance().searchSubject(txtF.getText());
+					tables.getSubjectTab().updateView();
+					break;
+				default:
+					break;
+				}
 			}
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				
-			}
+			
 		});
 		add(btnSearch);
 		

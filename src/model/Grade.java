@@ -49,6 +49,12 @@ public class Grade {
 	public void setDateOfPassingExam(LocalDate dateOfPassingExam) {
 		this.dateOfPassingExam = dateOfPassingExam;
 	}
+
+	@Override
+	public String toString() {
+		return "Grade [student=" + student + ", subject=" + subject + ", gradeValue=" + gradeValue
+				+ ", dateOfPassingExam=" + dateOfPassingExam.toString() + "]";
+	}
 	
 	
 }

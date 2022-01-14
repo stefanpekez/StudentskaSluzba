@@ -24,7 +24,7 @@ public class Student {
 	private StudentStatus status;
 	private double avgGrade;
 	private ArrayList<Grade> passedExams;
-	private ArrayList<Grade> remainingExams;
+	private ArrayList<Subject> remainingExams;
 	
 	public Student(String surname, String name, LocalDate dateOfBirth, Address homeAddress, String phoneNumber,
 			String emailAddress, String indexNum, int yearOfEnrollment, int currentYearOfStudy, StudentStatus status,
@@ -42,7 +42,7 @@ public class Student {
 		this.status = status;
 		this.avgGrade = avgGrade;
 		this.passedExams = new ArrayList<Grade>();
-		this.remainingExams = new ArrayList<Grade>();
+		this.remainingExams = new ArrayList<Subject>();
 	}
 	
 	public Student (String name, String surname, LocalDate date, Address homeAdress, String phoneNumber, String emailAddress, 
@@ -76,7 +76,7 @@ public class Student {
 		this.surname = surname;
 		
 		this.dateOfBirth = date;
-		this.homeAddress = new Address(homeAdress, 0, "", "");
+		this.homeAddress = new Address(homeAdress, "", "", "");
 		
 		this.phoneNumber = phoneNumber;
 		this.emailAddress = emailAddress;
@@ -91,6 +91,12 @@ public class Student {
 		//this.avgGrade = avgGrade;
 		//this.passedExams = new ArrayList<Grade>();
 		//this.remainingExams = new ArrayList<Grade>();
+	}
+	
+	public Student() {
+		super();
+		this.passedExams = new ArrayList<Grade>();
+		this.remainingExams = new ArrayList<Subject>();
 	}
 
 	public String getSurname() {
@@ -189,14 +195,29 @@ public class Student {
 		this.passedExams = passedExams;
 	}
 
-	public ArrayList<Grade> getRemainingExams() {
+	public ArrayList<Subject> getRemainingExams() {
 		return remainingExams;
 	}
 
-	public void setRemainingExams(ArrayList<Grade> remainingExams) {
+	public void setRemainingExams(ArrayList<Subject> remainingExams) {
 		this.remainingExams = remainingExams;
 	}
 	
+	public void addRemainingExam(Subject exam) {
+		this.remainingExams.add(exam);
+	}
 	
+	public void removeUnpassedExam(Subject sub) {
+		int i = 0;
+		for(Subject s: remainingExams) {
+			if(sub.equals(s)) {
+				remainingExams.remove(i);
+			}
+			i++;
+		}
+	}
 	
+	public void addGrade(Grade g) {
+		passedExams.add(g);
+	}
 }

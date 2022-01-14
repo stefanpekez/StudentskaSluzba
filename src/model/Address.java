@@ -2,11 +2,11 @@ package model;
 
 public class Address {
 	private String street;
-	private int number;
+	private String number;
 	private String city;
 	private String country;
 	
-	public Address(String street, int number, String city, String country) {
+	public Address(String street, String number, String city, String country) {
 		super();
 		this.street = street;
 		this.number = number;
@@ -21,17 +21,18 @@ public class Address {
 			this.street = split[0];
 			
 			try {
-				this.number = Integer.parseInt(split[1].replaceAll("\\W", ""));
+				this.number = split[1].replaceAll("\\W", "");
 			} catch (Exception e) {
 				// TODO: handle exception
-				this.number = -1;
+				this.number = "";
+				
 			}
 			
 			this.city = split[2];
 			this.country = split[3];
 		} else {
 			this.street = unparsed;
-			this.number = 0;
+			this.number = "";
 			this.city = "";
 			this.country = "";
 			System.out.println("Address coulnt be split");
@@ -47,11 +48,11 @@ public class Address {
 		this.street = street;
 	}
 
-	public int getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
@@ -73,7 +74,7 @@ public class Address {
 
 	@Override
 	public String toString() {
-		if(number == 0 && city == "" && country == "") {
+		if(number == "" && city == "" && country == "") {
 			return street;
 		} else {
 			return String.format("%s, %d, %s, %s", street, number, city, country);

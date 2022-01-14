@@ -39,16 +39,16 @@ public class NewProfessorDialogue extends JDialog {
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setLocationRelativeTo(parent);
 		
-		surname = new NewTF("Surname:", this, "");
-		name = new NewTF("Name:", this, "");
-		dateOfBirth = new NewTF("Date of birth:", this, "dd/mm/yyyy");
-		address = new NewTF("Address:", this, "Street Number, City, Country");
-		phoneNumber = new NewTF("Phone:", this, "");
-		emailAdress = new NewTF("E-mail:", this, "example@uns.ac.rs");
-		officeAdress = new NewTF("Office Adress:", this, "Street Number, City, Country");
-		idNumber = new NewTF("ID:", this, "");
-		title = new NewTF("Title:", this, "");
-		workingYears = new NewTF("Working years:", this, "");
+		surname = new NewTF("Surname*", this, "");
+		name = new NewTF("Name*", this, "");
+		dateOfBirth = new NewTF("Date of birth*", this, "dd/mm/yyyy");
+		address = new NewTF("Address*", this, "Street Number, City, Country");
+		phoneNumber = new NewTF("Phone*", this, "");
+		emailAdress = new NewTF("E-mail*", this, "example@uns.ac.rs");
+		officeAdress = new NewTF("Office Adress*", this, "Street Number, City, Country");
+		idNumber = new NewTF("ID*", this, "");
+		title = new NewTF("Title*", this, "");
+		workingYears = new NewTF("Working years*", this, "");
 		
 		ok = new JButton("OK");
 		ok.setEnabled(false);
@@ -93,9 +93,9 @@ public class NewProfessorDialogue extends JDialog {
 	}
 	
 	public void checkAllFields() {
-		if(surname.checkField(FormatCheckRegex.NAME_REG) && name.checkField(FormatCheckRegex.NAME_REG) && dateOfBirth.checkField(FormatCheckRegex.DATE_REG) && address.checkField(FormatCheckRegex.ADDRESS_REG) && 
+		if(surname.checkField() && name.checkField() && dateOfBirth.checkField(FormatCheckRegex.DATE_REG) && address.checkField(FormatCheckRegex.ADDRESS_REG) && 
 			phoneNumber.checkField(FormatCheckRegex.PHONE_REG) && emailAdress.checkField(FormatCheckRegex.EMAIL_REG) && officeAdress.checkField(FormatCheckRegex.ADDRESS_REG) && 
-			idNumber.checkField(FormatCheckRegex.NUMBERS_REG) && title.checkField(FormatCheckRegex.NAME_REG) && workingYears.checkField(FormatCheckRegex.NUMBERS_REG)) {
+			idNumber.checkField(FormatCheckRegex.NUMBERS_REG) && title.checkField() && workingYears.checkField(FormatCheckRegex.NUMBERS_REG)) {
 			
 			ok.setEnabled(true);
 			return;

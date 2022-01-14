@@ -1,9 +1,9 @@
 package main;
 
+
+
 import com.formdev.flatlaf.FlatLightLaf;
 
-import model.DBStudent;
-import model.DBSubject;
 import view.MainFrame;
 
 public class MyApp {
@@ -14,3 +14,4 @@ public class MyApp {
 	}
 	
 }
+

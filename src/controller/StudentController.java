@@ -1,15 +1,16 @@
 package controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import model.DBProfessor;
+import model.DBExams;
 import model.DBStudent;
+import model.Grade;
 import model.Student;
+import model.Subject;
 import view.dialogue.NewCB;
 import view.dialogue.NewTF;
 import view.dialogue.edit.EditCB;
@@ -131,6 +132,54 @@ public class StudentController {
 		DBStudent.getInstance().editStudent(selectedStudentIdx, studentName, studentSurname, date, studentHomeAddress, studentPhoneNumber, 
 				studentEmail, studentIndex, studentYOE, studentCYOS, studentFinansing);
 		
+	}
+	
+	public void setupCurrentExamsDB(int row) {
+		
+		ArrayList<Subject> subjects  = DBStudent.getInstance().getSelectedStudent(row).getRemainingExams();
+		
+		DBExams.getInstance().init(subjects);
+	}
+	
+	public void flushExamsDB() {
+		DBExams.getInstance().del();
+	}
+	
+	public boolean forwardGrade(int subject, int student, int grade, String date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+		LocalDate datee;
+		datee = LocalDate.parse(date, formatter);
+		
+		//get subject
+		Subject subj = DBExams.getInstance().getSelectedExam(subject);
+		//get student
+		Student stud = DBStudent.getInstance().getSelectedStudent(student);
+		
+		//make grade
+		Grade gra = new Grade(stud, subj, grade + 6, datee);
+		
+		//add grade to the student
+		DBStudent.getInstance().addGrade(gra, student);
+		
+		//delete the exam from unpassed list
+		DBExams.getInstance().removeExam(subject);
+		DBStudent.getInstance().removeUnpassedExam(student, subj);
+		
+		return true;
+	}
+	
+	public void listPassedExams(int student) {
+		for(Grade g: DBStudent.getInstance().getSelectedStudent(student).getPassedExams()) {
+			System.out.println(g.toString());
+		}
+	}
+	
+	public String getExamID(int row) {
+		return DBExams.getInstance().getValueAt(row, 0);
+	}
+	
+	public String getExamName(int row) {
+		return DBExams.getInstance().getValueAt(row, 1);
 	}
 	
 	public String getName(int row){

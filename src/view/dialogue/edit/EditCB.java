@@ -51,8 +51,6 @@ public class EditCB extends JPanel {
 		}
 		
 		add(cb);
-		
-		
 		//setVisible(true);
 	}
 	

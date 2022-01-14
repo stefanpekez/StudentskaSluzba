@@ -52,9 +52,14 @@ public class EditProfessorInfo extends JPanel {
 		ok.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {	
-				ProfessorController.getInstance().editProfessor(row, surname.getTextField().getText(), name.getTextField().getText(), dateOfBirth.getTextField().getText(), address.getTextField().getText(), 
+				boolean good = ProfessorController.getInstance().editProfessor(row, surname.getTextField().getText(), name.getTextField().getText(), dateOfBirth.getTextField().getText(), address.getTextField().getText(), 
 																phoneNumber.getTextField().getText(), emailAdress.getTextField().getText(), officeAdress.getTextField().getText(), 
 																idNumber.getTextField().getText(), title.getTextField().getText(), workingYears.getTextField().getText());
+				if(good) {
+					System.out.println("Successfully edited professor");
+				} else {
+					System.out.println("Something went wrong");
+				}
 				panel.updateView();
 				dialogue.dispose();
 			}
@@ -88,9 +93,9 @@ public class EditProfessorInfo extends JPanel {
 	}
 	
 	public void checkAllFields() {
-		if(surname.checkField(FormatCheckRegex.NAME_REG) && name.checkField(FormatCheckRegex.NAME_REG) && dateOfBirth.checkField(FormatCheckRegex.DATE1_REG) && address.checkField(FormatCheckRegex.ADDRESS_REG) && 
+		if(surname.checkField() && name.checkField() && dateOfBirth.checkField(FormatCheckRegex.DATE1_REG) && address.checkField(FormatCheckRegex.ADDRESS_REG) && 
 			phoneNumber.checkField(FormatCheckRegex.PHONE_REG) && emailAdress.checkField(FormatCheckRegex.EMAIL_REG) && officeAdress.checkField(FormatCheckRegex.ADDRESS_REG) && 
-			idNumber.checkField(FormatCheckRegex.NUMBERS_REG) && title.checkField(FormatCheckRegex.NAME_REG) && workingYears.checkField(FormatCheckRegex.NUMBERS_REG)) {
+			idNumber.checkField(FormatCheckRegex.NUMBERS_REG) && title.checkField() && workingYears.checkField(FormatCheckRegex.NUMBERS_REG)) {
 			
 			ok.setEnabled(true);
 			return;

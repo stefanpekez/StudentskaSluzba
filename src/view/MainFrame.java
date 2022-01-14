@@ -4,9 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
+
+import model.DBProfessor;
 
 public class MainFrame extends JFrame {
 
@@ -16,7 +22,7 @@ public class MainFrame extends JFrame {
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension d = kit.getScreenSize();
 		
-		setSize(d.width / 2, d.height / 2);
+		setSize(3*d.width / 4,3* d.height / 4);
 		setLocationRelativeTo(null);
 		
 		setTitle("Studentska Služba");
@@ -41,7 +47,24 @@ public class MainFrame extends JFrame {
 		ToolBar toolbar = new ToolBar(tp);
 		add(toolbar, BorderLayout.NORTH);
 		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				serialize();
+			}
+		});
+		
 		setVisible(true);
 	}
 	
+	private void serialize() {
+		try {
+			DBProfessor.getInstance().serialize();
+			System.out.println("Serialized!");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("Something went wrong serializing!");
+			e1.printStackTrace();
+		}
+	}
 }
