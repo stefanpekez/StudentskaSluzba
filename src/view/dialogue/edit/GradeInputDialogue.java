@@ -64,10 +64,6 @@ public class GradeInputDialogue extends JDialog{
 				examsModel.fireTableDataChanged();
 				validate();
 				
-				AbstractTableModelExamsPassed examsModelPassed = (AbstractTableModelExamsPassed) updatePassed.getTable().getModel();
-				examsModelPassed.fireTableDataChanged();
-				validate();
-				
 				dispose();
 			}
 		});

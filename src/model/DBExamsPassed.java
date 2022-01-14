@@ -14,8 +14,10 @@ private static DBExamsPassed instance = null;
 		return instance;
 	}
 	
-	private ArrayList<Grade> examsPassed;
+	private ArrayList<Grade> examsPassed = new ArrayList<Grade>();
 	private ArrayList<String> columns;
+	private double avg = 0.0;
+	private int espb = 0;
 	
 	public DBExamsPassed() {
 		columns = new ArrayList<String>();
@@ -25,18 +27,9 @@ private static DBExamsPassed instance = null;
 		columns.add("GRADE");
 		columns.add("DATE");
 		
-		init();
-		
 	}
 	
-	private void init() {
-		examsPassed = new ArrayList<>();
-	}
-	
-	public void initPassedExams(ArrayList<Grade> grades) {
-		/*examsPassed.add(new Grade(DBStudent.getInstance().getSelectedStudent(0), new Subject("MA", "Matematicka Analiza I", "1", "1", 9), 
-				8, LocalDate.parse("2000-11-27")));*/
-		
+	public void init(ArrayList<Grade> grades) {
 		examsPassed = grades;
 		
 	}
@@ -78,22 +71,32 @@ private static DBExamsPassed instance = null;
 	}
 	
 	// TODO treba smisliti nacin da se update prosecna ocena nakon dodavanja entiteta u tabelu polozenih predmeta
-	/* 
-	public String getAvgGrade(int index) {
-		
-		int selectedStudent = index;
+	
+	public double getAvgGrade(int selectedStudent) {
 		
 		double sum = 0;
 		
-		for(Grade g: DBStudent.getInstance().getSelectedStudent(selectedStudent).getPassedExams())
+		for(Grade g: examsPassed)
 			sum += g.getGradeValue();
 		
-		double avg = sum / examsPassed.size();
+		this.avg = sum / examsPassed.size();
 		
-		if(DBStudent.getInstance().getSelectedStudent(selectedStudent).getPassedExams().size() == 0)
-			return "0.00";
+		if(examsPassed.size() == 0)
+			return 0.0;
 		
-		return Double.toString(avg);
+		DBStudent.getInstance().getSelectedStudent(selectedStudent).setAvgGrade(this.avg);
+		
+		return this.avg;
 	}
-	*/
+	
+	public int getESPB() {
+		
+		int espb = 0;
+		
+		for(Grade g: examsPassed)
+			espb += g.getSubject().getESPB();
+		
+		return espb;
+	}
+	
 }
