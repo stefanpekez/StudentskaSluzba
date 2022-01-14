@@ -1,7 +1,25 @@
 package model;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
+import com.thoughtworks.xstream.security.AnyTypePermission;
 
 public class DBProfessor {
 	
@@ -33,8 +51,15 @@ public class DBProfessor {
 		professors = new ArrayList<Professor>();
 		originalProfessors = new ArrayList<Professor>();
 		
-		professors.add(new Professor("Ralevic", "Nebojsa", LocalDate.parse("1970-01-11"), new Address("BB","","",""), "21839264", "rale@uns.ac.rs", new Address("BB","","",""), "01A", "Redovni Profesor", 4));
-		professors.add(new Professor("Rapajic", "Milos", LocalDate.parse("1970-01-11"), new Address("BB","","",""), "21839264", "rapa@uns.ac.rs", new Address("BB","","",""), "02B", "Redovni Profesor", 4));
+		//professors.add(new Professor("Ralevic", "Nebojsa", LocalDate.parse("1970-01-11"), new Address("BB","","",""), "21839264", "rale@uns.ac.rs", new Address("BB","","",""), "01A", "Redovni Profesor", 4));
+		//professors.add(new Professor("Rapajic", "Milos", LocalDate.parse("1970-01-11"), new Address("BB","","",""), "21839264", "rapa@uns.ac.rs", new Address("BB","","",""), "02B", "Redovni Profesor", 4));
+		
+		try {
+			professors = convertExcel();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		originalProfessors = professors;
 	}
@@ -140,5 +165,99 @@ public class DBProfessor {
 	
 	public Professor getProfessor(int row) {
 		return professors.get(row);
+	}
+	
+	public void serialize() throws IOException {
+		File f = new File("saves\\professors.json");
+		OutputStream os = new BufferedOutputStream(new FileOutputStream(f));
+		
+		try {
+			XStream xs = new XStream(new JettisonMappedXmlDriver());
+			xs.addPermission(AnyTypePermission.ANY);
+			String s = xs.toXML(professors);
+			xs.toXML(professors, os);
+		} finally {
+			os.close();
+		}
+	}
+	
+	private ArrayList<Professor> convertExcel() throws IOException{
+		try {
+			FileInputStream excelFile = new FileInputStream(new File("testpodaci.xlsx"));
+			Workbook workbook = new XSSFWorkbook(excelFile);
+			
+			Sheet sheet = workbook.getSheet("Profesori");
+			Iterator<Row> rows = sheet.iterator();
+			
+			ArrayList<Professor> list = new ArrayList<Professor>();
+			
+			int rowNumber = 0;
+    		while (rows.hasNext()) {
+    			Row currentRow = (Row) rows.next();
+    			System.out.println(rowNumber);
+    			// skip header
+    			if(rowNumber == 0) {
+    				rowNumber++;
+    				continue;
+    			} else if (rowNumber == 20) break;
+    			
+    			Iterator<Cell> cellsInRow = currentRow.iterator();
+    			Professor profa = new Professor();
+    			
+    			int cellIndex = 0;
+    			
+    			while (cellsInRow.hasNext()) {
+    				Cell currentCell = (Cell) cellsInRow.next();
+    				
+    				switch (cellIndex) {
+					case 1:
+						profa.setIdNumber(Integer.toString((int)currentCell.getNumericCellValue()));
+						break;
+					case 2:
+						profa.setName(currentCell.getStringCellValue());
+						break;
+					case 3:
+						profa.setSurname(currentCell.getStringCellValue());
+						break;
+					case 4:
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
+						profa.setDateOfBirth(LocalDate.parse(currentCell.getStringCellValue(), formatter));
+						break;
+					case 5:
+						profa.setHomeAdress(new Address("BB"));
+						break;
+					case 6:
+						profa.setPhoneNumber(currentCell.getStringCellValue());
+						break;
+					case 7:
+						profa.setEmailAdress(currentCell.getStringCellValue());
+						break;
+					case 8:
+						profa.setOfficeAdress(new Address("BB"));
+						break;
+					case 9:
+						profa.setWorkingYears((int)currentCell.getNumericCellValue());
+						break;
+					case 10:
+						profa.setTitle(currentCell.getStringCellValue());
+						break;
+					default:
+						break;
+					}
+    				
+    				cellIndex++;
+    			}
+    			
+    			list.add(profa);
+    			rowNumber++;
+    		}
+    		
+    		workbook.close();
+ 
+    		return list;
+    		
+		} finally {
+			
+		}
 	}
 }

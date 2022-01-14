@@ -92,6 +92,12 @@ public class Student {
 		//this.passedExams = new ArrayList<Grade>();
 		//this.remainingExams = new ArrayList<Grade>();
 	}
+	
+	public Student() {
+		super();
+		this.passedExams = new ArrayList<Grade>();
+		this.remainingExams = new ArrayList<Subject>();
+	}
 
 	public String getSurname() {
 		return surname;

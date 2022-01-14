@@ -25,6 +25,11 @@ public class Subject {
 		this.studentsPASSED = new ArrayList<Student>();
 		this.studentsFAILED = new ArrayList<Student>();
 	}
+	
+	public Subject() {
+		this.studentsPASSED = new ArrayList<Student>();
+		this.studentsFAILED = new ArrayList<Student>();
+	}
 
 	public String getSubjectID() {
 		return subjectID;

@@ -1,7 +1,18 @@
 package model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class DBStudent {
 	
@@ -33,10 +44,16 @@ public class DBStudent {
 	private void initStudents() {
 		students = new ArrayList<Student>();
 		
-		students.add(new Student("Pekez", "Stefan", LocalDate.parse("2000-11-27"), new Address("nme","","",""), "0645871486", 
-				"stefanpekez00@gmail.com", "ra-179-2019", 2019, 3, StudentStatus.B, 9.13));
-		students.add(new Student("Milosevic", "Filip", LocalDate.parse("2001-01-29"), new Address("nme","","",""), "00000000000", 
-				"milosevicfilip@gmail.com", "ra-193-2019", 2019, 3, StudentStatus.B, 10.0));
+		//students.add(new Student("Pekez", "Stefan", LocalDate.parse("2000-11-27"), new Address("nme","","",""), "0645871486", 
+			//	"stefanpekez00@gmail.com", "ra-179-2019", 2019, 3, StudentStatus.B, 9.13));
+		//students.add(new Student("Milosevic", "Filip", LocalDate.parse("2001-01-29"), new Address("nme","","",""), "00000000000", 
+				//"milosevicfilip@gmail.com", "ra-193-2019", 2019, 3, StudentStatus.B, 10.0));
+		try {
+			students = convertExcel();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		students.get(students.size() - 1).addRemainingExam(new Subject("39","Analiza","1","1",4));
 	}
@@ -125,6 +142,86 @@ public class DBStudent {
 	
 	public void addGrade(Grade g, int student) {
 		students.get(student).addGrade(g);
+	}
+	
+	private ArrayList<Student> convertExcel() throws IOException{
+		try {
+			FileInputStream excelFile = new FileInputStream(new File("testpodaci.xlsx"));
+			Workbook workbook = new XSSFWorkbook(excelFile);
+			
+			Sheet sheet = workbook.getSheet("Studenti");
+			Iterator<Row> rows = sheet.iterator();
+			
+			ArrayList<Student> list = new ArrayList<Student>();
+			
+			int rowNumber = 0;
+    		while (rows.hasNext()) {
+    			Row currentRow = (Row) rows.next();
+    			System.out.println(rowNumber);
+    			// skip header
+    			if(rowNumber == 0) {
+    				rowNumber++;
+    				continue;
+    			} else if (rowNumber == 27) break;
+    			
+    			Iterator<Cell> cellsInRow = currentRow.iterator();
+    			Student stud = new Student();
+    			
+    			int cellIndex = 0;
+    			
+    			while (cellsInRow.hasNext()) {
+    				Cell currentCell = (Cell) cellsInRow.next();
+    				
+    				switch (cellIndex) {
+					case 1:
+						stud.setIndexNum(currentCell.getStringCellValue());
+						break;
+					case 2:
+						stud.setName(currentCell.getStringCellValue());
+						break;
+					case 3:
+						stud.setSurname(currentCell.getStringCellValue());
+						break;
+					case 4:
+						stud.setCurrentYearOfStudy((int) currentCell.getNumericCellValue());
+						break;
+					case 5:
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
+						stud.setDateOfBirth(LocalDate.parse(currentCell.getStringCellValue(), formatter));
+						break;
+					case 6:
+						stud.setHomeAddress(new Address("BB"));
+						break;
+					case 7:
+						stud.setPhoneNumber(currentCell.getStringCellValue());
+						break;
+					case 8:
+						stud.setEmailAddress(currentCell.getStringCellValue());
+						break;
+					case 9:
+						stud.setStatus(currentCell.getStringCellValue().equals("B") ? 0 : 1 );
+						break;
+					case 10:
+						stud.setYearOfEnrollment((int) currentCell.getNumericCellValue());
+						break;
+					default:
+						break;
+					}
+    				
+    				cellIndex++;
+    			}
+    			
+    			list.add(stud);
+    			rowNumber++;
+    		}
+    		
+    		workbook.close();
+ 
+    		return list;
+    		
+		} finally {
+			
+		}
 	}
 	
 }
