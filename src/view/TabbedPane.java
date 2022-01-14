@@ -101,6 +101,8 @@ public class TabbedPane extends JTabbedPane {
 				table = new SubjectTable();
 				add(new JScrollPane(table), BorderLayout.CENTER);
 				TableRowSorter<AbstractTableModelSubject> sortersub = new TableRowSorter(table.getModel());
+				
+				//sorting for id column
 				sortersub.setComparator(0, new Comparator<String>() {
 
 					@Override
@@ -123,6 +125,21 @@ public class TabbedPane extends JTabbedPane {
 						
 					}
 				});
+				
+				//sorting for espb column
+				sortersub.setComparator(2, new Comparator<String>() {
+
+					@Override
+					public int compare(String o1, String o2) {
+						// TODO Auto-generated method stub
+						int num1 = Integer.parseInt(o1);
+						int num2 = Integer.parseInt(o2);
+						
+						return Integer.compare(num1, num2);
+					}
+					
+				});
+				
 				table.setRowSorter(sortersub);
 				break;
 			case PROFESSOR:
