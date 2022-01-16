@@ -15,6 +15,15 @@ public class Department {
 		this.departmentHead = departmentHead;
 		this.professors = new ArrayList<Professor>();
 	}
+	
+	public Department() {
+		this.professors = new ArrayList<Professor>();
+	}
+
+	@Override
+	public String toString() {
+		return serialCode + " --- " + name;
+	}
 
 	public String getSerialCode() {
 		return serialCode;

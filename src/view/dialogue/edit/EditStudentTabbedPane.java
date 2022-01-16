@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
+import controller.AbstractTableModelExams;
 import controller.AbstractTableModelExamsPassed;
 import model.DBExamsPassed;
 import view.TabbedPane.TablePanel;
@@ -15,12 +16,15 @@ public class EditStudentTabbedPane extends JTabbedPane {
 	private EditStudentInfo infoTab;
 	private EditStudentPassed passedExams;
 	private EditStudentUnpassed unpassedExams;
+	private TablePanel tp;
 	
 	public EditStudentTabbedPane(EditStudentDialogue editDialogue, TablePanel tp) {
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 		
+		this.tp = tp;
+		
 		infoTab = new EditStudentInfo(editDialogue, tp);
-		passedExams = new EditStudentPassed(editDialogue, tp);
+		passedExams = new EditStudentPassed(editDialogue, tp, this);
 		unpassedExams = new EditStudentUnpassed(editDialogue, tp, passedExams);
 		
 		addMouseListener(new MouseListener() {
@@ -32,15 +36,10 @@ public class EditStudentTabbedPane extends JTabbedPane {
                	case 0:
                		break;
                	case 1:
-               		AbstractTableModelExamsPassed examsModelPassed = (AbstractTableModelExamsPassed) passedExams.getTable().getModel();
-    				examsModelPassed.fireTableDataChanged();
-    				validate();
-    				
-               		passedExams.getDynAverage().setText(Double.toString(DBExamsPassed.getInstance().getAvgGrade(tp.getTable().getSelectedRow())));
-               		
-               		passedExams.getDynESPB().setText(Integer.toString(DBExamsPassed.getInstance().getESPB()));
+               		updateView(1);
                		break;
                	case 2:
+               		updateView(2);
                		break;
                }
             }
@@ -56,6 +55,26 @@ public class EditStudentTabbedPane extends JTabbedPane {
 		addTab("Info", infoTab);
 		addTab("Passed", passedExams);
 		addTab("Unpassed", unpassedExams);
+	}
+	
+	public void updateView(int index) {
+		
+		if(index == 1) {
+			//update passed exams
+			AbstractTableModelExamsPassed examsModelPassed = (AbstractTableModelExamsPassed) passedExams.getTable().getModel();
+			examsModelPassed.fireTableDataChanged();
+			validate();
+			
+	   		passedExams.getDynAverage().setText(Double.toString(DBExamsPassed.getInstance().getAvgGrade(tp.getTable().getSelectedRow())));
+	   		
+	   		passedExams.getDynESPB().setText(Integer.toString(DBExamsPassed.getInstance().getESPB()));
+		} else {
+			// update unpassed
+			AbstractTableModelExams model = (AbstractTableModelExams) unpassedExams.getTable().getModel();
+			model.fireTableDataChanged();
+			validate();
+		}
+		
 	}
 	
 }

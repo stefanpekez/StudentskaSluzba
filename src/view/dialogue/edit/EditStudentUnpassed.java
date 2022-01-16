@@ -56,4 +56,7 @@ public class EditStudentUnpassed extends JPanel {
 		add(new JScrollPane(table), BorderLayout.CENTER);
 	}
 	
+	public ExamsTable getTable() {
+		return (ExamsTable) table;
+	}
 }
