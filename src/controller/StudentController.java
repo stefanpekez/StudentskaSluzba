@@ -133,6 +133,28 @@ public class StudentController {
 		return true;
 	}
 	
+	public void searchStudent(String search) {
+		
+		String[] searchParts = search.split(",");
+		
+		switch(searchParts.length) {
+			case 1:
+				DBStudent.getInstance().searchOneWord(search);
+				break;
+			case 2:
+				DBStudent.getInstance().searchTwoWords(search);
+				break;
+			case 3:
+				DBStudent.getInstance().searchThreeWords(search);
+				break;
+			default:
+				System.out.println("Wrong search format");
+				break;
+		}
+		
+		
+	}
+	
 	public boolean cancelGrade(int grade) {
 		Grade cancel = DBExamsPassed.getInstance().getSelectedGrade(grade);
 		DBExamsPassed.getInstance().removeGrade(grade);

@@ -26,6 +26,7 @@ public class DBStudent {
 	}
 	
 	private ArrayList<Student> students;
+	private ArrayList<Student> startingStudents;
 	private ArrayList<String> columns;
 	
 	private DBStudent() {
@@ -56,6 +57,7 @@ public class DBStudent {
 		}
 		
 		students.get(students.size() - 1).addRemainingExam(new Subject("39","Analiza","1","1",4));
+		startingStudents = students;
 	}
 	
 	public int getRowCount() {
@@ -154,6 +156,58 @@ public class DBStudent {
 		for(Student s: students) {
 			if(s.equals(student)) s.addUnpassedexam(subject);;
 		}
+	}
+	
+	public void searchOneWord(String search) {
+		ArrayList<Student> foundStudents = new ArrayList<Student>();
+		
+		if(search.isEmpty()) {
+			students = startingStudents;
+			return;
+		}
+		
+		for(Student s: students)
+				if(s.getSurname().toLowerCase().contains(search.toLowerCase()))
+					foundStudents.add(s);
+		
+		students = foundStudents;
+	}
+	
+	public void searchTwoWords(String search) {
+		ArrayList<Student> foundStudents = new ArrayList<Student>();
+		
+		if(search.isEmpty()) {
+			students = startingStudents;
+			return;
+		}
+		
+		String[] searchParts = search.split(",");
+		
+		for(Student s: students)
+				if(s.getSurname().toLowerCase().contains(searchParts[0].toLowerCase().replaceAll("\\W", "")) && 
+						s.getName().toLowerCase().contains(searchParts[1].toLowerCase().replaceAll("\\W", "")))
+					foundStudents.add(s);
+		
+		students = foundStudents;
+	}
+	
+	public void searchThreeWords(String search) {
+		ArrayList<Student> foundStudents = new ArrayList<Student>();
+		
+		if(search.isEmpty()) {
+			students = startingStudents;
+			return;
+		}
+		
+		String[] searchParts = search.split(",");
+		
+		for(Student s: students)
+				if(s.getIndexNum().toLowerCase().contains(searchParts[0].toLowerCase()) && 
+						s.getName().toLowerCase().contains(searchParts[1].toLowerCase().replaceAll("\\W", "")) &&
+						s.getSurname().toLowerCase().contains(searchParts[2].toLowerCase().replaceAll("\\W", "")))
+					foundStudents.add(s);
+		
+		students = foundStudents;
 	}
 	
 	private ArrayList<Student> convertExcel() throws IOException{

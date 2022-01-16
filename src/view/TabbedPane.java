@@ -153,6 +153,34 @@ public class TabbedPane extends JTabbedPane {
 				//TODO add student table
 				table = new StudentTable();
 				add(new JScrollPane(table), BorderLayout.CENTER);
+				TableRowSorter<AbstractTableModelStudent> sorterStudent = new TableRowSorter(table.getModel());
+				
+				sorterStudent.setComparator(0, new Comparator<String>() {
+					@Override
+					public int compare(String o1, String o2) {
+						// TODO Auto-generated method stub
+						String letters1 = o1.replaceAll("\\W[0-9]+", "");
+						String letters2 = o1.replaceAll("\\W[0-9]+", "");
+						
+						//String year1 = o1.substring(o1.length() - 4);
+						//String year2 = o2.substring(o2.length() - 4);
+						
+						String ordinal1 = o1.replaceAll("[A-Z][A-Z]\\W", "").substring(0, o1.replaceAll("[A-Z][A-Z]\\W", "").length()-5);
+						String ordinal2 = o2.replaceAll("[A-Z][A-Z]\\W", "").substring(0, o2.replaceAll("[A-Z][A-Z]\\W", "").length()-5);
+						
+						if(!letters1.equals(letters2)) {
+							return letters1.compareTo(letters2);
+						} else {
+							int ordinal1_int = Integer.parseInt(ordinal1);
+							int ordinal2_int = Integer.parseInt(ordinal2);
+							return Integer.compare(ordinal1_int, ordinal2_int);
+						}
+						
+					}
+				});
+				
+				
+				table.setRowSorter(sorterStudent);
 				break;
 			default:
 				System.out.println("Something Went Wrong");
