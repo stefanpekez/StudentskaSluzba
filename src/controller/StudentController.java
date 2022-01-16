@@ -133,6 +133,17 @@ public class StudentController {
 		return true;
 	}
 	
+	public boolean cancelGrade(int grade) {
+		Grade cancel = DBExamsPassed.getInstance().getSelectedGrade(grade);
+		DBExamsPassed.getInstance().removeGrade(grade);
+		
+		// remove from student passed exam
+		DBStudent.getInstance().removePassedExam(cancel.getStudent(), cancel);
+		// add exam to student
+		DBStudent.getInstance().addUnpassedExam(cancel.getStudent(), cancel.getSubject());
+		return true;
+	}
+	
 	public void setupPassedExamsDB(int index) {
 		ArrayList<Grade> grades  = DBStudent.getInstance().getSelectedStudent(index).getPassedExams();
 		

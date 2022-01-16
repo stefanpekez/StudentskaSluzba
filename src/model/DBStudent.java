@@ -140,8 +140,20 @@ public class DBStudent {
 		
 	}
 	
+	public void removePassedExam(Student student, Grade grade) {
+		for(Student s: students) {
+			if(s.equals(student)) s.removePassedExam(grade);
+		}
+	}
+	
 	public void addGrade(Grade g, int student) {
 		students.get(student).addGrade(g);
+	}
+	
+	public void addUnpassedExam(Student student, Subject subject) {
+		for(Student s: students) {
+			if(s.equals(student)) s.addUnpassedexam(subject);;
+		}
 	}
 	
 	private ArrayList<Student> convertExcel() throws IOException{

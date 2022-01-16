@@ -217,7 +217,15 @@ public class Student {
 		}
 	}
 	
+	public void removePassedExam(Grade grade) {
+		passedExams.remove(grade);
+	}
+	
 	public void addGrade(Grade g) {
 		passedExams.add(g);
+	}
+	
+	public void addUnpassedexam(Subject s) {
+		remainingExams.add(s);
 	}
 }

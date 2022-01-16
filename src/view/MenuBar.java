@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -14,6 +13,7 @@ import javax.swing.KeyStroke;
 import view.dialogue.DeleteProfessorDialogue;
 import view.dialogue.DeleteStudentDialogue;
 import view.dialogue.DeleteSubjectDialogue;
+import view.dialogue.DepartmentListDialogue;
 import view.dialogue.NewProfessorDialogue;
 import view.dialogue.NewStudentDialogue;
 import view.dialogue.NewSubjectDialogue;
@@ -134,6 +134,14 @@ public class MenuBar extends JMenuBar {
 		departments.setMnemonic(KeyEvent.VK_4);
 		departments.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, ActionEvent.CTRL_MASK));
 		departments.setIcon(new ImageIcon("images/departments.png"));
+		departments.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new DepartmentListDialogue(parent).setVisible(true);;
+			}
+			
+		});
 		
 		file_open.add(students);
 		file_open.addSeparator();

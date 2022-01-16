@@ -1,6 +1,8 @@
 package view.dialogue.edit;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -9,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import controller.AbstractTableModelExamsPassed;
+import controller.AbstractTableModelStudent;
 import controller.StudentController;
 import view.TabbedPane.TablePanel;
 
@@ -23,7 +27,7 @@ public class EditStudentPassed extends JPanel {
 	private JPanel espbPanel;
 	private TablePanel tp;
 	
-	public EditStudentPassed(EditStudentDialogue editDialogue, TablePanel tp) {
+	public EditStudentPassed(EditStudentDialogue editDialogue, TablePanel tp, EditStudentTabbedPane tabbedpane) {
 		
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
@@ -33,6 +37,17 @@ public class EditStudentPassed extends JPanel {
 		
 		// Cancel Grade Button
 		JButton cancelGrade = new JButton("CANCEL GRADE");
+		cancelGrade.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(table.getSelectedRow() != -1) {
+					// controller cancel grade
+					new DeleteGradeDialogue(table.getSelectedRow(), tabbedpane).setVisible(true);
+				} else {
+					System.out.println("Please select a grade that you want to cancel");
+				}
+			}
+		});
 		
 		buttonPanel = new JPanel();
 		buttonPanel.add(cancelGrade);

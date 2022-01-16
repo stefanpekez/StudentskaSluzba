@@ -81,8 +81,10 @@ private static DBExamsPassed instance = null;
 		
 		this.avg = sum / examsPassed.size();
 		
-		if(examsPassed.size() == 0)
+		if(examsPassed.size() == 0) {
+			DBStudent.getInstance().getSelectedStudent(selectedStudent).setAvgGrade(0.0);
 			return 0.0;
+		}	
 		
 		DBStudent.getInstance().getSelectedStudent(selectedStudent).setAvgGrade(this.avg);
 		
@@ -99,4 +101,11 @@ private static DBExamsPassed instance = null;
 		return espb;
 	}
 	
+	public Grade getSelectedGrade(int index) {
+		return examsPassed.get(index);	
+	}
+	
+	public void removeGrade(int grade) {
+		examsPassed.remove(grade);
+	}
 }
