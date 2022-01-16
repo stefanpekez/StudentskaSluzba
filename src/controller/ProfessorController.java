@@ -112,6 +112,10 @@ public class ProfessorController {
 		}
 	}
 	
+	public String[] getProfessorList() {
+		return DBProfessor.getInstance().getProfessorList();
+	}
+	
 	public boolean deleteProfessor(int rowindex) {
 		DBProfessor.getInstance().deleteProfessor(rowindex);
 		return true;

@@ -167,6 +167,18 @@ public class DBProfessor {
 		return professors.get(row);
 	}
 	
+	public String[] getProfessorList() {
+		String[] list = new String[professors.size()];
+		
+		for(int i = 0; i < professors.size(); ++i) {
+			Professor p = professors.get(i);
+			list[i] = p.getName() + " " + p.getSurname();
+			System.out.println(list[i]);
+		}
+		
+		return list;
+	}
+	
 	public void serialize() throws IOException {
 		File f = new File("saves\\professors.json");
 		OutputStream os = new BufferedOutputStream(new FileOutputStream(f));

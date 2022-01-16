@@ -145,6 +145,21 @@ public class DBSubject {
 		return subjects.get(index);
 	}
 	
+	public String getSelectedSubjectProfessor(int index) {
+		Professor prof = subjects.get(index).getSubjectProfessor();
+		if(prof != null) return prof.getName() + " " + prof.getSurname();
+		
+		return "";
+	}
+	
+	public void editSubjectProfessor(int subject, int professor) {
+		if(professor == -1) {
+			subjects.get(subject).setSubjectProfessor(null);
+		} else {
+			subjects.get(subject).setSubjectProfessor(DBProfessor.getInstance().getProfessor(professor));
+		}
+	}
+	
 	private ArrayList<Subject> convertExcel() throws IOException{
 		try {
 			FileInputStream excelFile = new FileInputStream(new File("testpodaci.xlsx"));

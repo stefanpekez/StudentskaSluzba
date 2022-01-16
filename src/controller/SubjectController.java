@@ -85,6 +85,14 @@ public class SubjectController {
 		DBSubject.getInstance().editSubject(selectedSubjectIdx, subjectID, subjectName, espb, year, semester);
 	}
 	
+	public void editSubjectProfessor(int subject, int professor) {
+		DBSubject.getInstance().editSubjectProfessor(subject, professor);
+	}
+	
+	public String getSubjectProfessor(int index) {
+		return DBSubject.getInstance().getSelectedSubjectProfessor(index);
+	}
+	
 	public String getID(int row){
 		return DBSubject.getInstance().getSelectedSubject(row).getSubjectID();
 	}
