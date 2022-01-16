@@ -24,6 +24,7 @@ public class NewTF extends JPanel {
 	private JTextField field;
 	private NewProfessorDialogue dg;
 	private NewStudentDialogue dgs;
+	private NewSubjectDialogue dgsub;
 	private boolean gainedFocusOnce;
 	
 	public NewTF(String name, NewProfessorDialogue dialogue, String preset) {
@@ -61,6 +62,7 @@ public class NewTF extends JPanel {
 		
 		field = new JTextField(15);
 		field.setToolTipText(tooltipText);
+		this.name.setForeground(Color.red);
 		
 		init();
 		
@@ -81,6 +83,34 @@ public class NewTF extends JPanel {
 		
 		add();
 		
+	}
+	
+	public NewTF(String name, NewSubjectDialogue dialogue, String preset) {
+
+		dgsub = dialogue;
+		this.name = new JLabel(name);
+		field = new JTextField(15);
+		field.setToolTipText(preset);
+		this.name.setForeground(Color.red);
+		
+		init();
+		
+		field.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				dgsub.checkAllFields();
+			}
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				dgsub.checkAllFields();
+			}
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				dgsub.checkAllFields();
+			}
+		});
+		
+		add();
 	}
 	
 	public NewTF(String name, GradeInputDialogue dialogue, String preset) {

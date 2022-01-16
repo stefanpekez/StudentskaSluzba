@@ -26,6 +26,14 @@ public class Subject {
 		this.studentsFAILED = new ArrayList<Student>();
 	}
 	
+	public Subject(String subjectID, String subjectName, int ESPB, String year, String currentSemester) {
+		this.subjectID = subjectID;
+		this.subjectName = subjectName;
+		this.ESPB = ESPB;
+		this.year = year;
+		this.currentSemester = currentSemester;
+	}
+	
 	public Subject() {
 		this.studentsPASSED = new ArrayList<Student>();
 		this.studentsFAILED = new ArrayList<Student>();

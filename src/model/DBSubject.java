@@ -88,6 +88,21 @@ public class DBSubject {
 		}
 	}
 	
+	public void addNewSubject(String subjectID, String subjectName, int espb, String year, String semester) {
+
+		subjects.add(new Subject(subjectID, subjectName, espb, year, semester));
+	}
+	
+	public void editSubject(int selectedSubject, String subjectID, String subjectName, int espb, String year, String semester) {
+		Subject subject = getSelectedSubject(selectedSubject);
+		
+		subject.setSubjectID(subjectID);
+		subject.setSubjectName(subjectName);
+		subject.setESPB(espb);
+		subject.setYear(year);
+		subject.setCurrentSemester(semester);
+	}
+	
 	public void subjectSearchOne(String query) {
 		ArrayList<Subject> searchSubjects = new ArrayList<Subject>();
 		
@@ -124,6 +139,10 @@ public class DBSubject {
 	
 	public void deleteSubject(int row) {
 		subjects.remove(row);
+	}
+	
+	public Subject getSelectedSubject(int index) {
+		return subjects.get(index);
 	}
 	
 	private ArrayList<Subject> convertExcel() throws IOException{

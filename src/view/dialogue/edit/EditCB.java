@@ -22,9 +22,8 @@ public class EditCB extends JPanel {
 		add(Box.createHorizontalGlue());
 		
 		cb = new JComboBox<>(list);
-		cb.setPrototypeDisplayValue("XXXXXXXXXXXXXXXX");
 		
-		if(name.equals("Trenutna godina studija*     ")) {
+		if(temp.equals("cyos")) {
 			switch(selectedOption) {
 				case "1":
 					cb.setSelectedIndex(0);
@@ -39,7 +38,7 @@ public class EditCB extends JPanel {
 					cb.setSelectedIndex(3);
 					break;
 			}
-		} else {
+		} else if(temp.equals("b")){
 			switch(selectedOption) {
 			case "0":
 				cb.setSelectedIndex(0);
@@ -48,10 +47,33 @@ public class EditCB extends JPanel {
 				cb.setSelectedIndex(1);
 				break;
 			}
+		} else if(temp.equals("year")) {
+			switch(selectedOption) {
+			case "1":
+				cb.setSelectedIndex(0);
+				break;
+			case "2":
+				cb.setSelectedIndex(1);
+				break;
+			case "3":
+				cb.setSelectedIndex(2);
+				break;
+			case "4":
+				cb.setSelectedIndex(3);
+				break;
+			}
+		} else {
+			switch(selectedOption) {
+			case "ZIMSKI":
+				cb.setSelectedIndex(0);
+				break;
+			case "LETNJI":
+				cb.setSelectedIndex(1);
+				break;
+			}
 		}
 		
 		add(cb);
-		//setVisible(true);
 	}
 	
 	public JComboBox getComboBox() {

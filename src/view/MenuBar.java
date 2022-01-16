@@ -16,8 +16,10 @@ import view.dialogue.DeleteStudentDialogue;
 import view.dialogue.DeleteSubjectDialogue;
 import view.dialogue.NewProfessorDialogue;
 import view.dialogue.NewStudentDialogue;
+import view.dialogue.NewSubjectDialogue;
 import view.dialogue.edit.EditProfessorDialogue;
 import view.dialogue.edit.EditStudentDialogue;
+import view.dialogue.edit.EditSubjectDialogue;
 
 public class MenuBar extends JMenuBar {
 	
@@ -53,6 +55,7 @@ public class MenuBar extends JMenuBar {
 					break;
 				case 2:
 					System.out.println("Subject");
+					new NewSubjectDialogue(getParent(), tables.getSubjectTab());
 					break;
 				default:
 					throw new IllegalArgumentException("Unexpected value: " + tables.getSelectedIndex());
@@ -178,8 +181,12 @@ public class MenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				switch (tables.getSelectedIndex()) {
-				case 0: 
-					new EditStudentDialogue(getParent(), tables.getStudentTab());
+				case 0:
+					if(tables.getStudentTab().getTable().getSelectedRow() != -1) {
+						new EditStudentDialogue(getParent(), tables.getStudentTab());
+					} else {
+						System.out.println("Please select a row to edit");
+					}
 					break;
 				case 1:
 					if(tables.getProfessorTab().getTable().getSelectedRow() != -1) {
@@ -189,6 +196,11 @@ public class MenuBar extends JMenuBar {
 					}
 					break;
 				case 2:
+					if(tables.getSubjectTab().getTable().getSelectedRow() != -1) {
+						new EditSubjectDialogue(getParent(), tables.getSubjectTab());
+					} else {
+						System.out.println("Please select a row to edit");
+					}
 					break;
 				default:
 					throw new IllegalArgumentException("Unexpected value: " + tables.getSelectedIndex());

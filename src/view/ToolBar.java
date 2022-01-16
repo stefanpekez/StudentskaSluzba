@@ -21,8 +21,10 @@ import view.dialogue.DeleteSubjectDialogue;
 import view.dialogue.DeleteStudentDialogue;
 import view.dialogue.NewProfessorDialogue;
 import view.dialogue.NewStudentDialogue;
+import view.dialogue.NewSubjectDialogue;
 import view.dialogue.edit.EditProfessorDialogue;
 import view.dialogue.edit.EditStudentDialogue;
+import view.dialogue.edit.EditSubjectDialogue;
 
 public class ToolBar extends JToolBar {
 	
@@ -59,6 +61,7 @@ public class ToolBar extends JToolBar {
 					break;
 				case 2:
 					System.out.println("Subject");
+					new NewSubjectDialogue(getParent(), tables.getSubjectTab());
 					break;
 				default:
 					throw new IllegalArgumentException("Unexpected value: " + tables.getSelectedIndex());
@@ -94,6 +97,10 @@ public class ToolBar extends JToolBar {
 					}
 					break;
 				case 2:
+					if(tables.getSubjectTab().getTable().getSelectedRow() != -1)
+						new EditSubjectDialogue(getParent(), tables.getSubjectTab());
+					else
+						System.out.println("Please select a subject to edit");
 					break;
 				default:
 					throw new IllegalArgumentException("Unexpected value: " + tables.getSelectedIndex());
