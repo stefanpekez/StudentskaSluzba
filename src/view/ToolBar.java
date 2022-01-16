@@ -15,6 +15,7 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import controller.ProfessorController;
+import controller.StudentController;
 import controller.SubjectController;
 import view.dialogue.DeleteProfessorDialogue;
 import view.dialogue.DeleteSubjectDialogue;
@@ -192,6 +193,8 @@ public class ToolBar extends JToolBar {
 				switch (tables.getSelectedIndex()) {
 				case 0:
 					System.out.println("Student search");
+					StudentController.getInstance().searchStudent(txtF.getText());
+					tables.getStudentTab().updateView();
 					break;
 				case 1:
 					System.out.println("Professor search");
