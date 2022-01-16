@@ -56,7 +56,6 @@ public class StudentController {
 		int studentYOE = Integer.parseInt(yoePanel.getTextField().getText());
 		
 		int studentCYOS = 1 + cyosPanel.getComboBox().getSelectedIndex();
-		System.out.println(studentCYOS);
 		
 		int studentFinansing = budgetPanel.getComboBox().getSelectedIndex();
 		
@@ -86,7 +85,6 @@ public class StudentController {
 		int studentYOE = Integer.parseInt(yoePanel.getTextField().getText());
 		
 		int studentCYOS = 1 + cyosPanel.getComboBox().getSelectedIndex();
-		System.out.println(studentCYOS);
 		
 		int studentFinansing = budgetPanel.getComboBox().getSelectedIndex();
 		

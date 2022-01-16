@@ -10,9 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 
 import controller.AbstractTableModelExams;
-import controller.AbstractTableModelExamsPassed;
 import controller.StudentController;
-import model.DBExamsPassed;
 import utilities.FormatCheckRegex;
 import view.dialogue.NewCB;
 import view.dialogue.NewTF;

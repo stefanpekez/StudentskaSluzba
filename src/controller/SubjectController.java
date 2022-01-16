@@ -1,7 +1,15 @@
 package controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import model.DBProfessor;
+import model.DBStudent;
 import model.DBSubject;
+import view.dialogue.NewCB;
+import view.dialogue.NewTF;
+import view.dialogue.edit.EditCB;
+import view.dialogue.edit.EditTF;
 
 public class SubjectController {
 	
@@ -33,5 +41,67 @@ public class SubjectController {
 			System.out.println("Wrong query format");
 			break;
 		}
+	}
+	
+	public void addNewSubject(NewTF idPanel, NewTF subjectNamePanel, NewTF espbPanel, NewCB yearPanel, NewCB currentSemesterPanel) {
+		
+		// TODO regex parsing
+		
+		String subjectID = idPanel.getTextField().getText();
+		
+		String subjectName = subjectNamePanel.getTextField().getText();
+		
+		int espb = Integer.parseInt(espbPanel.getTextField().getText());
+		
+		String year = Integer.toString(1 + yearPanel.getComboBox().getSelectedIndex());
+		
+		String semester = null;
+		if(currentSemesterPanel.getComboBox().getSelectedIndex() == 0)
+			semester = "ZIMSKI";
+		else
+			semester = "LETNJI";
+		
+		DBSubject.getInstance().addNewSubject(subjectID, subjectName, espb, year, semester);
+	}
+	
+	public void editSubject(int selectedSubject, EditTF idPanel, EditTF subjectNamePanel, EditTF espbPanel, EditCB yearPanel, EditCB currentSemesterPanel) {
+		
+		int selectedSubjectIdx = selectedSubject;
+		
+		String subjectID = idPanel.getTextField().getText();
+		
+		String subjectName = subjectNamePanel.getTextField().getText();
+		
+		int espb = Integer.parseInt(espbPanel.getTextField().getText());
+		
+		String year = Integer.toString(1 + yearPanel.getComboBox().getSelectedIndex());
+		
+		String semester = null;
+		if(currentSemesterPanel.getComboBox().getSelectedIndex() == 0)
+			semester = "ZIMSKI";
+		else
+			semester = "LETNJI";
+		
+		DBSubject.getInstance().editSubject(selectedSubjectIdx, subjectID, subjectName, espb, year, semester);
+	}
+	
+	public String getID(int row){
+		return DBSubject.getInstance().getSelectedSubject(row).getSubjectID();
+	}
+	
+	public String getName(int row){
+		return DBSubject.getInstance().getSelectedSubject(row).getSubjectName();
+	}
+	
+	public String getESPB(int row){
+		return Integer.toString(DBSubject.getInstance().getSelectedSubject(row).getESPB());
+	}
+	
+	public String getYear(int row){
+		return DBSubject.getInstance().getSelectedSubject(row).getYear();
+	}
+	
+	public String getCurrentSemester(int row) {
+		return DBSubject.getInstance().getSelectedSubject(row).getCurrentSemester();
 	}
 }
