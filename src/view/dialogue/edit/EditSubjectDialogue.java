@@ -26,10 +26,12 @@ public class EditSubjectDialogue extends JDialog {
 	private JButton accept;
 	private JButton exit;
 	
+	private SetSubjectProfessor professor;
+	
 	public EditSubjectDialogue(Container mainframe, TablePanel tp) {
 		BoxLayout boxLayout = new BoxLayout(getContentPane(), BoxLayout.Y_AXIS);
 		
-		setSize(500, 300);
+		setSize(500, 330);
 		setLocationRelativeTo(mainframe);
 		setTitle("Edit Subject");
 		setLayout(boxLayout);
@@ -45,6 +47,8 @@ public class EditSubjectDialogue extends JDialog {
 		yearPanel = new EditCB("Year*", year, SubjectController.getInstance().getYear(selectedSubjectIdx), "year");
 		currentSemesterPanel = new EditCB("Semester*", currentSemester, SubjectController.getInstance().getCurrentSemester(selectedSubjectIdx), "currentS");
 		
+		professor = new SetSubjectProfessor(selectedSubjectIdx, this);
+		
 		buttonsPanel = new JPanel();
 		
 		//accept button
@@ -55,6 +59,7 @@ public class EditSubjectDialogue extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				SubjectController.getInstance().editSubject(selectedSubjectIdx, idPanel, subjectNamePanel, espbPanel, yearPanel, currentSemesterPanel);
+				SubjectController.getInstance().editSubjectProfessor(selectedSubjectIdx, professor.getSelectedProfessor());
 				tp.updateView();
 				dispose();
 			}
@@ -76,6 +81,7 @@ public class EditSubjectDialogue extends JDialog {
 		add(espbPanel);
 		add(yearPanel);
 		add(currentSemesterPanel);
+		add(professor);
 		add(buttonsPanel);
 		
 		setResizable(false);

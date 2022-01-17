@@ -181,6 +181,16 @@ public class DBProfessor {
 		
 		return professorList;
 		
+	public String[] getProfessorList() {
+		String[] list = new String[professors.size()];
+		
+		for(int i = 0; i < professors.size(); ++i) {
+			Professor p = professors.get(i);
+			list[i] = p.getName() + " " + p.getSurname();
+			System.out.println(list[i]);
+		}
+		
+		return list;
 	}
 	
 	public void serialize() throws IOException {
