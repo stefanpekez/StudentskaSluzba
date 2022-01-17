@@ -202,7 +202,11 @@ public class DBSubject {
 						subj.setESPB((int) currentCell.getNumericCellValue());
 						break;
 					case 5:
-						//
+						try {
+							subj.setSubjectProfessor(DBProfessor.getInstance().getProfessor((int) currentCell.getNumericCellValue() - 1));
+						} catch(IllegalStateException e) {
+							subj.setSubjectProfessor(null);
+						}
 						break;
 					case 6:
 						subj.setCurrentSemester(currentCell.getStringCellValue());

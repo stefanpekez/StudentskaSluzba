@@ -223,6 +223,13 @@ public class Student {
 	
 	public void addGrade(Grade g) {
 		passedExams.add(g);
+		
+		int sum = 0;
+		for(Grade gr: passedExams) {
+			sum += gr.getGradeValue();
+		}
+		
+		this.avgGrade = (double) sum/passedExams.size();
 	}
 	
 	public void addUnpassedexam(Subject s) {

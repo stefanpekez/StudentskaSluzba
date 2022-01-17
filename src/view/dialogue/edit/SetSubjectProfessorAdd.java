@@ -44,6 +44,7 @@ public class SetSubjectProfessorAdd extends JDialog{
 				if(professors.getSelectedIndex() != -1) {
 					panel.setFieldText(professors.getSelectedValue());
 					panel.setSelectedProfessor(professors.getSelectedIndex());
+					panel.settAddFalseRemoveTrue();
 					dispose();
 				} else {
 					System.out.println("Please select a professor");

@@ -14,6 +14,10 @@ public class Address {
 		this.country = country;
 	}
 	
+	public Address() {
+		
+	}
+	
 	public Address(String unparsed) {
 		String[] split = unparsed.split(",");
 		
@@ -77,7 +81,7 @@ public class Address {
 		if(number == "" && city == "" && country == "") {
 			return street;
 		} else {
-			return String.format("%s, %d, %s, %s", street, number, city, country);
+			return String.format("%s, %s, %s, %s", street, number, city, country);
 		}
 	}
 	

@@ -81,7 +81,7 @@ public class DBDepartments {
     			if(rowNumber == 0) {
     				rowNumber++;
     				continue;
-    			} else if (rowNumber == 20) break;
+    			} else if (rowNumber == 7) break;
     			
     			Iterator<Cell> cellsInRow = currentRow.iterator();
     			Department dep = new Department();
@@ -99,7 +99,11 @@ public class DBDepartments {
 						dep.setName(currentCell.getStringCellValue());
 						break;
 					case 3:
-						//
+						try {
+							dep.setDepartmentHead(DBProfessor.getInstance().getProfessor((int) currentCell.getNumericCellValue() - 1));
+						} catch(IllegalStateException e) {
+							dep.setDepartmentHead(null);
+						}
 						break;
 					default:
 						break;

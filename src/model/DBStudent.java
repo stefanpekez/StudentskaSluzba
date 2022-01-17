@@ -56,7 +56,6 @@ public class DBStudent {
 			e.printStackTrace();
 		}
 		
-		students.get(students.size() - 1).addRemainingExam(new Subject("39","Analiza","1","1",4));
 		startingStudents = students;
 	}
 	
@@ -228,7 +227,7 @@ public class DBStudent {
     			if(rowNumber == 0) {
     				rowNumber++;
     				continue;
-    			} else if (rowNumber == 27) break;
+    			} else if (rowNumber == 28) break;
     			
     			Iterator<Cell> cellsInRow = currentRow.iterator();
     			Student stud = new Student();
@@ -256,7 +255,11 @@ public class DBStudent {
 						stud.setDateOfBirth(LocalDate.parse(currentCell.getStringCellValue(), formatter));
 						break;
 					case 6:
-						stud.setHomeAddress(new Address("BB"));
+						try {
+							stud.setHomeAddress(DBAddress.getInstance().getAddress((int)currentCell.getNumericCellValue()));
+						} catch(IllegalStateException e) {
+							stud.setHomeAddress(DBAddress.getInstance().getAddress(-1));
+						}
 						break;
 					case 7:
 						stud.setPhoneNumber(currentCell.getStringCellValue());
@@ -284,6 +287,122 @@ public class DBStudent {
     		workbook.close();
  
     		return list;
+    		
+		} finally {
+			
+		}
+	}
+	
+	public void setupUnpassed() throws IOException {
+		try {
+			FileInputStream excelFile = new FileInputStream(new File("testpodaci.xlsx"));
+			Workbook workbook = new XSSFWorkbook(excelFile);
+			
+			Sheet sheet = workbook.getSheet("Nepoloženi predmeti");
+			Iterator<Row> rows = sheet.iterator();
+			
+			
+			int rowNumber = 0;
+    		while (rows.hasNext()) {
+    			Row currentRow = (Row) rows.next();
+    			System.out.println(rowNumber);
+    			// skip header
+    			if(rowNumber == 0) {
+    				rowNumber++;
+    				continue;
+    			} else if (rowNumber == 13) break;
+    			
+    			Iterator<Cell> cellsInRow = currentRow.iterator();
+    			int cellIndex = 0;
+    			
+    			int studentIndex = 0;
+    			int subjectIndex = 0;
+    			
+    			while (cellsInRow.hasNext()) {
+    				Cell currentCell = (Cell) cellsInRow.next();
+    				
+    				switch (cellIndex) {
+					case 0:
+						studentIndex = (int) currentCell.getNumericCellValue() - 1;
+						break;
+					case 1:
+						subjectIndex = (int) currentCell.getNumericCellValue() - 1;
+						break;
+					default:
+						break;
+					}
+    				System.out.println(String.format("%d -> %d", studentIndex, subjectIndex));
+    				cellIndex++;
+    			}
+    			
+    			addUnpassedExam(getSelectedStudent(studentIndex), DBSubject.getInstance().getSelectedSubject(subjectIndex));
+    			
+    			rowNumber++;
+    		}
+    		
+    		workbook.close();
+    		
+		} finally {
+			
+		}
+	}
+	
+	public void setupPassed() throws IOException{
+		try {
+			FileInputStream excelFile = new FileInputStream(new File("testpodaci.xlsx"));
+			Workbook workbook = new XSSFWorkbook(excelFile);
+			
+			Sheet sheet = workbook.getSheet("Ocene");
+			Iterator<Row> rows = sheet.iterator();
+			
+			
+			int rowNumber = 0;
+    		while (rows.hasNext()) {
+    			Row currentRow = (Row) rows.next();
+    			System.out.println(rowNumber);
+    			// skip header
+    			if(rowNumber == 0) {
+    				rowNumber++;
+    				continue;
+    			} else if (rowNumber == 13) break;
+    			
+    			Iterator<Cell> cellsInRow = currentRow.iterator();
+    			int cellIndex = 0;
+    			
+    			Grade grade = new Grade();
+    			int student = 0;
+    			
+    			while (cellsInRow.hasNext()) {
+    				Cell currentCell = (Cell) cellsInRow.next();
+    				
+    				switch (cellIndex) {
+					case 0:
+						student = (int) currentCell.getNumericCellValue() - 1;
+						grade.setStudent(getSelectedStudent(student));
+						break;
+					case 1:
+						grade.setSubject(DBSubject.getInstance().getSelectedSubject((int) currentCell.getNumericCellValue() - 1));
+						break;
+					case 2:
+						grade.setGradeValue((int)currentCell.getNumericCellValue());
+						break;
+					case 3:
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
+						grade.setDateOfPassingExam(LocalDate.parse(currentCell.getStringCellValue(), formatter));
+						break;
+					default:
+						break;
+					}
+    				
+    				cellIndex++;
+    			}
+    			
+    			addGrade(grade, student);
+    			
+    			rowNumber++;
+    		}
+    		
+    		workbook.close();
     		
 		} finally {
 			
