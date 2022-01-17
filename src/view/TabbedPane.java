@@ -161,13 +161,11 @@ public class TabbedPane extends JTabbedPane {
 						// TODO Auto-generated method stub
 						String letters1 = o1.replaceAll("\\W[0-9]+", "");
 						String letters2 = o2.replaceAll("\\W[0-9]+", "");
-						System.out.println(letters1);
-						
-						//String year1 = o1.substring(o1.length() - 4);
-						//String year2 = o2.substring(o2.length() - 4);
 						
 						String ordinal1 = o1.replaceAll("[A-Z][A-Z]\\W", "").substring(0, o1.replaceAll("[A-Z][A-Z]\\W", "").length()-5);
 						String ordinal2 = o2.replaceAll("[A-Z][A-Z]\\W", "").substring(0, o2.replaceAll("[A-Z][A-Z]\\W", "").length()-5);
+						System.out.println(ordinal1 + "test");
+						
 						
 						if(!letters1.equals(letters2)) {
 							return letters1.compareTo(letters2);

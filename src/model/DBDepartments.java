@@ -43,6 +43,26 @@ public class DBDepartments {
 		return list;
 	}
 	
+	public Department getSelectedDepartment(int row) {
+		return departments.get(row);
+	}
+	
+	public boolean setDepartmentBoss(int selectedDepartment, int selectedProfessor) {
+		
+		Professor prof = DBProfessor.getInstance().getProfessor(selectedProfessor);
+		
+		//	Checks if selectedProfessor is already head of a department
+		for(Department d: departments) {
+			if(d.getDepartmentHead() == prof) {
+				System.out.println("Professor " + prof.getName() + " " + prof.getSurname() + " is already a head of a department");
+				return false;
+			}
+		}
+		
+		getSelectedDepartment(selectedDepartment).setDepartmentHead(DBProfessor.getInstance().getProfessor(selectedProfessor));
+		return true;
+	}
+	
 	private ArrayList<Department> convertExcel() throws IOException{
 		try {
 			FileInputStream excelFile = new FileInputStream(new File("testpodaci.xlsx"));
