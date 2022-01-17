@@ -1,8 +1,11 @@
 package model;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,6 +16,10 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
+import com.thoughtworks.xstream.security.AnyTypePermission;
 
 public class DBSubject {
 	
@@ -160,6 +167,20 @@ public class DBSubject {
 		}
 	}
 	
+	public void serialize() throws IOException {
+		File f = new File("saves\\subjects.json");
+		OutputStream os = new BufferedOutputStream(new FileOutputStream(f));
+		
+		try {
+			XStream xs = new XStream(new JettisonMappedXmlDriver());
+			xs.addPermission(AnyTypePermission.ANY);
+			String s = xs.toXML(subjects);
+			xs.toXML(subjects, os);
+		} finally {
+			os.close();
+		}
+	}
+	
 	private ArrayList<Subject> convertExcel() throws IOException{
 		try {
 			FileInputStream excelFile = new FileInputStream(new File("testpodaci.xlsx"));
@@ -202,7 +223,11 @@ public class DBSubject {
 						subj.setESPB((int) currentCell.getNumericCellValue());
 						break;
 					case 5:
-						//
+						try {
+							subj.setSubjectProfessor(DBProfessor.getInstance().getProfessor((int) currentCell.getNumericCellValue() - 1));
+						} catch(IllegalStateException e) {
+							subj.setSubjectProfessor(null);
+						}
 						break;
 					case 6:
 						subj.setCurrentSemester(currentCell.getStringCellValue());

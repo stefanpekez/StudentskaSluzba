@@ -16,6 +16,10 @@ public class Grade {
 			this.gradeValue = gradeValue;
 		this.dateOfPassingExam = dateOfPassingExam;
 	}
+	
+	public Grade() {
+		
+	}
 
 	public Student getStudent() {
 		return student;

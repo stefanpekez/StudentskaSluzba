@@ -180,6 +180,7 @@ public class DBProfessor {
 			professorList[i] = acceptableProfessors.get(i).toString();
 		
 		return professorList;
+	}
 		
 	public String[] getProfessorList() {
 		String[] list = new String[professors.size()];
@@ -250,7 +251,7 @@ public class DBProfessor {
 						profa.setDateOfBirth(LocalDate.parse(currentCell.getStringCellValue(), formatter));
 						break;
 					case 5:
-						profa.setHomeAdress(new Address("BB"));
+						profa.setHomeAdress(DBAddress.getInstance().getAddress((int)currentCell.getNumericCellValue()));
 						break;
 					case 6:
 						profa.setPhoneNumber(currentCell.getStringCellValue());
@@ -259,7 +260,7 @@ public class DBProfessor {
 						profa.setEmailAdress(currentCell.getStringCellValue());
 						break;
 					case 8:
-						profa.setOfficeAdress(new Address("BB"));
+						profa.setOfficeAdress(DBAddress.getInstance().getAddress((int)currentCell.getNumericCellValue()));
 						break;
 					case 9:
 						profa.setWorkingYears((int)currentCell.getNumericCellValue());

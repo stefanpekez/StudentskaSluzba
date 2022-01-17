@@ -12,7 +12,11 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+import model.DBAddress;
+import model.DBDepartments;
 import model.DBProfessor;
+import model.DBStudent;
+import model.DBSubject;
 
 public class MainFrame extends JFrame {
 
@@ -60,6 +64,10 @@ public class MainFrame extends JFrame {
 	public void serialize() {
 		try {
 			DBProfessor.getInstance().serialize();
+			DBStudent.getInstance().serialize();
+			DBSubject.getInstance().serialize();
+			DBDepartments.getInstance().serialize();
+			DBAddress.getInstance().serialize();
 			System.out.println("Serialized!");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
