@@ -31,7 +31,7 @@ public class EditStudentPassed extends JPanel {
 		
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		int selectedStudent = tp.getTable().getSelectedRow();
+		int selectedStudent = tp.getTable().convertRowIndexToModel(tp.getTable().getSelectedRow());
 		
 		StudentController.getInstance().setupPassedExamsDB(selectedStudent);
 		

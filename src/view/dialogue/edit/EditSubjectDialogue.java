@@ -39,7 +39,7 @@ public class EditSubjectDialogue extends JDialog {
 		String[] currentSemester = { "ZIMSKI", "LETNJI"};
 		String[] year = { "1", "2", "3", "4"};
 		
-		int selectedSubjectIdx = tp.getTable().getSelectedRow();
+		int selectedSubjectIdx = tp.getTable().convertRowIndexToModel(tp.getTable().getSelectedRow());
 		
 		idPanel = new EditTF("ID*", this, SubjectController.getInstance().getID(selectedSubjectIdx));
 		subjectNamePanel = new EditTF("Subject Name*", this, SubjectController.getInstance().getName(selectedSubjectIdx));
