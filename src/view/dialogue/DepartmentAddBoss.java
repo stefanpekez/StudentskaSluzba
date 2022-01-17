@@ -12,16 +12,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import model.DBDepartments;
-import model.DBProfessor;
-import model.Professor;
+import controller.DepartmentController;
+import controller.ProfessorController;
 
 public class DepartmentAddBoss {
 	
 	private JList<String> professors;
 	private JButton plus;
 	private JButton minus;
-	private Professor prof;
 	
 	public DepartmentAddBoss(DepartmentListDialogue parent, JPanel listsPanel, JList<String> departments) {
 		
@@ -29,10 +27,10 @@ public class DepartmentAddBoss {
 		parent.setLocationRelativeTo(parent);
 		
 		//	Shows current head of department right after pressing ADD BOSS
-		if(DBDepartments.getInstance().getSelectedDepartment(departments.getSelectedIndex()).getDepartmentHead() == null)
+		if(DepartmentController.getInstance().getSelectedDepartment(departments.getSelectedIndex()).getDepartmentHead() == null)
 			parent.setCurrenDHText("There is no department head assigned for selected department");
 		else
-			parent.setCurrenDHText(DBDepartments.getInstance().getSelectedDepartment(departments.getSelectedIndex()).getDepartmentHead().toString());
+			parent.setCurrenDHText(DepartmentController.getInstance().getSelectedDepartment(departments.getSelectedIndex()).getDepartmentHead().toString());
 		
 		//	Updates info about current head of department when selecting different departments
 		departments.addMouseListener(new MouseListener() {
@@ -45,14 +43,13 @@ public class DepartmentAddBoss {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				prof = DBDepartments.getInstance().getSelectedDepartment(departments.getSelectedIndex()).getDepartmentHead();
-				if(prof == null) {
+				if(DepartmentController.getInstance().getSelectedDepartment(departments.getSelectedIndex()).getDepartmentHead() == null) {
 					minus.setEnabled(false);
 					parent.setCurrenDHText("There is no department head assigned for selected department");
 				}
 				else {
 					minus.setEnabled(true);
-					parent.setCurrenDHText(prof.toString());
+					parent.setCurrenDHText(DepartmentController.getInstance().getSelectedDepartment(departments.getSelectedIndex()).getDepartmentHead().toString());
 				}
 				
 			}
@@ -76,7 +73,7 @@ public class DepartmentAddBoss {
 			}
 		});
 		
-		professors = new JList<String>(DBProfessor.getInstance().getProfessorsOverWorkingYearLimit());
+		professors = new JList<String>(ProfessorController.getInstance().getProfessorsOverWorkingYearLimit());
 		JScrollPane professorScroller = new JScrollPane(professors);
 		
 		JPanel buttonsPanel = new JPanel();
@@ -90,9 +87,9 @@ public class DepartmentAddBoss {
 			public void actionPerformed(ActionEvent e) {
 				//	-1 means no professor is selected
 				if(professors.getSelectedIndex() != -1) {
-					if(DBDepartments.getInstance().setDepartmentBoss(departments.getSelectedIndex(), professors.getSelectedIndex())) {
+					if(DepartmentController.getInstance().setDepartmentBoss(departments.getSelectedIndex(), professors.getSelectedIndex())) {
 						minus.setEnabled(true);
-						parent.setCurrenDHText(DBDepartments.getInstance().getSelectedDepartment(departments.getSelectedIndex()).getDepartmentHead().toString());
+						parent.setCurrenDHText(DepartmentController.getInstance().getSelectedDepartment(departments.getSelectedIndex()).getDepartmentHead().toString());
 					}
 				} else JOptionPane.showMessageDialog(parent, "Professor not selected", "Error", 0);
 			}
@@ -101,7 +98,7 @@ public class DepartmentAddBoss {
 		minus = new JButton("-");
 		
 		//	Turns off minus button if there already is a head for the selected department
-		if(prof == null)
+		if(DepartmentController.getInstance().getSelectedDepartment(departments.getSelectedIndex()).getDepartmentHead() == null)
 			minus.setEnabled(false);
 		else
 			minus.setEnabled(true);
@@ -111,7 +108,7 @@ public class DepartmentAddBoss {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				DBDepartments.getInstance().getSelectedDepartment(departments.getSelectedIndex()).setDepartmentHead(null);
+				DepartmentController.getInstance().getSelectedDepartment(departments.getSelectedIndex()).setDepartmentHead(null);
 				parent.setCurrenDHText("There is no department head assigned for selected department");
 				minus.setEnabled(false);
 			}

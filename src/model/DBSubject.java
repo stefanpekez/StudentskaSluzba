@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -144,12 +145,52 @@ public class DBSubject {
 		subjects = searchSubjects;
 	}
 	
+	public String[] getSubjectList(int selectedStudent){
+		
+		ArrayList<Subject> possibleUnpassedExams = subjects;
+		ArrayList<Subject> remainingExams = DBStudent.getInstance().getSelectedStudent(selectedStudent).getRemainingExams();
+		//ArrayList<Subject> remainingExams = DBExams.getInstance().getExamsRemaining();
+		ArrayList<Grade> passedExamsGrade = DBStudent.getInstance().getSelectedStudent(selectedStudent).getPassedExams();
+		ArrayList<Subject> passedExamsSubject = new ArrayList<Subject>();
+		HashMap<String, Subject> hashSubjects = new HashMap<String, Subject>();
+		
+		for(Grade g: passedExamsGrade)
+			passedExamsSubject.add(g.getSubject());
+		
+		String[] subjectArray = new String[possibleUnpassedExams.size()-(remainingExams.size()+passedExamsSubject.size())];
+		
+		int i = 0;
+		for(Subject s: possibleUnpassedExams) {
+			if((!remainingExams.contains(s)) && (!passedExamsSubject.contains(s))) {
+				hashSubjects.put(s.getSubjectID(), s);
+				subjectArray[i] = s.toString();
+				++i;
+			}
+		}
+		
+		return subjectArray;
+	}
+	
+	public void deleteUnpassedExam(int indexStudent, String indexSubject) {
+		Subject subject = DBSubject.getInstance().getSelectedSubject(indexSubject);
+		
+		DBStudent.getInstance().getSelectedStudent(indexStudent).removeUnpassedExam(subject);
+	}
+	
 	public void deleteSubject(int row) {
 		subjects.remove(row);
 	}
 	
 	public Subject getSelectedSubject(int index) {
 		return subjects.get(index);
+	}
+	
+	public Subject getSelectedSubject(String id) {
+		for(Subject s: subjects) {
+			if(s.getSubjectID().equals(id))
+				return s;
+		}
+		return null;
 	}
 	
 	public String getSelectedSubjectProfessor(int index) {

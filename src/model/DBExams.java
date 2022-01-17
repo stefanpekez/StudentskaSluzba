@@ -68,4 +68,18 @@ public class DBExams {
 			throw new IllegalArgumentException("Unexpected value: " + column);
 		}
 	}
+	
+	public void addUnpassedExam(String selectedSubject, int selectedStudent) {
+		String[] parse = selectedSubject.split(",");
+		
+		Subject subject = DBSubject.getInstance().getSelectedSubject(parse[0].replace("\\W", ""));
+		if(subject != null) {
+			DBStudent.getInstance().getSelectedStudent(selectedStudent).addRemainingExam(subject);
+			//exams.add(subject);
+		}
+	}
+	
+	public ArrayList<Subject> getExamsRemaining() {
+		return exams;
+	}
 }

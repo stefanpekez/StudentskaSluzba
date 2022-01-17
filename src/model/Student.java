@@ -207,7 +207,7 @@ public class Student {
 		this.remainingExams.add(exam);
 	}
 	
-	public void removeUnpassedExam(Subject sub) {
+	/*public void removeUnpassedExam(Subject sub) {
 		int i = 0;
 		for(Subject s: remainingExams) {
 			if(sub.equals(s)) {
@@ -215,6 +215,10 @@ public class Student {
 			}
 			i++;
 		}
+	}*/
+	
+	public void removeUnpassedExam(Subject sub) {
+		this.remainingExams.remove(sub);
 	}
 	
 	public void removePassedExam(Grade grade) {
@@ -235,4 +239,8 @@ public class Student {
 	public void addUnpassedexam(Subject s) {
 		remainingExams.add(s);
 	}
+	
+	/*public void removeUnpassedExam(Subject subject) {
+		remainingExams.remove(subject);
+	}*/
 }

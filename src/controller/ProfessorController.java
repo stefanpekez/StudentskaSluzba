@@ -1,6 +1,7 @@
 package controller;
 
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -9,7 +10,6 @@ import java.util.regex.Pattern;
 
 import model.Address;
 import model.DBProfessor;
-import model.Professor;
 import view.dialogue.NewTF;
 
 public class ProfessorController {
@@ -112,6 +112,10 @@ public class ProfessorController {
 		}
 	}
 	
+	public void serialize() throws IOException {
+		DBProfessor.getInstance().serialize();
+	}
+	
 	public String[] getProfessorList() {
 		return DBProfessor.getInstance().getProfessorList();
 	}
@@ -119,6 +123,10 @@ public class ProfessorController {
 	public boolean deleteProfessor(int rowindex) {
 		DBProfessor.getInstance().deleteProfessor(rowindex);
 		return true;
+	}
+	
+	public String[] getProfessorsOverWorkingYearLimit() {
+		return DBProfessor.getInstance().getProfessorsOverWorkingYearLimit();
 	}
 	
 	public String getSurname(int row){

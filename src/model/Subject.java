@@ -103,4 +103,9 @@ public class Subject {
 		this.studentsFAILED = studentsFAILED;
 	}
 	
+	@Override
+	public String toString() {
+		return this.subjectID + "," + this.subjectName;
+	}
+	
 }

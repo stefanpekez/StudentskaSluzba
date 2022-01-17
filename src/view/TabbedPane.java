@@ -164,8 +164,6 @@ public class TabbedPane extends JTabbedPane {
 						
 						String ordinal1 = o1.replaceAll("[A-Z][A-Z]\\W", "").substring(0, o1.replaceAll("[A-Z][A-Z]\\W", "").length()-5);
 						String ordinal2 = o2.replaceAll("[A-Z][A-Z]\\W", "").substring(0, o2.replaceAll("[A-Z][A-Z]\\W", "").length()-5);
-						System.out.println(ordinal1 + "test");
-						
 						
 						if(!letters1.equals(letters2)) {
 							return letters1.compareTo(letters2);

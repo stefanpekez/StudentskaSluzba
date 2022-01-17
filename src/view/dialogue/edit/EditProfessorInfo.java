@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import controller.ProfessorController;
-import model.Professor;
 import utilities.FormatCheckRegex;
 import view.TabbedPane.TablePanel;
 

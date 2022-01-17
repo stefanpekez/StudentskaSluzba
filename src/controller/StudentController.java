@@ -178,6 +178,10 @@ public class StudentController {
 		}
 	}
 	
+	public void deleteStudent(int index) {
+		DBStudent.getInstance().deleteStudent(index);
+	}
+	
 	public String getExamID(int row) {
 		return DBExams.getInstance().getValueAt(row, 0);
 	}

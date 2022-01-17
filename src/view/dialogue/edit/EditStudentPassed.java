@@ -11,8 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import controller.AbstractTableModelExamsPassed;
-import controller.AbstractTableModelStudent;
 import controller.StudentController;
 import view.TabbedPane.TablePanel;
 

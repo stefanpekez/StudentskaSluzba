@@ -144,7 +144,7 @@ public class DBStudent {
 	}
 	
 	public void removeUnpassedExam(int student, Subject sub) {
-		students.get(student).removeUnpassedExam(sub);;
+		students.get(student).removeUnpassedExam(sub);
 		
 	}
 	

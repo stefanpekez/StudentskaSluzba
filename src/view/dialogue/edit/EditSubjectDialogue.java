@@ -9,11 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import controller.StudentController;
 import controller.SubjectController;
 import view.TabbedPane.TablePanel;
-import view.dialogue.NewCB;
-import view.dialogue.NewTF;
 
 public class EditSubjectDialogue extends JDialog {
 	

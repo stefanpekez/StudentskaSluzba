@@ -29,7 +29,7 @@ public class MainFrame extends JFrame {
 		setSize(3*d.width / 4,3* d.height / 4);
 		setLocationRelativeTo(null);
 		
-		setTitle("Studentska Sluûba");
+		setTitle("Studentska Slu≈æba");
 		
 		Image img = kit.getImage("images/ftn.png");
 		setIconImage(img);

@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import controller.ProfessorController;
 import controller.StudentController;
 
 public class DeleteGradeDialogue extends JDialog {
