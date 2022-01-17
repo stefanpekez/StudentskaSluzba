@@ -32,6 +32,7 @@ public class SetSubjectProfessorRemove extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				panel.setFieldText("");
 				panel.setSelectedProfessor(-1);
+				panel.setAddTrueRemoveFalse();
 				dispose();
 			}
 			

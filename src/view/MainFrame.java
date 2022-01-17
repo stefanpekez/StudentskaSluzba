@@ -6,12 +6,17 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-import controller.ProfessorController;
+import model.DBAddress;
+import model.DBDepartments;
+import model.DBProfessor;
+import model.DBStudent;
+import model.DBSubject;
 
 public class MainFrame extends JFrame {
 
@@ -24,7 +29,7 @@ public class MainFrame extends JFrame {
 		setSize(3*d.width / 4,3* d.height / 4);
 		setLocationRelativeTo(null);
 		
-		setTitle("Studentska Sluûba");
+		setTitle("Studentska Slu≈æba");
 		
 		Image img = kit.getImage("images/ftn.png");
 		setIconImage(img);
@@ -58,7 +63,11 @@ public class MainFrame extends JFrame {
 	
 	public void serialize() {
 		try {
-			ProfessorController.getInstance().serialize();
+			DBProfessor.getInstance().serialize();
+			DBStudent.getInstance().serialize();
+			DBSubject.getInstance().serialize();
+			DBDepartments.getInstance().serialize();
+			DBAddress.getInstance().serialize();
 			System.out.println("Serialized!");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

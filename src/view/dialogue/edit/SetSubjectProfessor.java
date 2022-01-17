@@ -89,4 +89,14 @@ public class SetSubjectProfessor extends JPanel {
 	public int getSelectedProfessor() {
 		return selectedProfessor;
 	}
+	
+	public void setAddTrueRemoveFalse() {
+		add.setEnabled(true);
+		remove.setEnabled(false);
+	}
+	
+	public void settAddFalseRemoveTrue() {
+		add.setEnabled(false);
+		remove.setEnabled(true);
+	}
 }

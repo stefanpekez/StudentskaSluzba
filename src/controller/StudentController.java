@@ -203,7 +203,7 @@ public class StudentController {
 	}
 	
 	public String getHomeAddress(int row){
-		return DBStudent.getInstance().getSelectedStudent(row).getHomeAddress().getStreet();
+		return DBStudent.getInstance().getSelectedStudent(row).getHomeAddress().toString();
 	}
 	
 	public String getPhoneNumber(int row){

@@ -6,8 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -21,78 +19,58 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 import com.thoughtworks.xstream.security.AnyTypePermission;
 
-public class DBDepartments {
-	private static DBDepartments instance;
+public class DBAddress {
 	
-	public static DBDepartments getInstance() {
-		if(instance == null) instance = new DBDepartments();
-		
+	private static DBAddress instance = null;
+	
+	public static DBAddress getInstance() {
+		if(instance == null) {
+			instance = new DBAddress();
+		}
 		return instance;
 	}
 	
-	ArrayList<Department> departments;
+	ArrayList<Address> addresses;
 	
-	private DBDepartments() {
+	public DBAddress() {
+		addresses = new ArrayList<Address>();
 		try {
-			departments = convertExcel();
-		} catch(IOException e) {
+			addresses = convertExcel();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public String[] getList() {
-		String[] list = new String[departments.size()];
+	public Address getAddress(int index) {
+		if(index == -1) return new Address("NEMA");
 		
-		for(int i = 0; i < departments.size(); ++i) {
-			list[i] = departments.get(i).toString();
-		}
-		
-		return list;
-	}
-	
-	public Department getSelectedDepartment(int row) {
-		return departments.get(row);
-	}
-	
-	public boolean setDepartmentBoss(int selectedDepartment, int selectedProfessor) {
-		
-		Professor prof = DBProfessor.getInstance().getProfessor(selectedProfessor);
-		
-		//	Checks if selectedProfessor is already head of a department
-		for(Department d: departments) {
-			if(d.getDepartmentHead() == prof) {
-				System.out.println("Professor " + prof.getName() + " " + prof.getSurname() + " is already a head of a department");
-				return false;
-			}
-		}
-		
-		getSelectedDepartment(selectedDepartment).setDepartmentHead(DBProfessor.getInstance().getProfessor(selectedProfessor));
-		return true;
+		return addresses.get(index - 1);
 	}
 	
 	public void serialize() throws IOException {
-		File f = new File("saves\\departments.json");
+		File f = new File("saves\\addresses.json");
 		OutputStream os = new BufferedOutputStream(new FileOutputStream(f));
 		
 		try {
 			XStream xs = new XStream(new JettisonMappedXmlDriver());
 			xs.addPermission(AnyTypePermission.ANY);
-			String s = xs.toXML(departments);
-			xs.toXML(departments, os);
+			String s = xs.toXML(addresses);
+			xs.toXML(addresses, os);
 		} finally {
 			os.close();
 		}
 	}
 	
-	private ArrayList<Department> convertExcel() throws IOException{
+	private ArrayList<Address> convertExcel() throws IOException{
 		try {
 			FileInputStream excelFile = new FileInputStream(new File("testpodaci.xlsx"));
 			Workbook workbook = new XSSFWorkbook(excelFile);
 			
-			Sheet sheet = workbook.getSheet("Katedre");
+			Sheet sheet = workbook.getSheet("Adrese");
 			Iterator<Row> rows = sheet.iterator();
 			
-			ArrayList<Department> list = new ArrayList<Department>();
+			ArrayList<Address> list = new ArrayList<Address>();
 			
 			int rowNumber = 0;
     		while (rows.hasNext()) {
@@ -102,10 +80,10 @@ public class DBDepartments {
     			if(rowNumber == 0) {
     				rowNumber++;
     				continue;
-    			} else if (rowNumber == 7) break;
+    			} else if (rowNumber == 13) break;
     			
     			Iterator<Cell> cellsInRow = currentRow.iterator();
-    			Department dep = new Department();
+    			Address address = new Address();
     			
     			int cellIndex = 0;
     			
@@ -114,17 +92,20 @@ public class DBDepartments {
     				
     				switch (cellIndex) {
 					case 1:
-						dep.setSerialCode(currentCell.getStringCellValue());
+						address.setStreet(currentCell.getStringCellValue());
 						break;
 					case 2:
-						dep.setName(currentCell.getStringCellValue());
+						try {
+							address.setNumber(currentCell.getStringCellValue());
+						} catch(IllegalStateException e) {
+							address.setNumber(Integer.toString((int)currentCell.getNumericCellValue()));
+						}
 						break;
 					case 3:
-						try {
-							dep.setDepartmentHead(DBProfessor.getInstance().getProfessor((int) currentCell.getNumericCellValue() - 1));
-						} catch(IllegalStateException e) {
-							dep.setDepartmentHead(null);
-						}
+						address.setCity(currentCell.getStringCellValue());
+						break;
+					case 4:
+						address.setCountry(currentCell.getStringCellValue());
 						break;
 					default:
 						break;
@@ -133,7 +114,7 @@ public class DBDepartments {
     				cellIndex++;
     			}
     			
-    			list.add(dep);
+    			list.add(address);
     			rowNumber++;
     		}
     		
