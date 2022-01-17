@@ -35,7 +35,7 @@ public class EditProfessorInfo extends JPanel {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		
-		int row = panel.getTable().getSelectedRow();
+		int row = panel.getTable().convertRowIndexToModel(panel.getTable().getSelectedRow());
 		
 		surname = new EditTF("Surname*", ProfessorController.getInstance().getSurname(row), this);
 		name = new EditTF("Name*", ProfessorController.getInstance().getName(row), this);

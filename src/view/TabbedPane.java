@@ -160,7 +160,8 @@ public class TabbedPane extends JTabbedPane {
 					public int compare(String o1, String o2) {
 						// TODO Auto-generated method stub
 						String letters1 = o1.replaceAll("\\W[0-9]+", "");
-						String letters2 = o1.replaceAll("\\W[0-9]+", "");
+						String letters2 = o2.replaceAll("\\W[0-9]+", "");
+						System.out.println(letters1);
 						
 						//String year1 = o1.substring(o1.length() - 4);
 						//String year2 = o2.substring(o2.length() - 4);

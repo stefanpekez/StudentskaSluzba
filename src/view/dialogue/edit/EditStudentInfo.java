@@ -32,7 +32,7 @@ public class EditStudentInfo extends JPanel {
 		String[] currentYearOfStudy = { "I (prva)", "II (druga)", "III (treca)", "IV (cetvrta)"};
 		String[] financing = { "B", "S"};
 		
-		int selectedStudentIdx = tp.getTable().getSelectedRow();
+		int selectedStudentIdx = tp.getTable().convertRowIndexToModel(tp.getTable().getSelectedRow());
 		
 		namePanel = new EditTF("Ime*", this, StudentController.getInstance().getName(selectedStudentIdx));
 		surnamePanel = new EditTF("Prezime*", this, StudentController.getInstance().getSurname(selectedStudentIdx));

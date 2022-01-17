@@ -89,8 +89,8 @@ public class Student {
 			this.status = StudentStatus.S;
 		
 		//this.avgGrade = avgGrade;
-		//this.passedExams = new ArrayList<Grade>();
-		//this.remainingExams = new ArrayList<Grade>();
+		this.passedExams = new ArrayList<Grade>();
+		this.remainingExams = new ArrayList<Subject>();
 	}
 	
 	public Student() {

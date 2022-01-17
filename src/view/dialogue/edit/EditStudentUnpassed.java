@@ -25,7 +25,7 @@ public class EditStudentUnpassed extends JPanel {
 	public EditStudentUnpassed(EditStudentDialogue editDialogue, TablePanel tp, EditStudentPassed tablePassed) {
 		
 		//TODO init database to store exams
-		int selectedStudent = tp.getTable().getSelectedRow();
+		int selectedStudent = tp.getTable().convertRowIndexToModel(tp.getTable().getSelectedRow());
 		
 		StudentController.getInstance().setupCurrentExamsDB(selectedStudent);
 		table = new ExamsTable();
