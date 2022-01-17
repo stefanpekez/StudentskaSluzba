@@ -6,13 +6,12 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-import model.DBProfessor;
+import controller.ProfessorController;
 
 public class MainFrame extends JFrame {
 
@@ -59,7 +58,7 @@ public class MainFrame extends JFrame {
 	
 	public void serialize() {
 		try {
-			DBProfessor.getInstance().serialize();
+			ProfessorController.getInstance().serialize();
 			System.out.println("Serialized!");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

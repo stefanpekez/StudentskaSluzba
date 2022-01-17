@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import model.DBDepartments;
+import controller.DepartmentController;
 import view.MainFrame;
 
 public class DepartmentListDialogue extends JDialog {
@@ -35,7 +35,7 @@ public class DepartmentListDialogue extends JDialog {
 		
 		DepartmentListDialogue thisDialog = this;
 		
-		departments = new JList<String>(DBDepartments.getInstance().getList());
+		departments = new JList<String>(DepartmentController.getInstance().getList());
 		JScrollPane departmentScroller = new JScrollPane(departments); 
 		
 		addBoss = new JButton("ADD BOSS");

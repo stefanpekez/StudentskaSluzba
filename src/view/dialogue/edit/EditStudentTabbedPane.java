@@ -25,7 +25,7 @@ public class EditStudentTabbedPane extends JTabbedPane {
 		
 		infoTab = new EditStudentInfo(editDialogue, tp);
 		passedExams = new EditStudentPassed(editDialogue, tp, this);
-		unpassedExams = new EditStudentUnpassed(editDialogue, tp, passedExams);
+		unpassedExams = new EditStudentUnpassed(editDialogue, tp, this, passedExams);
 		
 		addMouseListener(new MouseListener() {
             @Override

@@ -2,10 +2,13 @@ package controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
+import model.DBExams;
 import model.DBProfessor;
 import model.DBStudent;
 import model.DBSubject;
+import model.Subject;
 import view.dialogue.NewCB;
 import view.dialogue.NewTF;
 import view.dialogue.edit.EditCB;
@@ -111,5 +114,21 @@ public class SubjectController {
 	
 	public String getCurrentSemester(int row) {
 		return DBSubject.getInstance().getSelectedSubject(row).getCurrentSemester();
+	}
+	
+	public void addUnpassedExam(String selectedSubject, int selectedStudent) {
+		DBExams.getInstance().addUnpassedExam(selectedSubject, selectedStudent);
+	}
+	
+	public String[] getSubjectList(int selectedStudent) {
+		return DBSubject.getInstance().getSubjectList(selectedStudent);
+	}
+	
+	public void deleteUnpassedExam(int indexStudent, String indexSubject) {
+		DBSubject.getInstance().deleteUnpassedExam(indexStudent, indexSubject);
+	}
+	
+	public ArrayList<Subject> getExamsRemaining() {
+		return DBExams.getInstance().getExamsRemaining();
 	}
 }

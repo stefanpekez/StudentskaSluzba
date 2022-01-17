@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import controller.AbstractTableModelExams;
 import controller.StudentController;
+import controller.SubjectController;
 import view.TabbedPane.TablePanel;
 
 public class EditStudentUnpassed extends JPanel {
@@ -22,7 +22,7 @@ public class EditStudentUnpassed extends JPanel {
 	private JButton delete;
 	private JButton apply;
 	
-	public EditStudentUnpassed(EditStudentDialogue editDialogue, TablePanel tp, EditStudentPassed tablePassed) {
+	public EditStudentUnpassed(EditStudentDialogue editDialogue, TablePanel tp, EditStudentTabbedPane stp, EditStudentPassed tablePassed) {
 		
 		//TODO init database to store exams
 		int selectedStudent = tp.getTable().convertRowIndexToModel(tp.getTable().getSelectedRow());
@@ -30,9 +30,31 @@ public class EditStudentUnpassed extends JPanel {
 		StudentController.getInstance().setupCurrentExamsDB(selectedStudent);
 		table = new ExamsTable();
 		
+		EditStudentUnpassed instance = this;
+		
+		int selectedSubject = table.getSelectedRow();
+		
+		
 		//TODO add buttos
 		this.add = new JButton("ADD");
+		add.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				new StudentAddUnpassedExam(instance, stp, selectedStudent);
+			}
+		});
 		this.delete = new JButton("DELETE");
+		delete.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				SubjectController.getInstance().deleteUnpassedExam(selectedStudent, (String) table.getModel().getValueAt(table.getSelectedRow(), 0));
+				stp.updateView(2);
+			}
+		});
 		this.apply = new JButton("MARK AS PASSED");
 		apply.addActionListener(new ActionListener() {
 

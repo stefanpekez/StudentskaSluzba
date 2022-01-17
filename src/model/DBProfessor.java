@@ -180,6 +180,7 @@ public class DBProfessor {
 			professorList[i] = acceptableProfessors.get(i).toString();
 		
 		return professorList;
+	}
 		
 	public String[] getProfessorList() {
 		String[] list = new String[professors.size()];

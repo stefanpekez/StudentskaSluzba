@@ -10,7 +10,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import model.DBStudent;
+import controller.StudentController;
 import view.TabbedPane.TablePanel;
 
 public class DeleteStudentDialogue extends JDialog {
@@ -41,7 +41,7 @@ public class DeleteStudentDialogue extends JDialog {
 		accept.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 				//TODO implement function to add an object of Student class to DBStudent
-				DBStudent.getInstance().deleteStudent(tp.getTable().getSelectedRow());
+				StudentController.getInstance().deleteStudent(tp.getTable().getSelectedRow());
 				tp.updateView();
 				exitDialog();
 			} 
