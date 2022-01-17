@@ -167,6 +167,22 @@ public class DBProfessor {
 		return professors.get(row);
 	}
 	
+	public String[] getProfessorsOverWorkingYearLimit() {
+		ArrayList<Professor> acceptableProfessors = new ArrayList<Professor>();
+		
+		for(Professor p: professors)
+			if(p.getWorkingYears() >= 5)
+				acceptableProfessors.add(p);
+		
+		String[] professorList = new String[acceptableProfessors.size()];
+		
+		for(int i = 0; i < professorList.length; ++i)
+			professorList[i] = acceptableProfessors.get(i).toString();
+		
+		return professorList;
+		
+	}
+	
 	public void serialize() throws IOException {
 		File f = new File("saves\\professors.json");
 		OutputStream os = new BufferedOutputStream(new FileOutputStream(f));

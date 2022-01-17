@@ -10,6 +10,7 @@ import java.awt.event.MouseListener;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
@@ -87,21 +88,23 @@ public class ToolBar extends JToolBar {
 				case 0: 
 					if(tables.getStudentTab().getTable().getSelectedRow() != -1)
 						new EditStudentDialogue(getParent(), tables.getStudentTab());
-					else
-						System.out.println("Please select a student to edit");
+					else {
+						JOptionPane.showMessageDialog(getParent(), "Please select a student to edit", "Error", 0);
+					}
 					break;
 				case 1:
 					if(tables.getProfessorTab().getTable().getSelectedRow() != -1) {
 						new EditProfessorDialogue(getParent(), tables.getProfessorTab());
 					} else {
-						System.out.println("Please select a row to edit");
+						JOptionPane.showMessageDialog(getParent(), "Please select a professor to edit", "Error", 0);
 					}
 					break;
 				case 2:
 					if(tables.getSubjectTab().getTable().getSelectedRow() != -1)
 						new EditSubjectDialogue(getParent(), tables.getSubjectTab());
-					else
-						System.out.println("Please select a subject to edit");
+					else {
+						JOptionPane.showMessageDialog(getParent(), "Please select a subject to edit", "Error", 0);
+					}
 					break;
 				default:
 					throw new IllegalArgumentException("Unexpected value: " + tables.getSelectedIndex());
@@ -126,7 +129,7 @@ public class ToolBar extends JToolBar {
 				switch (tables.getSelectedIndex()) {
 				case 0: 
 					if(tables.getStudentTab().getTable().getSelectedRow() == -1) {
-						System.out.println("Select a student");
+						JOptionPane.showMessageDialog(getParent(), "Please select a student to delete", "Error", 0);
 					} else {
 						DeleteStudentDialogue deleteStudent = new DeleteStudentDialogue(getParent(), tables.getStudentTab());
 					}
@@ -135,14 +138,14 @@ public class ToolBar extends JToolBar {
 					if(tables.getProfessorTab().getTable().getSelectedRow() != -1) {
 						new DeleteProfessorDialogue(getParent(), tables.getProfessorTab()).setVisible(true);
 					} else {
-						System.out.println("Please select a row to delete");
+						JOptionPane.showMessageDialog(getParent(), "Please select a professor to delete", "Error", 0);
 					}
 					break;
 				case 2:
 					if(tables.getSubjectTab().getTable().getSelectedRow() != -1) {
 						new DeleteSubjectDialogue(getParent(), tables.getSubjectTab()).setVisible(true);
 					} else {
-						System.out.println("Please select a row to delete");
+						JOptionPane.showMessageDialog(getParent(), "Please select a subject to delete", "Error", 0);
 					}
 					break;
 				default:

@@ -131,5 +131,10 @@ public class Professor {
 		public void setSubjects(ArrayList<Subject> subjects) {
 			this.subjects = subjects;
 		}
+		
+		@Override
+		public String toString() {
+			return this.name + " " + this.surname + ", " + this.title;
+		}
 			
 }
