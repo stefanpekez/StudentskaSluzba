@@ -36,7 +36,7 @@ public class StudentAddUnpassedExam extends JDialog {
 		//	Subject list
 		JPanel listPanel = new JPanel();
 		
-		subjects = new JList<String>(SubjectController.getInstance().getSubjectList(selectedStudent));
+		subjects = new JList<String>(SubjectController.getInstance().getSubjectListForStudent(selectedStudent));
 		subjects.addMouseListener(new MouseListener() {
 			
 			@Override

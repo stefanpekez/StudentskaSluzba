@@ -132,9 +132,17 @@ public class Professor {
 			this.subjects = subjects;
 		}
 		
+		public void addSubject(Subject subject) {
+			this.subjects.add(subject);
+		}
+		
+		public void removeTaughtSubject(Subject sub) {
+			this.subjects.remove(sub);
+		}
+		
 		@Override
 		public String toString() {
-			return this.name + " " + this.surname + ", " + this.title;
+			return this.idNumber + "," + this.name + " " + this.surname + "," + this.title;
 		}
 			
 }

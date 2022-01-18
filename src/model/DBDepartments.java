@@ -54,19 +54,17 @@ public class DBDepartments {
 		return departments.get(row);
 	}
 	
-	public boolean setDepartmentBoss(int selectedDepartment, int selectedProfessor) {
+	public boolean setDepartmentBoss(int selectedDepartment, String selectedProfessor) {
+		String[] parse = selectedProfessor.split(",");
 		
-		Professor prof = DBProfessor.getInstance().getProfessor(selectedProfessor);
-		
+		Professor prof = DBProfessor.getInstance().getProfessor(parse[0]);
 		//	Checks if selectedProfessor is already head of a department
 		for(Department d: departments) {
 			if(d.getDepartmentHead() == prof) {
-				System.out.println("Professor " + prof.getName() + " " + prof.getSurname() + " is already a head of a department");
 				return false;
 			}
 		}
-		
-		getSelectedDepartment(selectedDepartment).setDepartmentHead(DBProfessor.getInstance().getProfessor(selectedProfessor));
+		getSelectedDepartment(selectedDepartment).setDepartmentHead(prof);
 		return true;
 	}
 	

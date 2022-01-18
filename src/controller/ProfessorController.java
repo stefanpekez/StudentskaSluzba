@@ -5,11 +5,15 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import model.Address;
 import model.DBProfessor;
+import model.DBTeaches;
+import model.Subject;
 import view.dialogue.NewTF;
 
 public class ProfessorController {
@@ -110,6 +114,14 @@ public class ProfessorController {
 			System.out.println("Wrong query format");
 			break;
 		}
+	}
+	
+	public void setupTaughtSubjects(int row) {
+		DBProfessor.getInstance().setupTaughtSubjects(row);
+	}
+	
+	public void addSubjectTeach(List<String> selectedSubjects, int selectedProfessor) {
+		DBTeaches.getInstance().addSubjectTeach(selectedSubjects, selectedProfessor);
 	}
 	
 	public void serialize() throws IOException {

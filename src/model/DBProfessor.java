@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -167,6 +168,14 @@ public class DBProfessor {
 		return professors.get(row);
 	}
 	
+	public Professor getProfessor(String index) {
+		for(Professor p: professors) {
+			if(p.getIdNumber().equals(index))
+				return p;
+		}
+		return null;
+	}
+	
 	public String[] getProfessorsOverWorkingYearLimit() {
 		ArrayList<Professor> acceptableProfessors = new ArrayList<Professor>();
 		
@@ -176,8 +185,11 @@ public class DBProfessor {
 		
 		String[] professorList = new String[acceptableProfessors.size()];
 		
-		for(int i = 0; i < professorList.length; ++i)
+		int i = 0;
+		for(Professor prof: acceptableProfessors) {
 			professorList[i] = acceptableProfessors.get(i).toString();
+			++i;
+		}
 		
 		return professorList;
 	}
@@ -192,6 +204,13 @@ public class DBProfessor {
 		}
 		
 		return list;
+	}
+	
+	public void setupTaughtSubjects(int row) {
+		
+		ArrayList<Subject> subjects  = getProfessor(row).getSubjects();
+		
+		DBTeaches.getInstance().init(subjects);
 	}
 	
 	public void serialize() throws IOException {

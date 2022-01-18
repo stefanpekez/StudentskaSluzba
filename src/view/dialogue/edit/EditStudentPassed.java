@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -42,7 +43,7 @@ public class EditStudentPassed extends JPanel {
 					// controller cancel grade
 					new DeleteGradeDialogue(table.getSelectedRow(), tabbedpane).setVisible(true);
 				} else {
-					System.out.println("Please select a grade that you want to cancel");
+					JOptionPane.showMessageDialog(getParent(), "Please select a grade to cancel", "Error", 0);
 				}
 			}
 		});
