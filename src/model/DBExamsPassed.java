@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import controller.LanguageController;
+
 public class DBExamsPassed {
 	
 private static DBExamsPassed instance = null;
@@ -20,11 +22,11 @@ private static DBExamsPassed instance = null;
 	
 	public DBExamsPassed() {
 		columns = new ArrayList<String>();
-		columns.add("SUBJECT ID");
-		columns.add("NAME");
-		columns.add("ESPB");
-		columns.add("GRADE");
-		columns.add("DATE");
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("PassedSubjectId"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("PassedName"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("PassedEspb"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("PassedGrade"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("PassedDate"));
 		
 	}
 	

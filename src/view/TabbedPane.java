@@ -16,6 +16,7 @@ import javax.swing.table.TableRowSorter;
 import controller.AbstractTableModelProfessor;
 import controller.AbstractTableModelStudent;
 import controller.AbstractTableModelSubject;
+import controller.LanguageController;
 
 enum TypeOfTab{
 	STUDENT,
@@ -43,13 +44,13 @@ public class TabbedPane extends JTabbedPane {
             public void mousePressed(MouseEvent e) {
             	   switch(getSelectedIndex()) {
                	case 0:
-               		statusbar.getOpenTab().setText("Student");
+               		statusbar.getOpenTab().setText(LanguageController.getInstance().getResourceBundle().getString("StudentsTab"));
                		break;
                	case 1:
-               		statusbar.getOpenTab().setText("Professor");
+               		statusbar.getOpenTab().setText(LanguageController.getInstance().getResourceBundle().getString("ProfessorsTab"));
                		break;
                	case 2:
-               		statusbar.getOpenTab().setText("Subject");
+               		statusbar.getOpenTab().setText(LanguageController.getInstance().getResourceBundle().getString("SubjectsTab"));
                		break;
                }
             }
@@ -63,13 +64,13 @@ public class TabbedPane extends JTabbedPane {
         });
 		
 		tabStudent = new TablePanel(TypeOfTab.STUDENT);
-		addTab("Students", tabStudent);
+		addTab(LanguageController.getInstance().getResourceBundle().getString("StudentsTab"), tabStudent);
 		
 		tabProfessor = new TablePanel(TypeOfTab.PROFESSOR);
-		addTab("Professors", tabProfessor);
+		addTab(LanguageController.getInstance().getResourceBundle().getString("ProfessorsTab"), tabProfessor);
 		
 		tabSubject = new TablePanel(TypeOfTab.SUBJECT);
-		addTab("Subjects", tabSubject);
+		addTab(LanguageController.getInstance().getResourceBundle().getString("SubjectsTab"), tabSubject);
 	}
 	
 	public TablePanel getStudentTab() {

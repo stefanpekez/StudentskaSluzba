@@ -5,6 +5,7 @@ import java.awt.Container;
 import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 
+import controller.LanguageController;
 import view.TabbedPane.TablePanel;
 
 public class EditStudentDialogue extends JDialog{
@@ -14,7 +15,7 @@ public class EditStudentDialogue extends JDialog{
 		
 		setSize(500, 550);
 		setLocationRelativeTo(mainframe);
-		setTitle("Edit Student");
+		setTitle(LanguageController.getInstance().getResourceBundle().getString("EditStudent"));
 		setLayout(boxLayout);
 		
 		EditStudentTabbedPane studentTP = new EditStudentTabbedPane(this, tp);

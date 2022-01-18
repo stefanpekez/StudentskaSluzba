@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import controller.LanguageController;
 import controller.SubjectController;
 
 public class SetSubjectProfessor extends JPanel {
@@ -29,7 +30,7 @@ public class SetSubjectProfessor extends JPanel {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		setBorder(new EmptyBorder(10, 50, 10, 50));
 		
-		label = new JLabel("Professor*");
+		label = new JLabel(LanguageController.getInstance().getResourceBundle().getString("Professor"));
 		
 		text = new JTextField(15);
 		text.setMaximumSize(new Dimension(1000, 40));

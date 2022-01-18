@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import controller.LanguageController;
 import controller.StudentController;
 
 public class DeleteGradeDialogue extends JDialog {
@@ -19,16 +20,16 @@ public class DeleteGradeDialogue extends JDialog {
 	private JLabel message;
 	
 	public DeleteGradeDialogue(int grade, EditStudentTabbedPane tabbedpane) {
-		message = new JLabel("Are you sure you want to cancel this grade?", SwingConstants.CENTER);
+		message = new JLabel(LanguageController.getInstance().getResourceBundle().getString("AreYouSureGrade"), SwingConstants.CENTER);
 		
-		setTitle("Cancel Grade");
+		setTitle(LanguageController.getInstance().getResourceBundle().getString("CancelGradeTitle"));
 		setSize(450,100);
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setLocationRelativeTo(tabbedpane);
 		
 		JPanel buttons = new JPanel();
 		
-		JButton yes = new JButton("YES");
+		JButton yes = new JButton(LanguageController.getInstance().getResourceBundle().getString("Yes"));
 		yes.addActionListener(new ActionListener() {
 
 			@Override
@@ -40,7 +41,7 @@ public class DeleteGradeDialogue extends JDialog {
 			
 		});
 		
-		JButton no = new JButton("NO");
+		JButton no = new JButton(LanguageController.getInstance().getResourceBundle().getString("No"));
 		no.addActionListener(new ActionListener() {
 
 			@Override

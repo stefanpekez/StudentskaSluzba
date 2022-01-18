@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+import controller.LanguageController;
 import controller.StudentController;
 import view.TabbedPane.TablePanel;
 
@@ -32,30 +33,36 @@ public class NewStudentDialogue extends JDialog {
 	public NewStudentDialogue(Container mainframe, TablePanel tp) {
 		BoxLayout boxLayout = new BoxLayout(getContentPane(), BoxLayout.Y_AXIS);
 		
-		String[] currentYearOfStudy = { "I (prva)", "II (druga)", "III (treca)", "IV (cetvrta)"};
+		String first = LanguageController.getInstance().getResourceBundle().getString("First");
+		String second = LanguageController.getInstance().getResourceBundle().getString("Second");
+		String third = LanguageController.getInstance().getResourceBundle().getString("Third");
+		String fourth = LanguageController.getInstance().getResourceBundle().getString("Fourth");
+		
+		
+		String[] currentYearOfStudy = {first, second, third, fourth};
 		String[] financing = { "B", "S"};
 		
 		setSize(500, 500);
 		setLocationRelativeTo(mainframe);
-		setTitle("Add Student");
+		setTitle(LanguageController.getInstance().getResourceBundle().getString("AddStudent"));
 		setLayout(boxLayout);
 		
-		namePanel = new NewTF("Ime*", this, "");
-		surnamePanel = new NewTF("Prezime*", this, "");
-		dateOfBirthPanel = new NewTF("Datum rodjenja*", this, "dd/mm/yyyy");
-		homeAddressPanel = new NewTF("Adresa*", this, "Ulica Broj, Mesto, Drzava");
-		phoneNumberPanel = new NewTF("Broj telefona*", this, "");
-		emailAddressPanel = new NewTF("E-mail*", this, "example@email.com");
-		indexPanel = new NewTF("Index*", this, "xx-yyy-zzzz (x-smer, y-broj, z-godina upisa)");
-		yoePanel = new NewTF("Godina upisa*", this, "");
-		cyosPanel = new NewCB("Trenutna godina studija*", currentYearOfStudy);
-		budgetPanel = new NewCB("Nacin finansiranja*          ", financing);
+		namePanel = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Name"), this, "");
+		surnamePanel = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Surname"), this, "");
+		dateOfBirthPanel = new NewTF(LanguageController.getInstance().getResourceBundle().getString("DateOfBirth"), this, "dd/mm/yyyy");
+		homeAddressPanel = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Address"), this, "Ulica Broj, Mesto, Drzava");
+		phoneNumberPanel = new NewTF(LanguageController.getInstance().getResourceBundle().getString("PhoneNumber"), this, "");
+		emailAddressPanel = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Email"), this, "example@email.com");
+		indexPanel = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Index"), this, "xx-yyy-zzzz (x-smer, y-broj, z-godina upisa)");
+		yoePanel = new NewTF(LanguageController.getInstance().getResourceBundle().getString("YearOfEnrollment"), this, "");
+		cyosPanel = new NewCB(LanguageController.getInstance().getResourceBundle().getString("CurrentYearOfStudy"), currentYearOfStudy);
+		budgetPanel = new NewCB(LanguageController.getInstance().getResourceBundle().getString("FinanceType"), financing);
 		
 		//Button Panel
 		buttonsPanel = new JPanel();
 		
 		//accept button
-		accept = new JButton("ACCEPT");
+		accept = new JButton(LanguageController.getInstance().getResourceBundle().getString("AcceptButton"));
 		accept.setEnabled(false);
 		accept.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
@@ -68,7 +75,7 @@ public class NewStudentDialogue extends JDialog {
 		});
 		
 		//exit button
-		JButton exit = new JButton("EXIT");
+		JButton exit = new JButton(LanguageController.getInstance().getResourceBundle().getString("ExitButton"));
 		exit.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 				exitDialog();

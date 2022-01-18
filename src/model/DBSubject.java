@@ -20,6 +20,8 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 import com.thoughtworks.xstream.security.AnyTypePermission;
 
+import controller.LanguageController;
+
 public class DBSubject {
 	
 	private static DBSubject instance = null;
@@ -38,11 +40,11 @@ public class DBSubject {
 	
 	private DBSubject() {
 		columns = new ArrayList<String>();
-		columns.add("ID");
-		columns.add("NAME");
-		columns.add("ESPB");
-		columns.add("YEAR");
-		columns.add("SEMESTER");
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectId"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectName"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectEspb"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectYear"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectSemester"));
 		
 		initSubjects();
 		

@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+import controller.LanguageController;
 import controller.ProfessorController;
 import utilities.FormatCheckRegex;
 import view.TabbedPane.TablePanel;
@@ -33,24 +34,24 @@ public class NewProfessorDialogue extends JDialog {
 	
 	
 	public NewProfessorDialogue(Container parent, TablePanel panel) {
-		setTitle("New Professor");
+		setTitle(LanguageController.getInstance().getResourceBundle().getString("NewProfessorTitle"));
 		
 		setSize(500, 500);
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setLocationRelativeTo(parent);
 		
-		surname = new NewTF("Surname*", this, "");
-		name = new NewTF("Name*", this, "");
-		dateOfBirth = new NewTF("Date of birth*", this, "dd/mm/yyyy");
-		address = new NewTF("Address*", this, "Street Number, City, Country");
-		phoneNumber = new NewTF("Phone*", this, "");
-		emailAdress = new NewTF("E-mail*", this, "example@uns.ac.rs");
-		officeAdress = new NewTF("Office Adress*", this, "Street Number, City, Country");
-		idNumber = new NewTF("ID*", this, "");
-		title = new NewTF("Title*", this, "");
-		workingYears = new NewTF("Working years*", this, "");
+		surname = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Surname"), this, "");
+		name = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Name"), this, "");
+		dateOfBirth = new NewTF(LanguageController.getInstance().getResourceBundle().getString("DateOfBirth"), this, "dd/mm/yyyy");
+		address = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Address"), this, "Street Number, City, Country");
+		phoneNumber = new NewTF(LanguageController.getInstance().getResourceBundle().getString("PhoneNumber"), this, "");
+		emailAdress = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Email"), this, "example@uns.ac.rs");
+		officeAdress = new NewTF(LanguageController.getInstance().getResourceBundle().getString("OfficeAddress"), this, "Street Number, City, Country");
+		idNumber = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Id"), this, "");
+		title = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Title"), this, "");
+		workingYears = new NewTF(LanguageController.getInstance().getResourceBundle().getString("WorkingYears"), this, "");
 		
-		ok = new JButton("OK");
+		ok = new JButton(LanguageController.getInstance().getResourceBundle().getString("AcceptButton"));
 		ok.setEnabled(false);
 		ok.addActionListener(new ActionListener() {
 			@Override
@@ -66,7 +67,7 @@ public class NewProfessorDialogue extends JDialog {
 			}
 		});
 		
-		exit = new JButton("EXIT");
+		exit = new JButton(LanguageController.getInstance().getResourceBundle().getString("ExitButton"));
 		exit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import controller.LanguageController;
 import controller.StudentController;
 import controller.SubjectController;
 import view.TabbedPane.TablePanel;
@@ -37,7 +38,7 @@ public class EditStudentUnpassed extends JPanel {
 		
 		
 		//TODO add buttos
-		this.add = new JButton("ADD");
+		this.add = new JButton(LanguageController.getInstance().getResourceBundle().getString("UnpassedAddButton"));
 		add.addActionListener(new ActionListener() {
 			
 			@Override
@@ -46,7 +47,7 @@ public class EditStudentUnpassed extends JPanel {
 				new StudentAddUnpassedExam(instance, stp, selectedStudent);
 			}
 		});
-		this.delete = new JButton("DELETE");
+		this.delete = new JButton(LanguageController.getInstance().getResourceBundle().getString("UnpassedDeleteButton"));
 		delete.addActionListener(new ActionListener() {
 			
 			@Override
@@ -56,11 +57,11 @@ public class EditStudentUnpassed extends JPanel {
 					SubjectController.getInstance().deleteUnpassedExam(selectedStudent, (String) table.getModel().getValueAt(table.getSelectedRow(), 0));
 					stp.updateView(2);
 				} else
-					JOptionPane.showMessageDialog(getParent(), "Please select an exam to delete", "Error", 0);
+					JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("ExamNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 				
 			}
 		});
-		this.apply = new JButton("MARK AS PASSED");
+		this.apply = new JButton(LanguageController.getInstance().getResourceBundle().getString("UnpassedMarkAsPassed"));
 		apply.addActionListener(new ActionListener() {
 
 			@Override
@@ -71,7 +72,7 @@ public class EditStudentUnpassed extends JPanel {
 					//show dialogue thats going to take this selected row and prepopulate the required fields 
 					new GradeInputDialogue(row, selectedStudent, editDialogue, table, tablePassed).setVisible(true);
 				} else {
-					System.out.println("Please select an exam that you want to mark as passed");
+					System.out.println(LanguageController.getInstance().getResourceBundle().getString("ExamNotSelected"));
 				}
 				
 			}

@@ -10,22 +10,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import controller.LanguageController;
+
 public class SetSubjectProfessorRemove extends JDialog {
 	
 	
 	private JLabel message;
 	
 	public SetSubjectProfessorRemove(SetSubjectProfessor panel) {
-		message = new JLabel("Are you sure you want to remove this professor?", SwingConstants.CENTER);
+		message = new JLabel(LanguageController.getInstance().getResourceBundle().getString("RemoveProfessorMessage"), SwingConstants.CENTER);
 		
-		setTitle("Remove Professor");
+		setTitle(LanguageController.getInstance().getResourceBundle().getString("RemoveProfessorTitle"));
 		setSize(450,100);
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setLocationRelativeTo(getParent());
 		
 		JPanel buttons = new JPanel();
 		
-		JButton yes = new JButton("YES");
+		JButton yes = new JButton(LanguageController.getInstance().getResourceBundle().getString("Yes"));
 		yes.addActionListener(new ActionListener() {
 
 			@Override
@@ -38,7 +40,7 @@ public class SetSubjectProfessorRemove extends JDialog {
 			
 		});
 		
-		JButton no = new JButton("NO");
+		JButton no = new JButton(LanguageController.getInstance().getResourceBundle().getString("No"));
 		no.addActionListener(new ActionListener() {
 
 			@Override

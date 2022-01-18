@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+import controller.LanguageController;
 import controller.StudentController;
 import view.TabbedPane.TablePanel;
 
@@ -29,28 +30,34 @@ public class EditStudentInfo extends JPanel {
 	public EditStudentInfo(EditStudentDialogue editDialogue, TablePanel tp) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		String[] currentYearOfStudy = { "I (prva)", "II (druga)", "III (treca)", "IV (cetvrta)"};
+		String first = LanguageController.getInstance().getResourceBundle().getString("First");
+		String second = LanguageController.getInstance().getResourceBundle().getString("Second");
+		String third = LanguageController.getInstance().getResourceBundle().getString("Third");
+		String fourth = LanguageController.getInstance().getResourceBundle().getString("Fourth");
+		
+		
+		String[] currentYearOfStudy = {first, second, third, fourth};
 		String[] financing = { "B", "S"};
 		
 		int selectedStudentIdx = tp.getTable().convertRowIndexToModel(tp.getTable().getSelectedRow());
 		
-		namePanel = new EditTF("Ime*", this, StudentController.getInstance().getName(selectedStudentIdx));
-		surnamePanel = new EditTF("Prezime*", this, StudentController.getInstance().getSurname(selectedStudentIdx));
-		dateOfBirthPanel = new EditTF("Datum rodjenja*", this, StudentController.getInstance().getDateOfBirth(selectedStudentIdx));
-		homeAddressPanel = new EditTF("Adresa*", this, StudentController.getInstance().getHomeAddress(selectedStudentIdx));
-		phoneNumberPanel = new EditTF("Broj telefona*", this, StudentController.getInstance().getPhoneNumber(selectedStudentIdx));
-		emailAddressPanel = new EditTF("E-mail*", this, StudentController.getInstance().getEmailAddress(selectedStudentIdx));
-		indexPanel = new EditTF("Index*", this, StudentController.getInstance().getIndexNumber(selectedStudentIdx));
-		yoePanel = new EditTF("Godina upisa*", this, StudentController.getInstance().getYearOfEnrollment(selectedStudentIdx));
-		cyosPanel = new EditCB("Trenutna godina studija*     ", currentYearOfStudy, StudentController.getInstance().getCurrentYearOfStudy(selectedStudentIdx), "cyos");
-		budgetPanel = new EditCB("Nacin finansiranja*               ", financing, StudentController.getInstance().getBudgetStatus(selectedStudentIdx), "b");
+		namePanel = new EditTF(LanguageController.getInstance().getResourceBundle().getString("Name"), this, StudentController.getInstance().getName(selectedStudentIdx));
+		surnamePanel = new EditTF(LanguageController.getInstance().getResourceBundle().getString("Surname"), this, StudentController.getInstance().getSurname(selectedStudentIdx));
+		dateOfBirthPanel = new EditTF(LanguageController.getInstance().getResourceBundle().getString("DateOfBirth"), this, StudentController.getInstance().getDateOfBirth(selectedStudentIdx));
+		homeAddressPanel = new EditTF(LanguageController.getInstance().getResourceBundle().getString("Address"), this, StudentController.getInstance().getHomeAddress(selectedStudentIdx));
+		phoneNumberPanel = new EditTF(LanguageController.getInstance().getResourceBundle().getString("PhoneNumber"), this, StudentController.getInstance().getPhoneNumber(selectedStudentIdx));
+		emailAddressPanel = new EditTF(LanguageController.getInstance().getResourceBundle().getString("Email"), this, StudentController.getInstance().getEmailAddress(selectedStudentIdx));
+		indexPanel = new EditTF(LanguageController.getInstance().getResourceBundle().getString("Index"), this, StudentController.getInstance().getIndexNumber(selectedStudentIdx));
+		yoePanel = new EditTF(LanguageController.getInstance().getResourceBundle().getString("YearOfEnrollment"), this, StudentController.getInstance().getYearOfEnrollment(selectedStudentIdx));
+		cyosPanel = new EditCB(LanguageController.getInstance().getResourceBundle().getString("CurrentYearOfStudy"), currentYearOfStudy, StudentController.getInstance().getCurrentYearOfStudy(selectedStudentIdx), "cyos");
+		budgetPanel = new EditCB(LanguageController.getInstance().getResourceBundle().getString("FinanceType"), financing, StudentController.getInstance().getBudgetStatus(selectedStudentIdx), "b");
 
 		
 		//Button Panel
 		buttonsPanel = new JPanel();
 
 		//accept button
-		accept = new JButton("ACCEPT");
+		accept = new JButton(LanguageController.getInstance().getResourceBundle().getString("AcceptButton"));
 		accept.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 				StudentController.getInstance().editStudent(selectedStudentIdx, namePanel, surnamePanel, dateOfBirthPanel, homeAddressPanel, 
@@ -61,7 +68,7 @@ public class EditStudentInfo extends JPanel {
 		});
 
 		//exit button
-		JButton exit = new JButton("EXIT");
+		JButton exit = new JButton(LanguageController.getInstance().getResourceBundle().getString("ExitButton"));
 		exit.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 				exitDialog(editDialogue);

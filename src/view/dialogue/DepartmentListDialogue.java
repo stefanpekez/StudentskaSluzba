@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import controller.DepartmentController;
+import controller.LanguageController;
 import view.MainFrame;
 
 public class DepartmentListDialogue extends JDialog {
@@ -27,7 +28,7 @@ public class DepartmentListDialogue extends JDialog {
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setSize(500, 275);
 		setLocationRelativeTo(parent);
-		setTitle("Departments");
+		setTitle(LanguageController.getInstance().getResourceBundle().getString("DepartmentsTab"));
 		
 		JPanel buttonPanel = new JPanel();
 		JPanel bossLabelPanel = new JPanel();
@@ -38,7 +39,7 @@ public class DepartmentListDialogue extends JDialog {
 		departments = new JList<String>(DepartmentController.getInstance().getList());
 		JScrollPane departmentScroller = new JScrollPane(departments); 
 		
-		addBoss = new JButton("ADD BOSS");
+		addBoss = new JButton(LanguageController.getInstance().getResourceBundle().getString("AddBoss"));
 		addBoss.addActionListener(new ActionListener() {
 			
 			@Override
@@ -49,7 +50,7 @@ public class DepartmentListDialogue extends JDialog {
 					addBoss.setEnabled(false);
 				}
 				else
-					JOptionPane.showMessageDialog(parent, "Department not selected", "Error", 0);
+					JOptionPane.showMessageDialog(parent, LanguageController.getInstance().getResourceBundle().getString("DepartmentNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 			}
 		});
 		

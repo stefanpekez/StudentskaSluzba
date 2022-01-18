@@ -4,6 +4,7 @@ import java.awt.Component;
 
 import javax.swing.JDialog;
 
+import controller.LanguageController;
 import view.TabbedPane.TablePanel;
 
 public class EditProfessorDialogue extends JDialog{
@@ -13,7 +14,7 @@ public class EditProfessorDialogue extends JDialog{
 	private EditProfessorTabbedPane tabs;
 	
 	public EditProfessorDialogue(Component parent, TablePanel panel) {
-		setTitle("Edit Professor");
+		setTitle(LanguageController.getInstance().getResourceBundle().getString("EditProfessorTitle"));
 		setSize(500, 550);
 		setLocationRelativeTo(parent);
 		

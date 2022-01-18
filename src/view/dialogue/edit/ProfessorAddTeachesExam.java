@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import controller.LanguageController;
 import controller.ProfessorController;
 import controller.SubjectController;
 
@@ -23,11 +24,11 @@ public class ProfessorAddTeachesExam extends JDialog {
 		setLayout(new FlowLayout());
 		setSize(275, 300);
 		setLocationRelativeTo(parent);
-		setTitle("Add subject");
+		setTitle(LanguageController.getInstance().getResourceBundle().getString("AddSubjectTitle"));
 		
 		//	Label
 		JPanel labelPanel = new JPanel();
-		JLabel subjectsLabel = new JLabel("Subjects:");
+		JLabel subjectsLabel = new JLabel(LanguageController.getInstance().getResourceBundle().getString("SubjectList"));
 		labelPanel.add(subjectsLabel);
 		
 		//	List
@@ -38,7 +39,7 @@ public class ProfessorAddTeachesExam extends JDialog {
 		
 		//	Buttons
 		JPanel buttonPanel = new JPanel();
-		JButton ok = new JButton("OK");
+		JButton ok = new JButton(LanguageController.getInstance().getResourceBundle().getString("OkButton"));
 		
 		ok.addActionListener(new ActionListener() {
 			
@@ -51,11 +52,11 @@ public class ProfessorAddTeachesExam extends JDialog {
 					ptp.updateView();
 					dispose();
 				} else
-					JOptionPane.showMessageDialog(getParent(), "Please select a subject to add", "Error", 0);
+					JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("SubjectNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 			}
 		});
 		
-		JButton cancel = new JButton("CANCEL");
+		JButton cancel = new JButton(LanguageController.getInstance().getResourceBundle().getString("Cancel"));
 		cancel.addActionListener(new ActionListener() {
 			
 			@Override

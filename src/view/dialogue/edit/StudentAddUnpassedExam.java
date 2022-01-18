@@ -14,6 +14,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import controller.LanguageController;
 import controller.SubjectController;
 
 public class StudentAddUnpassedExam extends JDialog {
@@ -27,10 +28,10 @@ public class StudentAddUnpassedExam extends JDialog {
 		setLayout(new FlowLayout());
 		setSize(350, 275);
 		setLocationRelativeTo(parent);
-		setTitle("Add unpassed exam");
+		setTitle(LanguageController.getInstance().getResourceBundle().getString("AddUnpassedExamTitle"));
 		
 		JPanel labelPanel = new JPanel();
-		JLabel label = new JLabel("Select subject to add to list of unpassed exams");
+		JLabel label = new JLabel(LanguageController.getInstance().getResourceBundle().getString("SelectSubjectMessageUnpassed"));
 		labelPanel.add(label);
 		
 		//	Subject list
@@ -79,7 +80,7 @@ public class StudentAddUnpassedExam extends JDialog {
 		//	Buttons
 		JPanel buttonPanel = new JPanel();
 		
-		add = new JButton("Add");
+		add = new JButton(LanguageController.getInstance().getResourceBundle().getString("UnpassedAddButton"));
 		add.setEnabled(false);
 		add.addActionListener(new ActionListener() {
 			
@@ -91,7 +92,7 @@ public class StudentAddUnpassedExam extends JDialog {
 				dispose();
 			}
 		});
-		cancel = new JButton("Cancel");
+		cancel = new JButton(LanguageController.getInstance().getResourceBundle().getString("Cancel"));
 		cancel.addActionListener(new ActionListener() {
 			
 			@Override

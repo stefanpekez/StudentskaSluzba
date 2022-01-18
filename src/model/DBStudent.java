@@ -21,6 +21,8 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 import com.thoughtworks.xstream.security.AnyTypePermission;
 
+import controller.LanguageController;
+
 public class DBStudent {
 	
 	private static DBStudent instance = null;
@@ -38,12 +40,12 @@ public class DBStudent {
 	
 	private DBStudent() {
 		columns = new ArrayList<String>();
-		columns.add("INDEKS");
-		columns.add("IME");
-		columns.add("PREZIME");
-		columns.add("GODINA STUDIJA");
-		columns.add("STATUS");
-		columns.add("PROSEK");
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("StudentIndex"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("StudentName"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("StudentSurname"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("StudentYear"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("StudentStatus"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("StudentAvg"));
 		
 		initStudents();
 		
@@ -229,6 +231,7 @@ public class DBStudent {
 			os.close();
 		}
 	}
+	
 	
 	private ArrayList<Student> convertExcel() throws IOException{
 		try {

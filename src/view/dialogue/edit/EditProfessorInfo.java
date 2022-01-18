@@ -7,6 +7,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controller.LanguageController;
 import controller.ProfessorController;
 import utilities.FormatCheckRegex;
 import view.TabbedPane.TablePanel;
@@ -36,18 +37,18 @@ public class EditProfessorInfo extends JPanel {
 		
 		int row = panel.getTable().convertRowIndexToModel(panel.getTable().getSelectedRow());
 		
-		surname = new EditTF("Surname*", ProfessorController.getInstance().getSurname(row), this);
-		name = new EditTF("Name*", ProfessorController.getInstance().getName(row), this);
-		dateOfBirth = new EditTF("dateOfBirth*", ProfessorController.getInstance().getDateOfBirth(row), this);
-		address = new EditTF("Address*", ProfessorController.getInstance().getAddress(row), this);
-		phoneNumber = new EditTF("Phone*", ProfessorController.getInstance().getPhoneNumber(row), this);
-		emailAdress = new EditTF("Email*", ProfessorController.getInstance().getEmailAddress(row), this);
-		officeAdress = new EditTF("Office Adress*", ProfessorController.getInstance().getOfficeAddress(row), this);
-		idNumber = new EditTF("ID*", ProfessorController.getInstance().getIdNumber(row), this);
-		title = new EditTF("Title*", ProfessorController.getInstance().getTitle(row), this);
-		workingYears = new EditTF("Working Years*",ProfessorController.getInstance().getWorkingYears(row), this);
+		surname = new EditTF(LanguageController.getInstance().getResourceBundle().getString("Surname"), ProfessorController.getInstance().getSurname(row), this);
+		name = new EditTF(LanguageController.getInstance().getResourceBundle().getString("Name"), ProfessorController.getInstance().getName(row), this);
+		dateOfBirth = new EditTF(LanguageController.getInstance().getResourceBundle().getString("DateOfBirth"), ProfessorController.getInstance().getDateOfBirth(row), this);
+		address = new EditTF(LanguageController.getInstance().getResourceBundle().getString("Address"), ProfessorController.getInstance().getAddress(row), this);
+		phoneNumber = new EditTF(LanguageController.getInstance().getResourceBundle().getString("PhoneNumber"), ProfessorController.getInstance().getPhoneNumber(row), this);
+		emailAdress = new EditTF(LanguageController.getInstance().getResourceBundle().getString("Email"), ProfessorController.getInstance().getEmailAddress(row), this);
+		officeAdress = new EditTF(LanguageController.getInstance().getResourceBundle().getString("OfficeAddress"), ProfessorController.getInstance().getOfficeAddress(row), this);
+		idNumber = new EditTF(LanguageController.getInstance().getResourceBundle().getString("Id"), ProfessorController.getInstance().getIdNumber(row), this);
+		title = new EditTF(LanguageController.getInstance().getResourceBundle().getString("Title"), ProfessorController.getInstance().getTitle(row), this);
+		workingYears = new EditTF(LanguageController.getInstance().getResourceBundle().getString("WorkingYears"),ProfessorController.getInstance().getWorkingYears(row), this);
 		
-		ok = new JButton("OK");
+		ok = new JButton(LanguageController.getInstance().getResourceBundle().getString("OkButton"));
 		ok.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {	
@@ -65,7 +66,7 @@ public class EditProfessorInfo extends JPanel {
 			
 		});
 		
-		exit = new JButton("EXIT");
+		exit = new JButton(LanguageController.getInstance().getResourceBundle().getString("ExitButton"));
 		exit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

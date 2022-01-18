@@ -4,6 +4,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
 import controller.AbstractTableModelTeaches;
+import controller.LanguageController;
 import view.TabbedPane.TablePanel;
 
 public class EditProfessorTabbedPane extends JTabbedPane {
@@ -20,8 +21,8 @@ public class EditProfessorTabbedPane extends JTabbedPane {
 		teaches = new EditProfessorTeaches(dialogue, panel, this);
 		
 		
-		add("Info", info);
-		add("Teaches", teaches);
+		add(LanguageController.getInstance().getResourceBundle().getString("InfoTab"), info);
+		add(LanguageController.getInstance().getResourceBundle().getString("TeachesTab"), teaches);
 	}
 	
 	public void updateView() {

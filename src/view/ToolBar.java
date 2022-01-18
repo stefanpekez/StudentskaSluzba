@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
+import controller.LanguageController;
 import controller.ProfessorController;
 import controller.StudentController;
 import controller.SubjectController;
@@ -45,7 +46,7 @@ public class ToolBar extends JToolBar {
 		this.tables = tables;
 		
 		btnNew = new JButton();
-		btnNew.setToolTipText("New");
+		btnNew.setToolTipText(LanguageController.getInstance().getResourceBundle().getString("FileNew"));
 		btnNew.setIcon(new ImageIcon("images/upload.png"));
 		btnNew.addActionListener(new ActionListener() {
 
@@ -77,7 +78,7 @@ public class ToolBar extends JToolBar {
 		addSeparator();
 		
 		btnWrite = new JButton();
-		btnWrite.setToolTipText("Write");
+		btnWrite.setToolTipText(LanguageController.getInstance().getResourceBundle().getString("Edit"));
 		btnWrite.setIcon(new ImageIcon("images/edit.png"));
 		btnWrite.addActionListener(new ActionListener() {
 
@@ -89,21 +90,21 @@ public class ToolBar extends JToolBar {
 					if(tables.getStudentTab().getTable().getSelectedRow() != -1)
 						new EditStudentDialogue(getParent(), tables.getStudentTab());
 					else {
-						JOptionPane.showMessageDialog(getParent(), "Please select a student to edit", "Error", 0);
+						JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("StudentNotSelectedEdit"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 					}
 					break;
 				case 1:
 					if(tables.getProfessorTab().getTable().getSelectedRow() != -1) {
 						new EditProfessorDialogue(getParent(), tables.getProfessorTab());
 					} else {
-						JOptionPane.showMessageDialog(getParent(), "Please select a professor to edit", "Error", 0);
+						JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("EditProfessorMessage"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 					}
 					break;
 				case 2:
 					if(tables.getSubjectTab().getTable().getSelectedRow() != -1)
 						new EditSubjectDialogue(getParent(), tables.getSubjectTab());
 					else {
-						JOptionPane.showMessageDialog(getParent(), "Please select a subject to edit", "Error", 0);
+						JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("EditSubjectMessage"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 					}
 					break;
 				default:
@@ -118,7 +119,7 @@ public class ToolBar extends JToolBar {
 		addSeparator();
 		
 		btnTrash = new JButton();
-		btnTrash.setToolTipText("Delete");
+		btnTrash.setToolTipText(LanguageController.getInstance().getResourceBundle().getString("Delete"));
 		btnTrash.setIcon(new ImageIcon("images/garbage.png"));
 		btnTrash.addActionListener(new ActionListener() {
 
@@ -129,7 +130,7 @@ public class ToolBar extends JToolBar {
 				switch (tables.getSelectedIndex()) {
 				case 0: 
 					if(tables.getStudentTab().getTable().getSelectedRow() == -1) {
-						JOptionPane.showMessageDialog(getParent(), "Please select a student to delete", "Error", 0);
+						JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("DeleteStudentNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 					} else {
 						DeleteStudentDialogue deleteStudent = new DeleteStudentDialogue(getParent(), tables.getStudentTab());
 					}
@@ -138,14 +139,14 @@ public class ToolBar extends JToolBar {
 					if(tables.getProfessorTab().getTable().getSelectedRow() != -1) {
 						new DeleteProfessorDialogue(getParent(), tables.getProfessorTab()).setVisible(true);
 					} else {
-						JOptionPane.showMessageDialog(getParent(), "Please select a professor to delete", "Error", 0);
+						JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("DeleteProfessorNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 					}
 					break;
 				case 2:
 					if(tables.getSubjectTab().getTable().getSelectedRow() != -1) {
 						new DeleteSubjectDialogue(getParent(), tables.getSubjectTab()).setVisible(true);
 					} else {
-						JOptionPane.showMessageDialog(getParent(), "Please select a subject to delete", "Error", 0);
+						JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("DeleteSubjectNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 					}
 					break;
 				default:
@@ -159,7 +160,7 @@ public class ToolBar extends JToolBar {
 		
 		add(Box.createHorizontalGlue());
 		
-		txtF = new JTextField("Search...", 15);
+		txtF = new JTextField(LanguageController.getInstance().getResourceBundle().getString("SearchPlaceholder"), 15);
 		txtF.setMaximumSize(new Dimension(0, 25));
 		txtF.addMouseListener(new MouseListener(){
 			@Override
@@ -186,7 +187,7 @@ public class ToolBar extends JToolBar {
 		add(txtF);
 		
 		btnSearch = new JButton();
-		btnSearch.setToolTipText("Search");
+		btnSearch.setToolTipText(LanguageController.getInstance().getResourceBundle().getString("SearchToolTip"));
 		btnSearch.setIcon(new ImageIcon("images/magnifying-glass.png"));
 		btnSearch.addActionListener(new ActionListener() {
 
