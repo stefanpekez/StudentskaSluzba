@@ -1,12 +1,8 @@
 package controller;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import model.DBExams;
-import model.DBProfessor;
-import model.DBStudent;
 import model.DBSubject;
 import model.Subject;
 import view.dialogue.NewCB;
@@ -120,12 +116,20 @@ public class SubjectController {
 		DBExams.getInstance().addUnpassedExam(selectedSubject, selectedStudent);
 	}
 	
-	public String[] getSubjectList(int selectedStudent) {
-		return DBSubject.getInstance().getSubjectList(selectedStudent);
+	public String[] getSubjectListForStudent(int selectedStudent) {
+		return DBSubject.getInstance().getSubjectListForStudent(selectedStudent);
+	}
+	
+	public String[] getSubjectListForProfessor(int selectedProfessor) {
+		return DBSubject.getInstance().getSubjectListForProfessor(selectedProfessor);
 	}
 	
 	public void deleteUnpassedExam(int indexStudent, String indexSubject) {
 		DBSubject.getInstance().deleteUnpassedExam(indexStudent, indexSubject);
+	}
+	
+	public void deleteTaughtSubject(int indexProfessor, String[] indexSubject) {
+		DBSubject.getInstance().deleteTaughtSubject(indexProfessor, indexSubject);
 	}
 	
 	public ArrayList<Subject> getExamsRemaining() {

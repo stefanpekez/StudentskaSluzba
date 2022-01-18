@@ -176,6 +176,16 @@ public class TabbedPane extends JTabbedPane {
 					}
 				});
 				
+				sorterStudent.setComparator(5, new Comparator<String>() {
+					@Override
+					public int compare(String o1, String o2) {
+						// TODO Auto-generated method stub
+						double avg1 = Double.parseDouble(o1);
+						double avg2 = Double.parseDouble(o2);
+						return Double.compare(avg1, avg2);
+					}
+				});
+				
 				
 				table.setRowSorter(sorterStudent);
 				break;

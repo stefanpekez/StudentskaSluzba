@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -51,8 +52,12 @@ public class EditStudentUnpassed extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				SubjectController.getInstance().deleteUnpassedExam(selectedStudent, (String) table.getModel().getValueAt(table.getSelectedRow(), 0));
-				stp.updateView(2);
+				if(table.getSelectedColumn() != -1) {
+					SubjectController.getInstance().deleteUnpassedExam(selectedStudent, (String) table.getModel().getValueAt(table.getSelectedRow(), 0));
+					stp.updateView(2);
+				} else
+					JOptionPane.showMessageDialog(getParent(), "Please select an exam to delete", "Error", 0);
+				
 			}
 		});
 		this.apply = new JButton("MARK AS PASSED");

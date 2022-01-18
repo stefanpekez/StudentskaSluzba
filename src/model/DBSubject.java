@@ -6,8 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -145,13 +143,14 @@ public class DBSubject {
 		subjects = searchSubjects;
 	}
 	
-	public String[] getSubjectList(int selectedStudent){
+	public String[] getSubjectListForStudent(int selectedStudent){
 		
 		ArrayList<Subject> possibleUnpassedExams = subjects;
 		ArrayList<Subject> remainingExams = DBStudent.getInstance().getSelectedStudent(selectedStudent).getRemainingExams();
-		//ArrayList<Subject> remainingExams = DBExams.getInstance().getExamsRemaining();
 		ArrayList<Grade> passedExamsGrade = DBStudent.getInstance().getSelectedStudent(selectedStudent).getPassedExams();
 		ArrayList<Subject> passedExamsSubject = new ArrayList<Subject>();
+		
+		// TODO Hash seemingly doesn't do anything, should check
 		HashMap<String, Subject> hashSubjects = new HashMap<String, Subject>();
 		
 		for(Grade g: passedExamsGrade)
@@ -171,10 +170,38 @@ public class DBSubject {
 		return subjectArray;
 	}
 	
+	public String[] getSubjectListForProfessor(int selectedProfessor){
+		
+		ArrayList<Subject> possibleTeachableSubjects = subjects;
+		ArrayList<Subject> alreadyTeaching = DBProfessor.getInstance().getProfessor(selectedProfessor).getSubjects();
+		
+		String[] subjectArray = new String[possibleTeachableSubjects.size()-alreadyTeaching.size()];
+		
+		int i = 0;
+		for(Subject s: possibleTeachableSubjects) {
+			if(!alreadyTeaching.contains(s)) {
+				subjectArray[i] = s.toString();
+				++i;
+			}
+		}
+		return subjectArray;
+		
+		}
+		
+	
 	public void deleteUnpassedExam(int indexStudent, String indexSubject) {
 		Subject subject = DBSubject.getInstance().getSelectedSubject(indexSubject);
 		
 		DBStudent.getInstance().getSelectedStudent(indexStudent).removeUnpassedExam(subject);
+	}
+	
+	public void deleteTaughtSubject(int indexProfessor, String[] indexSubject) {
+		
+		for(String s: indexSubject) {
+			Subject subject = DBSubject.getInstance().getSelectedSubject(s);
+			DBProfessor.getInstance().getProfessor(indexProfessor).removeTaughtSubject(subject);
+		}
+		
 	}
 	
 	public void deleteSubject(int row) {

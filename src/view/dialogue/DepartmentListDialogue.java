@@ -45,7 +45,7 @@ public class DepartmentListDialogue extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(departments.getSelectedIndex() != -1) {
-					new DepartmentAddBoss(thisDialog, listsPanel, departments);
+					new DepartmentAddBoss(thisDialog, listsPanel, departments, currentDH);
 					addBoss.setEnabled(false);
 				}
 				else
