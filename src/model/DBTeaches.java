@@ -20,13 +20,15 @@ public class DBTeaches {
 	
 	public DBTeaches() {
 		columns = new ArrayList<String>();
+		
+	}
+	
+	public void init(ArrayList<Subject> subjects) {
+		columns.clear();
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("PassedSubjectId"));
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectName"));
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectYear"));
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectSemester"));
-	}
-	
-	public void init(ArrayList<Subject> subjects) {
 		subjectTeaches = subjects;
 		
 		//subjectTeaches.add(new Subject("testID", "Nuklearna Fizika", 9, "3", "ZIMSKI"));

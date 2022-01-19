@@ -1,6 +1,7 @@
 package view.dialogue;
 
 import java.awt.Container;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -74,6 +75,7 @@ public class NewSubjectDialogue extends JDialog {
 		buttonsPanel.add(exit);
 		add(buttonsPanel);
 		
+		setModalityType(ModalityType.APPLICATION_MODAL);
 		setResizable(false);
 		setVisible(true);
 	}

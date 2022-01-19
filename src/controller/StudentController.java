@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import model.DBExams;
 import model.DBExamsPassed;
 import model.DBStudent;
+import model.DBSubject;
 import model.Grade;
 import model.Student;
 import model.Subject;
@@ -120,6 +121,9 @@ public class StudentController {
 		//get student
 		Student stud = DBStudent.getInstance().getSelectedStudent(student);
 		
+		//Add student to subjects list of students who passed said subject
+		DBSubject.getInstance().getSelectedSubject(subject).addPassedStudent(stud);
+		
 		//make grade
 		Grade gra = new Grade(stud, subj, grade + 6, datee);
 		
@@ -158,6 +162,12 @@ public class StudentController {
 	public boolean cancelGrade(int grade) {
 		Grade cancel = DBExamsPassed.getInstance().getSelectedGrade(grade);
 		DBExamsPassed.getInstance().removeGrade(grade);
+		
+		Subject subject = cancel.getSubject();
+		Student student = cancel.getStudent();
+		
+		subject.removePassedStudent(student);
+		subject.addUnpassedStudent(student);
 		
 		// remove from student passed exam
 		DBStudent.getInstance().removePassedExam(cancel.getStudent(), cancel);

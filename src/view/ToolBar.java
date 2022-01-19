@@ -38,6 +38,8 @@ public class ToolBar extends JToolBar {
 	private JTextField txtF;
 	private TabbedPane tables;
 	
+	private EditStudentDialogue eds;
+	
 	private boolean searchClickedOnce = false;
 	
 	public ToolBar(TabbedPane tables) {
@@ -88,7 +90,7 @@ public class ToolBar extends JToolBar {
 				switch (tables.getSelectedIndex()) {
 				case 0: 
 					if(tables.getStudentTab().getTable().getSelectedRow() != -1)
-						new EditStudentDialogue(getParent(), tables.getStudentTab());
+						eds = new EditStudentDialogue(getParent(), tables.getStudentTab());
 					else {
 						JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("StudentNotSelectedEdit"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 					}
@@ -221,6 +223,19 @@ public class ToolBar extends JToolBar {
 		
 		setFloatable(false);	
 		
+	}
+	
+	public void initComponents() {
+		btnNew.setToolTipText(LanguageController.getInstance().getResourceBundle().getString("FileNew"));
+		btnWrite.setToolTipText(LanguageController.getInstance().getResourceBundle().getString("Edit"));
+		btnTrash.setToolTipText(LanguageController.getInstance().getResourceBundle().getString("Delete"));
+		btnSearch.setToolTipText(LanguageController.getInstance().getResourceBundle().getString("SearchToolTip"));
+		txtF.setText(LanguageController.getInstance().getResourceBundle().getString("SearchPlaceholder"));
+		//administration
+	}
+	
+	public EditStudentDialogue getEDS() {
+		return this.eds;
 	}
 	
 }

@@ -27,7 +27,10 @@ import com.thoughtworks.xstream.security.NoTypePermission;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
+import controller.AbstractTableModelStudent;
 import controller.LanguageController;
+import view.TabbedPane;
+import view.TabbedPane.TablePanel;
 
 public class DBStudent {
 	
@@ -252,6 +255,39 @@ public class DBStudent {
 		}
 	}
 	
+	public void initComponents(TablePanel tp) {
+		for(int i = 0; i < columns.size(); ++i) {
+			switch(i) {
+				case 0:
+					tp.getTable().getColumnModel().getColumn(i).setHeaderValue(LanguageController.getInstance().getResourceBundle().getString("StudentIndex"));
+					tp.getTable().getTableHeader().repaint();
+					break;
+				case 1:
+					tp.getTable().getColumnModel().getColumn(i).setHeaderValue(LanguageController.getInstance().getResourceBundle().getString("StudentName"));
+					tp.getTable().getTableHeader().repaint();
+					break;
+				case 2:
+					tp.getTable().getColumnModel().getColumn(i).setHeaderValue(LanguageController.getInstance().getResourceBundle().getString("StudentSurname"));
+					tp.getTable().getTableHeader().repaint();
+					break;
+				case 3:
+					tp.getTable().getColumnModel().getColumn(i).setHeaderValue(LanguageController.getInstance().getResourceBundle().getString("StudentYear"));
+					tp.getTable().getTableHeader().repaint();
+					break;
+				case 4:
+					tp.getTable().getColumnModel().getColumn(i).setHeaderValue(LanguageController.getInstance().getResourceBundle().getString("StudentStatus"));
+					tp.getTable().getTableHeader().repaint();
+					break;
+				case 5:
+					tp.getTable().getColumnModel().getColumn(i).setHeaderValue(LanguageController.getInstance().getResourceBundle().getString("StudentAvg"));
+					tp.getTable().getTableHeader().repaint();
+					break;
+				default:
+					break;
+			}
+		}
+	}
+	
 	private ArrayList<Student> convertExcel() throws IOException{
 		try {
 			FileInputStream excelFile = new FileInputStream(new File("testpodaci.xlsx"));
@@ -341,7 +377,7 @@ public class DBStudent {
 			FileInputStream excelFile = new FileInputStream(new File("testpodaci.xlsx"));
 			Workbook workbook = new XSSFWorkbook(excelFile);
 			
-			Sheet sheet = workbook.getSheet("NepoloÂženi predmeti");
+			Sheet sheet = workbook.getSheet("Nepoloženi predmeti");
 			Iterator<Row> rows = sheet.iterator();
 			
 			

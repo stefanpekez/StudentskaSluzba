@@ -21,6 +21,8 @@ public class EditProfessorDialogue extends JDialog{
 		tabs = new EditProfessorTabbedPane(this, panel);
 		
 		add(tabs);
+		
+		setModalityType(ModalityType.APPLICATION_MODAL);
 		setVisible(true);
 	}
 }

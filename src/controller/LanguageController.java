@@ -3,6 +3,13 @@ package controller;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+import view.MainFrame;
+import view.MenuBar;
+import view.StatusBar;
+
 public class LanguageController {
 	
 	private static LanguageController instance;
@@ -13,6 +20,8 @@ public class LanguageController {
 		return instance;
 	}
 	
+	private MenuBar menu;
+	private StatusBar statusbar;
 	private ResourceBundle resourceBundle;
 	
 	private LanguageController() {
@@ -20,8 +29,11 @@ public class LanguageController {
 		resourceBundle = ResourceBundle.getBundle("controller.MessageResources.MessageResources", Locale.getDefault());
 	}
 	
-	public void changeLanguage() {
+	public void changeLanguage(MainFrame main) {
 		resourceBundle = ResourceBundle.getBundle("controller.MessageResources.MessageResources", Locale.getDefault());
+		main.initGUI();
+		
+		//System.out.println(LanguageController.getInstance().getResourceBundle().getString("FileMenuBar"));
 		
 		//TODO add calls for static metods for classes that are initiated imediately
 		

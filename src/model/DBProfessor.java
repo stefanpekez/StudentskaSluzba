@@ -23,6 +23,7 @@ import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 import com.thoughtworks.xstream.security.AnyTypePermission;
 
 import controller.LanguageController;
+import view.TabbedPane.TablePanel;
 
 public class DBProfessor {
 	
@@ -241,6 +242,31 @@ public class DBProfessor {
 			
 			}
 		finally {
+		}
+	}
+	
+	public void initComponents(TablePanel tp) {
+		for(int i = 0; i < columns.size(); ++i) {
+			switch(i) {
+				case 0:
+					tp.getTable().getColumnModel().getColumn(i).setHeaderValue(LanguageController.getInstance().getResourceBundle().getString("ProfessorName"));
+					tp.getTable().getTableHeader().repaint();
+					break;
+				case 1:
+					tp.getTable().getColumnModel().getColumn(i).setHeaderValue(LanguageController.getInstance().getResourceBundle().getString("ProfessorSurname"));
+					tp.getTable().getTableHeader().repaint();
+					break;
+				case 2:
+					tp.getTable().getColumnModel().getColumn(i).setHeaderValue(LanguageController.getInstance().getResourceBundle().getString("ProfessorTitle"));
+					tp.getTable().getTableHeader().repaint();
+					break;
+				case 3:
+					tp.getTable().getColumnModel().getColumn(i).setHeaderValue(LanguageController.getInstance().getResourceBundle().getString("ProfessorEmail"));
+					tp.getTable().getTableHeader().repaint();
+					break;
+				default:
+					break;
+			}
 		}
 	}
 	
