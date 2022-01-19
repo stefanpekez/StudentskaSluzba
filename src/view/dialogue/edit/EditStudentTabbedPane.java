@@ -66,7 +66,6 @@ public class EditStudentTabbedPane extends JTabbedPane {
 			validate();
 			
 	   		passedExams.getDynAverage().setText(Double.toString(DBExamsPassed.getInstance().getAvgGrade(tp.getTable().getSelectedRow())));
-	   		
 	   		passedExams.getDynESPB().setText(Integer.toString(DBExamsPassed.getInstance().getESPB()));
 		} else {
 			// update unpassed

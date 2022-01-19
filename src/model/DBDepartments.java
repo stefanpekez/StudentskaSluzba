@@ -34,6 +34,7 @@ public class DBDepartments {
 	
 	private DBDepartments() {
 		try {
+			//departments = deserialize();
 			departments = convertExcel();
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -79,6 +80,20 @@ public class DBDepartments {
 			xs.toXML(departments, os);
 		} finally {
 			os.close();
+		}
+	}
+	
+	public ArrayList<Department> deserialize() throws IOException {
+		FileInputStream f = new FileInputStream("saves\\departments.json");
+		try {
+			XStream xstream = new XStream(new JettisonMappedXmlDriver());
+			xstream.addPermission(AnyTypePermission.ANY);
+			
+			departments = (ArrayList<Department>) xstream.fromXML(f);
+			return departments;
+			
+			}
+		finally {
 		}
 	}
 	
