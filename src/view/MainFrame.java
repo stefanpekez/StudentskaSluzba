@@ -9,9 +9,11 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 
+import javax.security.auth.callback.LanguageCallback;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+import controller.LanguageController;
 import model.DBAddress;
 import model.DBDepartments;
 import model.DBProfessor;
@@ -29,7 +31,7 @@ public class MainFrame extends JFrame {
 		setSize(3*d.width / 4,3* d.height / 4);
 		setLocationRelativeTo(null);
 		
-		setTitle("Studentska Služba");
+		setTitle(LanguageController.getInstance().getResourceBundle().getString("StudentService"));
 		
 		Image img = kit.getImage("images/ftn.png");
 		setIconImage(img);

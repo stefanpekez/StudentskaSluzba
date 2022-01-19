@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.LanguageController;
+
 public class DBTeaches {
 	
 	private static DBTeaches instance;
@@ -18,10 +20,10 @@ public class DBTeaches {
 	
 	public DBTeaches() {
 		columns = new ArrayList<String>();
-		columns.add("SUBJECT ID");
-		columns.add("NAME");
-		columns.add("YEAR");
-		columns.add("SEMESTER");
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("PassedSubjectId"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectName"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectYear"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectSemester"));
 	}
 	
 	public void init(ArrayList<Subject> subjects) {

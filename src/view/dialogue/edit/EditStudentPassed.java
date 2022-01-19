@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import controller.LanguageController;
 import controller.StudentController;
 import view.TabbedPane.TablePanel;
 
@@ -35,7 +36,7 @@ public class EditStudentPassed extends JPanel {
 		StudentController.getInstance().setupPassedExamsDB(selectedStudent);
 		
 		// Cancel Grade Button
-		JButton cancelGrade = new JButton("CANCEL GRADE");
+		JButton cancelGrade = new JButton(LanguageController.getInstance().getResourceBundle().getString("CancelGradeButton"));
 		cancelGrade.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -43,7 +44,7 @@ public class EditStudentPassed extends JPanel {
 					// controller cancel grade
 					new DeleteGradeDialogue(table.getSelectedRow(), tabbedpane).setVisible(true);
 				} else {
-					JOptionPane.showMessageDialog(getParent(), "Please select a grade to cancel", "Error", 0);
+					JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("GradeNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 				}
 			}
 		});
@@ -60,14 +61,14 @@ public class EditStudentPassed extends JPanel {
 		tablePanel.add( new JScrollPane(table));
 		
 		// Average
-		JLabel average = new JLabel("Average Grade: ");
+		JLabel average = new JLabel(LanguageController.getInstance().getResourceBundle().getString("AvgGrade"));
 		
 		averagePanel = new JPanel();
 		averagePanel.add(average);
 		averagePanel.add(dynAverage);
 		
 		// ESPB
-		JLabel totalEspb = new JLabel("Total ESPB: ");
+		JLabel totalEspb = new JLabel(LanguageController.getInstance().getResourceBundle().getString("TotalEspb"));
 		
 		espbPanel = new JPanel();
 		espbPanel.add(totalEspb);

@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import controller.LanguageController;
 import controller.ProfessorController;
 
 public class SetSubjectProfessorAdd extends JDialog{
@@ -25,7 +26,7 @@ public class SetSubjectProfessorAdd extends JDialog{
 	public SetSubjectProfessorAdd(SetSubjectProfessor panel, EditSubjectDialogue parent) {
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setSize(350, 250);
-		setTitle("Choose Professor");
+		setTitle(LanguageController.getInstance().getResourceBundle().getString("ChooseProfessorTitle"));
 		setLocationRelativeTo(parent);
 		
 		professors = new JList<String>(ProfessorController.getInstance().getProfessorList());
@@ -34,7 +35,7 @@ public class SetSubjectProfessorAdd extends JDialog{
 		professorsScrollable.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		JPanel buttonz = new JPanel();
-		ok = new JButton("OK");
+		ok = new JButton(LanguageController.getInstance().getResourceBundle().getString("OkButton"));
 		ok.addActionListener(new ActionListener() {
 
 			@Override
@@ -52,7 +53,7 @@ public class SetSubjectProfessorAdd extends JDialog{
 			
 		});
 		
-		exit = new JButton("EXIT");
+		exit = new JButton(LanguageController.getInstance().getResourceBundle().getString("ExitButton"));
 		exit.addActionListener(new ActionListener() {
 
 			@Override

@@ -27,6 +27,8 @@ import com.thoughtworks.xstream.security.NoTypePermission;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
+import controller.LanguageController;
+
 public class DBStudent {
 	
 	private static DBStudent instance = null;
@@ -44,12 +46,12 @@ public class DBStudent {
 	
 	private DBStudent() {
 		columns = new ArrayList<String>();
-		columns.add("INDEKS");
-		columns.add("IME");
-		columns.add("PREZIME");
-		columns.add("GODINA STUDIJA");
-		columns.add("STATUS");
-		columns.add("PROSEK");
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("StudentIndex"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("StudentName"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("StudentSurname"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("StudentYear"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("StudentStatus"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("StudentAvg"));
 		
 		initStudents();
 		
@@ -236,7 +238,7 @@ public class DBStudent {
 			os.close();
 		}
 	}
-	
+  
 	public ArrayList<Student> deserialize() throws IOException {
 		FileInputStream f = new FileInputStream("saves\\students.json");
 		try {
@@ -339,7 +341,7 @@ public class DBStudent {
 			FileInputStream excelFile = new FileInputStream(new File("testpodaci.xlsx"));
 			Workbook workbook = new XSSFWorkbook(excelFile);
 			
-			Sheet sheet = workbook.getSheet("Nepoloženi predmeti");
+			Sheet sheet = workbook.getSheet("NepoloÂženi predmeti");
 			Iterator<Row> rows = sheet.iterator();
 			
 			

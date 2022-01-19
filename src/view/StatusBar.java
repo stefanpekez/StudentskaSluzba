@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.DynamicClock;
+import controller.LanguageController;
 
 public class StatusBar extends JPanel {
 
@@ -19,11 +20,11 @@ public class StatusBar extends JPanel {
 	private JLabel opentab;
 
 	public StatusBar() {
-		opentab = new JLabel("Student");
+		opentab = new JLabel(LanguageController.getInstance().getResourceBundle().getString("StudentsTab"));
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
-		JLabel StudentskaSluzba = new JLabel("  Studentska služba - ");
+		JLabel StudentskaSluzba = new JLabel("   " + LanguageController.getInstance().getResourceBundle().getString("StatusBarStudentService"));
 		add(StudentskaSluzba);
 		add(opentab);
 		

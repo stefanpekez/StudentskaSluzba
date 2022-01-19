@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import controller.DepartmentController;
+import controller.LanguageController;
 import controller.ProfessorController;
 import model.DBProfessor;
 
@@ -30,7 +31,7 @@ public class DepartmentAddBoss {
 		
 		//	Shows current head of department right after pressing ADD BOSS
 		if(DepartmentController.getInstance().getSelectedDepartmentHead(departments.getSelectedIndex()) == null)
-			parent.setCurrenDHText("There is no department head assigned for selected department");
+			parent.setCurrenDHText(LanguageController.getInstance().getResourceBundle().getString("NoBossAssignedMessage"));
 		else
 			parent.setCurrenDHText(DepartmentController.getInstance().getSelectedDepartmentHead(departments.getSelectedIndex()).toString());
 		
@@ -48,7 +49,7 @@ public class DepartmentAddBoss {
 				if(DepartmentController.getInstance().getSelectedDepartmentHead(departments.getSelectedIndex()) == null) {
 					plus.setEnabled(true);
 					minus.setEnabled(false);
-					parent.setCurrenDHText("There is no department head assigned for selected department");
+					parent.setCurrenDHText(LanguageController.getInstance().getResourceBundle().getString("NoBossAssignedMessage"));
 				}
 				else {
 					plus.setEnabled(false);
@@ -104,8 +105,8 @@ public class DepartmentAddBoss {
 						plus.setEnabled(false);
 						parent.setCurrenDHText(DepartmentController.getInstance().getSelectedDepartmentHead(departments.getSelectedIndex()).toString());
 					} else 
-						JOptionPane.showMessageDialog(parent, "Selected professor is already head of another department", "Error", 0);
-				} else JOptionPane.showMessageDialog(parent, "Professor not selected", "Error", 0);
+						JOptionPane.showMessageDialog(parent, LanguageController.getInstance().getResourceBundle().getString("ProfessorAlreadyHeadOf"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
+				} else JOptionPane.showMessageDialog(parent, LanguageController.getInstance().getResourceBundle().getString("ProfessorNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 			}
 		});
 		
@@ -123,7 +124,7 @@ public class DepartmentAddBoss {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				DepartmentController.getInstance().getSelectedDepartment(departments.getSelectedIndex()).setDepartmentHead(null);
-				parent.setCurrenDHText("There is no department head assigned for selected department");
+				parent.setCurrenDHText(LanguageController.getInstance().getResourceBundle().getString("NoBossAssignedMessage"));
 				minus.setEnabled(false);
 				plus.setEnabled(true);
 			}

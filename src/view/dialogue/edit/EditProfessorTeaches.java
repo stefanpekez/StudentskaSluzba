@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import controller.LanguageController;
 import controller.ProfessorController;
 import controller.SubjectController;
 import view.TabbedPane.TablePanel;
@@ -38,7 +39,7 @@ public class EditProfessorTeaches extends JPanel {
 		tablePanel.add(new JScrollPane(table));
 		
 		JPanel buttonPanel = new JPanel();
-		add = new JButton("ADD");
+		add = new JButton(LanguageController.getInstance().getResourceBundle().getString("TeachesAddButton"));
 		add.addActionListener(new ActionListener() {
 			
 			@Override
@@ -48,7 +49,7 @@ public class EditProfessorTeaches extends JPanel {
 			}
 		});
 		
-		remove = new JButton("REMOVE");
+		remove = new JButton(LanguageController.getInstance().getResourceBundle().getString("TeachesRemoveButton"));
 		remove.addActionListener(new ActionListener() {
 			
 			@Override
@@ -65,7 +66,7 @@ public class EditProfessorTeaches extends JPanel {
 					ptp.updateView();
 					
 				} else 
-					JOptionPane.showMessageDialog(getParent(), "Please select a subject to remove", "Error", 0);
+					JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("DeleteSubjectNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 			}
 		});
 		

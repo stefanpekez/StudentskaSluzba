@@ -22,6 +22,8 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 import com.thoughtworks.xstream.security.AnyTypePermission;
 
+import controller.LanguageController;
+
 public class DBProfessor {
 	
 	private static DBProfessor instance = null;
@@ -40,10 +42,10 @@ public class DBProfessor {
 	
 	public DBProfessor() {
 		columns = new ArrayList<String>();
-		columns.add("NAME");
-		columns.add("SURNAME");
-		columns.add("TITLE");
-		columns.add("EMAIL");
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("ProfessorName"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("ProfessorSurname"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("ProfessorTitle"));
+		columns.add(LanguageController.getInstance().getResourceBundle().getString("ProfessorEmail"));
 
 		initProfessors();
 	}
@@ -98,7 +100,7 @@ public class DBProfessor {
 	public boolean addNewProfessor(String surname, String name, LocalDate dateOfBirth, Address homeAdress, String phoneNumber, 
 								String emailAdress, Address officeAdress, String idNumber, String title, int workingYears) {
 		
-		for(Professor s: professors) {
+		for(Professor s: originalProfessors) {
 			if(s.getIdNumber().equals(idNumber)) return false;
 		}
 		

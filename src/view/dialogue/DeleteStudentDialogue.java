@@ -10,6 +10,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controller.LanguageController;
 import controller.StudentController;
 import view.TabbedPane.TablePanel;
 
@@ -24,12 +25,12 @@ public class DeleteStudentDialogue extends JDialog {
 	public DeleteStudentDialogue(Container mainframe, TablePanel tp) {
 		BoxLayout boxLayout = new BoxLayout(getContentPane(), BoxLayout.Y_AXIS);
 		
-		setTitle("Delete student");
+		setTitle(LanguageController.getInstance().getResourceBundle().getString("DeleteStudentTitle"));
 		setSize(400, 100);
 		setLocationRelativeTo(mainframe);
 		setLayout(boxLayout);
 		
-		dialogueText = new JLabel("Do you want to delete this student?");
+		dialogueText = new JLabel(LanguageController.getInstance().getResourceBundle().getString("DeleteStudentMessage"));
 		
 		questionPanel = new JPanel();
 		questionPanel.add(dialogueText);
@@ -37,7 +38,7 @@ public class DeleteStudentDialogue extends JDialog {
 		buttonsPanel = new JPanel();
 		
 		//accept button
-		accept = new JButton("ACCEPT");
+		accept = new JButton(LanguageController.getInstance().getResourceBundle().getString("AcceptButton"));
 		accept.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 				//TODO implement function to add an object of Student class to DBStudent
@@ -48,7 +49,7 @@ public class DeleteStudentDialogue extends JDialog {
 		});
 				
 		//exit button
-		exit = new JButton("EXIT");
+		exit = new JButton(LanguageController.getInstance().getResourceBundle().getString("ExitButton"));
 		exit.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 				exitDialog();

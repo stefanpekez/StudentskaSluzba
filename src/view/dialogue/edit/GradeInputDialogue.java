@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 
 import controller.AbstractTableModelExams;
+import controller.LanguageController;
 import controller.StudentController;
 import utilities.FormatCheckRegex;
 import view.dialogue.NewCB;
@@ -30,7 +31,7 @@ public class GradeInputDialogue extends JDialog{
 	private JButton exit;
 
 	public GradeInputDialogue(int selectedExam, int selectedStudent, EditStudentDialogue parent, JTable update, EditStudentPassed updatePassed) {
-		setTitle("New Grade");
+		setTitle(LanguageController.getInstance().getResourceBundle().getString("NewGradeTitle"));
 		
 		setSize(400, 250);
 		setResizable(false);
@@ -40,12 +41,12 @@ public class GradeInputDialogue extends JDialog{
 		String[] list = {"6", "7", "8", "9", "10"};
 		
 		//get id and name
-		id = new EditTF("ID*", StudentController.getInstance().getExamID(selectedExam));
-		name = new EditTF("NAME*", StudentController.getInstance().getExamName(selectedExam));
-		grade = new NewCB("GRADE*", list);
-		date = new NewTF("DATE*", this, "dd/mm/yyyy");
+		id = new EditTF(LanguageController.getInstance().getResourceBundle().getString("ForwardGradeId"), StudentController.getInstance().getExamID(selectedExam));
+		name = new EditTF(LanguageController.getInstance().getResourceBundle().getString("ForwardGradeName"), StudentController.getInstance().getExamName(selectedExam));
+		grade = new NewCB(LanguageController.getInstance().getResourceBundle().getString("ForwardGradeGrade"), list);
+		date = new NewTF(LanguageController.getInstance().getResourceBundle().getString("ForwardGradeDate"), this, "dd/mm/yyyy");
 		
-		ok = new JButton("OK");
+		ok = new JButton(LanguageController.getInstance().getResourceBundle().getString("OkButton"));
 		ok.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -67,7 +68,7 @@ public class GradeInputDialogue extends JDialog{
 		});
 		ok.setEnabled(false);
 		
-		exit = new JButton("EXIT");
+		exit = new JButton(LanguageController.getInstance().getResourceBundle().getString("ExitButton"));
 		exit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

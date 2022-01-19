@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AbstractTableModelExams;
 import controller.AbstractTableModelExamsPassed;
+import controller.LanguageController;
 import model.DBExamsPassed;
 import view.TabbedPane.TablePanel;
 
@@ -52,9 +53,9 @@ public class EditStudentTabbedPane extends JTabbedPane {
 
         });
 		
-		addTab("Info", infoTab);
-		addTab("Passed", passedExams);
-		addTab("Unpassed", unpassedExams);
+		addTab(LanguageController.getInstance().getResourceBundle().getString("InfoTab"), infoTab);
+		addTab(LanguageController.getInstance().getResourceBundle().getString("PassedTab"), passedExams);
+		addTab(LanguageController.getInstance().getResourceBundle().getString("UnpassedTab"), unpassedExams);
 	}
 	
 	public void updateView(int index) {
@@ -65,8 +66,8 @@ public class EditStudentTabbedPane extends JTabbedPane {
 			examsModelPassed.fireTableDataChanged();
 			validate();
 			
-	   		passedExams.getDynAverage().setText(Double.toString(DBExamsPassed.getInstance().getAvgGrade(tp.getTable().getSelectedRow())));
-	   		passedExams.getDynESPB().setText(Integer.toString(DBExamsPassed.getInstance().getESPB()));
+	   	passedExams.getDynAverage().setText(Double.toString(DBExamsPassed.getInstance().getAvgGrade(tp.getTable().convertRowIndexToModel(tp.getTable().getSelectedRow()))));
+	   	passedExams.getDynESPB().setText(Integer.toString(DBExamsPassed.getInstance().getESPB()));
 		} else {
 			// update unpassed
 			AbstractTableModelExams model = (AbstractTableModelExams) unpassedExams.getTable().getModel();

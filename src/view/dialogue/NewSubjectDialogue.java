@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+import controller.LanguageController;
 import controller.SubjectController;
 import view.TabbedPane.TablePanel;
 
@@ -28,22 +29,22 @@ public class NewSubjectDialogue extends JDialog {
 		
 		setSize(500, 300);
 		setLocationRelativeTo(mainframe);
-		setTitle("Add Subject");
+		setTitle(LanguageController.getInstance().getResourceBundle().getString("AddSubjectTitle"));
 		setLayout(boxLayout);
 		
 		String[] currentSemester = { "ZIMSKI", "LETNJI"};
 		String[] year = { "1", "2", "3", "4"};
 		
-		idPanel = new NewTF("ID*", this, "");
-		subjectNamePanel = new NewTF("Subject Name*", this, "");
-		espbPanel = new NewTF("ESPB*", this, "");
-		yearPanel = new NewCB("Year*                                  ", year);
-		currentSemesterPanel = new NewCB("Semester*                         ", currentSemester);
+		idPanel = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Id"), this, "");
+		subjectNamePanel = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Name"), this, "");
+		espbPanel = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Espb"), this, "");
+		yearPanel = new NewCB(LanguageController.getInstance().getResourceBundle().getString("Year"), year);
+		currentSemesterPanel = new NewCB(LanguageController.getInstance().getResourceBundle().getString("Semester"), currentSemester);
 		
 		buttonsPanel = new JPanel();
 		
 		//accept button
-		accept = new JButton("ACCEPT");
+		accept = new JButton(LanguageController.getInstance().getResourceBundle().getString("AcceptButton"));
 		accept.setEnabled(false);
 		accept.addActionListener(new ActionListener() {
 			
@@ -57,7 +58,7 @@ public class NewSubjectDialogue extends JDialog {
 		});
 		
 		//exit button
-		exit = new JButton("EXIT");
+		exit = new JButton(LanguageController.getInstance().getResourceBundle().getString("ExitButton"));
 		exit.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 				exitDialog();
