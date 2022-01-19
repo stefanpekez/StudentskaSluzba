@@ -58,6 +58,7 @@ public class DBProfessor {
 		//professors.add(new Professor("Rapajic", "Milos", LocalDate.parse("1970-01-11"), new Address("BB","","",""), "21839264", "rapa@uns.ac.rs", new Address("BB","","",""), "02B", "Redovni Profesor", 4));
 		
 		try {
+			//professors = deserialize();
 			professors = convertExcel();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -226,6 +227,20 @@ public class DBProfessor {
 			xs.toXML(professors, os);
 		} finally {
 			os.close();
+		}
+	}
+	
+	public ArrayList<Professor> deserialize() throws IOException {
+		FileInputStream f = new FileInputStream("saves\\professors.json");
+		try {
+			XStream xstream = new XStream(new JettisonMappedXmlDriver());
+			xstream.addPermission(AnyTypePermission.ANY);
+			
+			professors = (ArrayList<Professor>) xstream.fromXML(f);
+			return professors;
+			
+			}
+		finally {
 		}
 	}
 	

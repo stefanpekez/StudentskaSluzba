@@ -57,6 +57,7 @@ public class DBSubject {
 		//subjects.add(new Subject("MA", "Matematicka Analiza I", "1", "1", 9));
 		//subjects.add(new Subject("AR", "Arhitektura Racunara", "2", "1", 9));
 		try {
+			//subjects = deserialize();
 			subjects = convertExcel();
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -248,6 +249,20 @@ public class DBSubject {
 			xs.toXML(subjects, os);
 		} finally {
 			os.close();
+		}
+	}
+	
+	public ArrayList<Subject> deserialize() throws IOException {
+		FileInputStream f = new FileInputStream("saves\\subjects.json");
+		try {
+			XStream xstream = new XStream(new JettisonMappedXmlDriver());
+			xstream.addPermission(AnyTypePermission.ANY);
+			
+			subjects = (ArrayList<Subject>) xstream.fromXML(f);
+			return subjects;
+			
+			}
+		finally {
 		}
 	}
 	

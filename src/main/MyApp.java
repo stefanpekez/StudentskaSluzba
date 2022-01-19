@@ -15,7 +15,7 @@ import view.MainFrame;
 
 public class MyApp {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		FlatLightLaf.setup();
 		initializeDB();
 		MainFrame mainWindow = new MainFrame();	
@@ -23,9 +23,9 @@ public class MyApp {
 	
 	public static void initializeDB() {
 		DBAddress.getInstance();
+		DBSubject.getInstance();
 		DBProfessor.getInstance();
 		DBStudent.getInstance();
-		DBSubject.getInstance();
 		DBDepartments.getInstance();
 		try {
 			DBStudent.getInstance().setupUnpassed();
@@ -33,7 +33,6 @@ public class MyApp {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
 }
 

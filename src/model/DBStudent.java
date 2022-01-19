@@ -1,15 +1,18 @@
 package model;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -20,6 +23,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 import com.thoughtworks.xstream.security.AnyTypePermission;
+import com.thoughtworks.xstream.security.NoTypePermission;
+import com.thoughtworks.xstream.security.NullPermission;
+import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
 import controller.LanguageController;
 
@@ -59,6 +65,7 @@ public class DBStudent {
 		//students.add(new Student("Milosevic", "Filip", LocalDate.parse("2001-01-29"), new Address("nme","","",""), "00000000000", 
 				//"milosevicfilip@gmail.com", "ra-193-2019", 2019, 3, StudentStatus.B, 10.0));
 		try {
+			//students = deserialize();
 			students = convertExcel();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -231,7 +238,19 @@ public class DBStudent {
 			os.close();
 		}
 	}
-	
+  
+	public ArrayList<Student> deserialize() throws IOException {
+		FileInputStream f = new FileInputStream("saves\\students.json");
+		try {
+			XStream xstream = new XStream(new JettisonMappedXmlDriver());
+			xstream.addPermission(AnyTypePermission.ANY);
+			
+			students = (ArrayList<Student>) xstream.fromXML(f);
+			return students;
+			}
+		finally {
+		}
+	}
 	
 	private ArrayList<Student> convertExcel() throws IOException{
 		try {
@@ -322,7 +341,7 @@ public class DBStudent {
 			FileInputStream excelFile = new FileInputStream(new File("testpodaci.xlsx"));
 			Workbook workbook = new XSSFWorkbook(excelFile);
 			
-			Sheet sheet = workbook.getSheet("Nepoloženi predmeti");
+			Sheet sheet = workbook.getSheet("NepoloÂženi predmeti");
 			Iterator<Row> rows = sheet.iterator();
 			
 			
