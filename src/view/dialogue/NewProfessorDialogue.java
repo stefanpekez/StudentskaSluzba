@@ -1,6 +1,7 @@
 package view.dialogue;
 
 import java.awt.Container;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -91,6 +92,9 @@ public class NewProfessorDialogue extends JDialog {
 		add(title);
 		add(workingYears);
 		add(buttons);
+		
+		setModalityType(ModalityType.APPLICATION_MODAL);
+		setResizable(false);
 	}
 	
 	public void checkAllFields() {

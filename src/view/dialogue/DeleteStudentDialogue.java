@@ -1,6 +1,7 @@
 package view.dialogue;
 
 import java.awt.Container;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -62,6 +63,8 @@ public class DeleteStudentDialogue extends JDialog {
 		add(questionPanel);
 		add(buttonsPanel);
 		
+		setModalityType(ModalityType.APPLICATION_MODAL);
+		setResizable(false);
 		setVisible(true);
 	}
 	

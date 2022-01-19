@@ -3,6 +3,7 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Locale;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
@@ -26,16 +27,35 @@ public class MenuBar extends JMenuBar {
 	
 	private TabbedPane tables;
 	
+	private JMenu file;
+	private JMenuItem file_new;
+	private JMenuItem file_save;
+	private JMenu file_open;
+	private JMenuItem students;
+	private JMenuItem professors;
+	private JMenuItem subjects;
+	private JMenuItem departments;
+	private JMenuItem file_close;
+	private JMenu edit;
+	private JMenuItem edit_edit;
+	private JMenuItem edit_delete;
+	private JMenu help;
+	private JMenuItem help_help;
+	private JMenuItem help_about;
+	private JMenu administration;
+	private JMenuItem english;
+	private JMenuItem serbian;
+	
 	public MenuBar(TabbedPane tables, MainFrame parent) {
 		
 		this.tables = tables;
 		
 		//File drop-down menu
-		JMenu file = new JMenu(LanguageController.getInstance().getResourceBundle().getString("FileMenuBar"));
+		file = new JMenu(LanguageController.getInstance().getResourceBundle().getString("FileMenuBar"));
 		file.setMnemonic(KeyEvent.VK_F);
 		
 		//New option
-		JMenuItem file_new = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("FileNew"));
+		file_new = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("FileNew"));
 		file_new.setIcon(new ImageIcon("images/new.png"));
 		file_new.setMnemonic(KeyEvent.VK_N);
 		file_new.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
@@ -66,7 +86,7 @@ public class MenuBar extends JMenuBar {
 		});
 		
 		//Save option
-		JMenuItem file_save = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("FileSave"));
+		file_save = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("FileSave"));
 		file_save.setIcon(new ImageIcon("images/save.png"));
 		file_save.setMnemonic(KeyEvent.VK_S);
 		file_save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
@@ -81,12 +101,12 @@ public class MenuBar extends JMenuBar {
 		});
 		
 		//Open menu
-		JMenu file_open = new JMenu(LanguageController.getInstance().getResourceBundle().getString("FileOpen"));
+		file_open = new JMenu(LanguageController.getInstance().getResourceBundle().getString("FileOpen"));
 		file_open.setMnemonic(KeyEvent.VK_O);
 		file_open.setIcon(new ImageIcon("images/open.png"));
 		
 		//Show student tab
-		JMenuItem students = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("StudentsTab"));
+		students = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("StudentsTab"));
 		students.setIcon(new ImageIcon("images/students.png"));
 		students.setMnemonic(KeyEvent.VK_1);
 		students.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.CTRL_MASK));
@@ -101,7 +121,7 @@ public class MenuBar extends JMenuBar {
 		});
 		
 		//Show professor tab
-		JMenuItem professors = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("ProfessorsTab"));
+		professors = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("ProfessorsTab"));
 		professors.setIcon(new ImageIcon("images/professors.png"));
 		professors.setMnemonic(KeyEvent.VK_2);
 		professors.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.CTRL_MASK));
@@ -116,7 +136,7 @@ public class MenuBar extends JMenuBar {
 		});
 		
 		//Show subject tab
-		JMenuItem subjects = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("SubjectsTab"));
+		subjects = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("SubjectsTab"));
 		subjects.setIcon(new ImageIcon("images/subjects.png"));
 		subjects.setMnemonic(KeyEvent.VK_3);
 		subjects.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.CTRL_MASK));
@@ -131,7 +151,7 @@ public class MenuBar extends JMenuBar {
 		});
 		
 		//Show department tab
-		JMenuItem departments = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("DepartmentsTab"));
+		departments = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("DepartmentsTab"));
 		departments.setMnemonic(KeyEvent.VK_4);
 		departments.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, ActionEvent.CTRL_MASK));
 		departments.setIcon(new ImageIcon("images/departments.png"));
@@ -153,7 +173,7 @@ public class MenuBar extends JMenuBar {
 		file_open.add(departments);
 		
 		//Close option
-		JMenuItem file_close = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("FileClose"));
+		file_close = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("FileClose"));
 		file_close.setIcon(new ImageIcon("images/close.png"));
 		file_close.setMnemonic(KeyEvent.VK_C);
 		file_close.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
@@ -175,11 +195,11 @@ public class MenuBar extends JMenuBar {
 		file.add(file_close);
 		
 		//Edit drop-down menu
-		JMenu edit = new JMenu(LanguageController.getInstance().getResourceBundle().getString("Edit"));
+		edit = new JMenu(LanguageController.getInstance().getResourceBundle().getString("Edit"));
 		edit.setMnemonic(KeyEvent.VK_E);
 		
 		//Edit option
-		JMenuItem edit_edit = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("Edit"));
+		edit_edit = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("Edit"));
 		edit_edit.setIcon(new ImageIcon("images/menubar_edit.png"));
 		edit_edit.setMnemonic(KeyEvent.VK_E);
 		edit_edit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
@@ -219,7 +239,7 @@ public class MenuBar extends JMenuBar {
 		});
 		
 		//Delete option
-		JMenuItem edit_delete = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("Delete"));
+		edit_delete = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("Delete"));
 		edit_delete.setIcon(new ImageIcon("images/delete.png"));
 		edit_delete.setMnemonic(KeyEvent.VK_D);
 		edit_delete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
@@ -264,17 +284,17 @@ public class MenuBar extends JMenuBar {
 		edit.add(edit_delete);
 		
 		//Help drop-down menu
-		JMenu help = new JMenu(LanguageController.getInstance().getResourceBundle().getString("Help"));
+		help = new JMenu(LanguageController.getInstance().getResourceBundle().getString("Help"));
 		help.setMnemonic(KeyEvent.VK_H);
 		
 		//Help option
-		JMenuItem help_help = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("Help"));
+		help_help = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("Help"));
 		help_help.setIcon(new ImageIcon("images/help.png"));
 		help_help.setMnemonic(KeyEvent.VK_H);
 		help_help.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK));
 		
 		//About option
-		JMenuItem help_about = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("About"));
+		help_about = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("About"));
 		help_about.setIcon(new ImageIcon("images/about.png"));
 		help_about.setMnemonic(KeyEvent.VK_A);
 		help_about.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.SHIFT_MASK));
@@ -283,9 +303,58 @@ public class MenuBar extends JMenuBar {
 		help.addSeparator();
 		help.add(help_about);
 		
+		//Administration
+		administration = new JMenu("Administration");
+		english = new JMenuItem("English");
+		english.setIcon(new ImageIcon("images/usa.png"));
+		english.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Locale.setDefault(new Locale("en", "US"));
+				LanguageController.getInstance().changeLanguage(parent);
+			}
+		});
+		serbian = new JMenuItem("Serbian");
+		serbian.setIcon(new ImageIcon("images/serbia.png"));
+		serbian.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Locale.setDefault(new Locale("sr", "RS"));
+				LanguageController.getInstance().changeLanguage(parent);
+			}
+		});
+		
+		administration.add(english);
+		administration.add(serbian);
+		
 		add(file);
 		add(edit);
 		add(help);
-		
+		add(administration);
+	}
+	
+	public void initComponents() {
+		file.setText(LanguageController.getInstance().getResourceBundle().getString("FileMenuBar"));
+		file_new.setText(LanguageController.getInstance().getResourceBundle().getString("FileNew"));
+		file_save.setText(LanguageController.getInstance().getResourceBundle().getString("FileSave"));
+		file_open.setText(LanguageController.getInstance().getResourceBundle().getString("FileOpen"));
+		students.setText(LanguageController.getInstance().getResourceBundle().getString("StudentsTab"));
+		professors.setText(LanguageController.getInstance().getResourceBundle().getString("ProfessorsTab"));
+		subjects.setText(LanguageController.getInstance().getResourceBundle().getString("SubjectsTab"));
+		departments.setText(LanguageController.getInstance().getResourceBundle().getString("DepartmentsTab"));
+		file_close.setText(LanguageController.getInstance().getResourceBundle().getString("FileClose"));
+		edit.setText(LanguageController.getInstance().getResourceBundle().getString("Edit"));
+		edit_edit.setText(LanguageController.getInstance().getResourceBundle().getString("Edit"));
+		edit_delete.setText(LanguageController.getInstance().getResourceBundle().getString("Delete"));
+		help.setText(LanguageController.getInstance().getResourceBundle().getString("Help"));
+		help_help.setText(LanguageController.getInstance().getResourceBundle().getString("Help"));
+		help_about.setText(LanguageController.getInstance().getResourceBundle().getString("About"));
+		administration.setText(LanguageController.getInstance().getResourceBundle().getString("Administration"));
+		english.setText(LanguageController.getInstance().getResourceBundle().getString("English"));
+		serbian.setText(LanguageController.getInstance().getResourceBundle().getString("Serbian"));
 	}
 }

@@ -217,6 +217,25 @@ public class TabbedPane extends JTabbedPane {
 		}
 		
 	}
+	
+	public void initComponents() {
+		for(int i = 0; i < this.getTabCount(); ++i) {
+			switch(i) {
+				case 0:
+					this.setTitleAt(i, LanguageController.getInstance().getResourceBundle().getString("StudentsTab"));
+					break;
+				case 1:
+					this.setTitleAt(i, LanguageController.getInstance().getResourceBundle().getString("ProfessorsTab"));
+					break;
+				case 2:
+					this.setTitleAt(i, LanguageController.getInstance().getResourceBundle().getString("SubjectsTab"));
+					break;
+				default:
+					break;
+			}
+			
+		}
+	}
 
 	public StatusBar getStatusBar() {
 		return this.statusbar;

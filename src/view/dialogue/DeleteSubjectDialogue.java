@@ -1,6 +1,7 @@
 package view.dialogue;
 
 import java.awt.Component;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -56,7 +57,11 @@ public class DeleteSubjectDialogue extends JDialog {
 		buttons.add(yes);
 		buttons.add(no);
 		
+		
 		add(message);
 		add(buttons);
+		
+		setModalityType(ModalityType.APPLICATION_MODAL);
+		setResizable(false);
 	}
 }

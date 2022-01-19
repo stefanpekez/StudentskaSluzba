@@ -77,4 +77,12 @@ public class EditStudentTabbedPane extends JTabbedPane {
 		
 	}
 	
+	public EditStudentPassed getPassedTab() {
+		return this.passedExams;
+	}
+	
+	public EditStudentUnpassed getUnpassedTab() {
+		return this.unpassedExams;
+	}
+	
 }

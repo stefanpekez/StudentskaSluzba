@@ -1,5 +1,6 @@
 package view.dialogue;
 
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -63,6 +64,7 @@ public class DepartmentListDialogue extends JDialog {
 		listsPanel.add(departmentScroller);
 		add(listsPanel);
 		
+		setModalityType(ModalityType.APPLICATION_MODAL);
 		setResizable(false);
 		
 	}

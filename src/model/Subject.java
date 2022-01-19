@@ -94,6 +94,14 @@ public class Subject {
 	public void setStudentsPASSED(ArrayList<Student> studentsPASSED) {
 		this.studentsPASSED = studentsPASSED;
 	}
+	
+	public void addPassedStudent(Student student) {
+		this.studentsPASSED.add(student);
+	}
+	
+	public void removePassedStudent(Student student) {
+		this.studentsPASSED.remove(student);
+	}
 
 	public ArrayList<Student> getStudentsFAILED() {
 		return studentsFAILED;
@@ -101,6 +109,10 @@ public class Subject {
 
 	public void setStudentsFAILED(ArrayList<Student> studentsFAILED) {
 		this.studentsFAILED = studentsFAILED;
+	}
+	
+	public void addUnpassedStudent(Student student) {
+		this.studentsFAILED.add(student);
 	}
 	
 	@Override

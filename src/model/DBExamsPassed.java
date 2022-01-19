@@ -22,15 +22,17 @@ private static DBExamsPassed instance = null;
 	
 	public DBExamsPassed() {
 		columns = new ArrayList<String>();
+		
+		
+	}
+	
+	public void init(ArrayList<Grade> grades) {
+		columns.clear();
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("PassedSubjectId"));
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("PassedName"));
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("PassedEspb"));
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("PassedGrade"));
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("PassedDate"));
-		
-	}
-	
-	public void init(ArrayList<Grade> grades) {
 		examsPassed = grades;
 		
 	}

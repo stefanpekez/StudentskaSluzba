@@ -10,6 +10,8 @@ import view.TabbedPane.TablePanel;
 
 public class EditStudentDialogue extends JDialog{
 	
+	private EditStudentTabbedPane studentTP;
+	
 	public EditStudentDialogue(Container mainframe, TablePanel tp) {
 		BoxLayout boxLayout = new BoxLayout(getContentPane(), BoxLayout.Y_AXIS);
 		
@@ -18,11 +20,16 @@ public class EditStudentDialogue extends JDialog{
 		setTitle(LanguageController.getInstance().getResourceBundle().getString("EditStudent"));
 		setLayout(boxLayout);
 		
-		EditStudentTabbedPane studentTP = new EditStudentTabbedPane(this, tp);
+		studentTP = new EditStudentTabbedPane(this, tp);
 		add(studentTP);
 		
+		setModalityType(ModalityType.APPLICATION_MODAL);
 		setResizable(false);
 		setVisible(true);
+	}
+	
+	public EditStudentTabbedPane getEditStudentTabbedPane() {
+		return this.studentTP;
 	}
 
 }

@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 
 import controller.LanguageController;
+import view.TabbedPane.TablePanel;
+import view.dialogue.edit.EditStudentPassed;
 
 public class DBExams {
 	private static DBExams instance;
@@ -18,14 +20,16 @@ public class DBExams {
 	
 	public DBExams() {
 		columns = new ArrayList<String>();
+		
+	}
+	
+	public void init(ArrayList<Subject> subjects) {
+		columns.clear();
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("PassedSubjectId"));
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectName"));
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectEspb"));
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectYear"));
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectSemester"));
-	}
-	
-	public void init(ArrayList<Subject> subjects) {
 		exams = subjects;
 	}
 	
@@ -72,12 +76,13 @@ public class DBExams {
 	}
 	
 	public void addUnpassedExam(String selectedSubject, int selectedStudent) {
+		
+		//TODO add student to subjects list of unpassed students
 		String[] parse = selectedSubject.split(",");
 		
 		Subject subject = DBSubject.getInstance().getSelectedSubject(parse[0].replace("\\W", ""));
 		if(subject != null) {
 			DBStudent.getInstance().getSelectedStudent(selectedStudent).addRemainingExam(subject);
-			//exams.add(subject);
 		}
 	}
 	

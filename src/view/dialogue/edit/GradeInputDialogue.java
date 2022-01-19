@@ -1,5 +1,6 @@
 package view.dialogue.edit;
 
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -88,6 +89,9 @@ public class GradeInputDialogue extends JDialog{
 		add(grade);
 		add(date);
 		add(buttons);
+		
+		setModalityType(ModalityType.APPLICATION_MODAL);
+		setResizable(false);
 		
 	}
 	

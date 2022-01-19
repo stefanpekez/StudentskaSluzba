@@ -1,5 +1,6 @@
 package view.dialogue.edit;
 
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -54,6 +55,7 @@ public class DeleteGradeDialogue extends JDialog {
 		buttons.add(yes);
 		buttons.add(no);
 		
+		setModalityType(ModalityType.APPLICATION_MODAL);
 		add(message);
 		add(buttons);
 	}

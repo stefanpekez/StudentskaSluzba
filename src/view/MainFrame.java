@@ -13,14 +13,22 @@ import javax.security.auth.callback.LanguageCallback;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+import controller.AbstractTableModelStudent;
 import controller.LanguageController;
 import model.DBAddress;
 import model.DBDepartments;
+import model.DBExams;
+import model.DBExamsPassed;
 import model.DBProfessor;
 import model.DBStudent;
 import model.DBSubject;
 
 public class MainFrame extends JFrame {
+	
+	private MenuBar menubar;
+	private StatusBar statusbar;
+	private TabbedPane tp;
+	private ToolBar toolbar;
 
 	public MainFrame() {
 		super();
@@ -39,18 +47,18 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		//Making the StatusBar
-		StatusBar statusbar = new StatusBar();
+		statusbar = new StatusBar();
 		add(statusbar, BorderLayout.SOUTH);
 		
-		TabbedPane tp = new TabbedPane(statusbar);
+		tp = new TabbedPane(statusbar);
 		add(tp, BorderLayout.CENTER);
 		
 		//Making the MenuBar
-		MenuBar menubar = new MenuBar(tp, this);
+		menubar = new MenuBar(tp, this);
 		this.setJMenuBar(menubar);
 		
 		//Making Toolbar for this frame
-		ToolBar toolbar = new ToolBar(tp);
+		toolbar = new ToolBar(tp);
 		add(toolbar, BorderLayout.NORTH);
 		
 		addWindowListener(new WindowAdapter() {
@@ -76,5 +84,17 @@ public class MainFrame extends JFrame {
 			System.out.println("Something went wrong serializing!");
 			e1.printStackTrace();
 		}
+	}
+	
+	public void initGUI() {
+		setTitle(LanguageController.getInstance().getResourceBundle().getString("StudentService"));
+		menubar.initComponents();
+		statusbar.initComponents();
+		toolbar.initComponents();
+		tp.initComponents();
+		DBStudent.getInstance().initComponents(tp.getStudentTab());
+		DBProfessor.getInstance().initComponents(tp.getProfessorTab());
+		DBSubject.getInstance().initComponents(tp.getSubjectTab());
+		//DBExams.getInstance().initComponents(toolbar.getEDS().getEditStudentTabbedPane().getPassedTab());
 	}
 }
