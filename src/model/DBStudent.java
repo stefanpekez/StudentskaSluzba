@@ -123,10 +123,12 @@ public class DBStudent {
 	}
 	
 	public void addNewStudent(String name, String surname, LocalDate date, String homeAdress, String phoneNumber, 
-			String emailAddress, String index, int yearOfEnrollment, int currentYearOfStudy, int status) {
+		String emailAddress, String index, int yearOfEnrollment, int currentYearOfStudy, int status) {
 
-		students.add(new Student(name, surname, date, homeAdress, phoneNumber, emailAddress, 
+		startingStudents.add(new Student(name, surname, date, homeAdress, phoneNumber, emailAddress, 
 				index, yearOfEnrollment, currentYearOfStudy, status));
+		
+		students = startingStudents;
 	}
 	
 	public void editStudent(int selectedStudentIdx, String name, String surname, LocalDate date, String homeAdress, String phoneNumber, 
@@ -148,7 +150,7 @@ public class DBStudent {
 	}
 	
 	public void deleteStudent(int deleteIndex) {
-		students.remove(deleteIndex);
+		startingStudents.remove(students.remove(deleteIndex));
 	}
 	
 	public Student getSelectedStudent(int row) {

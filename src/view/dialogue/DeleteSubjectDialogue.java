@@ -37,7 +37,7 @@ public class DeleteSubjectDialogue extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SubjectController.getInstance().deleteSubject(tab.getTable().getSelectedRow());
+				SubjectController.getInstance().deleteSubject(tab.getTable().convertRowIndexToModel(tab.getTable().getSelectedRow()));
 				tab.updateView();
 				dispose();
 			}

@@ -14,6 +14,7 @@ import model.Address;
 import model.DBProfessor;
 import model.DBTeaches;
 import model.Subject;
+import view.dialogue.NewCB;
 import view.dialogue.NewTF;
 
 public class ProfessorController {
@@ -29,7 +30,7 @@ public class ProfessorController {
 	}
 	
 	public boolean addNewProfessor(NewTF surname, NewTF name, NewTF dateOfBirth, NewTF address, NewTF phoneNumber, NewTF emailAdress, 
-								   NewTF officeAdress, NewTF idNumber, NewTF title, NewTF workingYears) {
+								   NewTF officeAdress, NewTF idNumber, NewCB title, NewTF workingYears) {
 		
 		//checking if date is correct
 		Pattern patterndate = Pattern.compile("[0-9]{1,2}/[0-9]{2}/[0-9]{1,4}");
@@ -68,8 +69,21 @@ public class ProfessorController {
 		String pname = name.getTextField().getText();
 		String pphoneNumber = phoneNumber.getTextField().getText();
 		String pidNumber = idNumber.getTextField().getText();
-		String ptitle = title.getTextField().getText();
 		
+		String ptitle = null;
+		switch(title.getComboBox().getSelectedIndex()) {
+			case 0:
+				ptitle = "REGULAR_PROFESSOR";
+				break;
+			case 1:
+				ptitle = "IREGULAR_PROFESSOR";
+				break;
+			case 2:
+				ptitle = "DOCENT";
+				break;
+			default:
+				break;
+		}
 		
 		System.out.println(date);
 		

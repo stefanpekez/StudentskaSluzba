@@ -105,7 +105,9 @@ public class DBProfessor {
 			if(s.getIdNumber().equals(idNumber)) return false;
 		}
 		
-		professors.add(new Professor(surname, name, dateOfBirth,homeAdress, phoneNumber, emailAdress, officeAdress,idNumber, title, workingYears));
+		originalProfessors.add(new Professor(surname, name, dateOfBirth,homeAdress, phoneNumber, emailAdress, officeAdress,idNumber, title, workingYears));
+		
+		professors = originalProfessors;
 		
 		return true;
 	}
@@ -131,7 +133,7 @@ public class DBProfessor {
 	}
 	
 	public void deleteProfessor(int row) {
-		professors.remove(row);
+		originalProfessors.remove(professors.remove(row));
 	}
 	
 	public void professorSearchOne(String query) {
