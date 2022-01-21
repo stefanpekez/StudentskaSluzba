@@ -66,7 +66,7 @@ public class SubjectProfessorSerialization {
 
 
 	public void serializeHead() throws IOException{
-		File f = new File("saves\\subjectHeads.json");
+		File f = new File("saves" + File.separator + File.separator + "subjectHeads.json");
 		OutputStream os = new BufferedOutputStream(new FileOutputStream(f));
 		
 		try {
@@ -82,7 +82,7 @@ public class SubjectProfessorSerialization {
 	}
 	
 	public void serializeTeachers() throws IOException{
-		File f = new File("saves\\subjectTeachers.json");
+		File f = new File("saves" + File.separator + File.separator + "subjectTeachers.json");
 		OutputStream os = new BufferedOutputStream(new FileOutputStream(f));
 		
 		try {
@@ -98,7 +98,7 @@ public class SubjectProfessorSerialization {
 	}
 	
 	public void deserializeHead() throws IOException{
-		FileInputStream f = new FileInputStream("saves\\subjectHeads.json");
+		FileInputStream f = new FileInputStream("saves" + File.separator + File.separator + "subjectHeads.json");
 		try {
 			XStream xstream = new XStream(new JettisonMappedXmlDriver());
 			xstream.addPermission(AnyTypePermission.ANY);
@@ -112,7 +112,7 @@ public class SubjectProfessorSerialization {
 	}
 	
 	public void deserializeTeachers() throws IOException{
-		FileInputStream f = new FileInputStream("saves\\subjectTeachers.json");
+		FileInputStream f = new FileInputStream("saves" + File.separator + File.separator + "subjectTeachers.json");
 		try {
 			XStream xstream = new XStream(new JettisonMappedXmlDriver());
 			xstream.addPermission(AnyTypePermission.ANY);

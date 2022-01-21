@@ -3,15 +3,18 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.Locale;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import controller.LanguageController;
+import view.dialogue.AboutDialogue;
 import view.dialogue.DeleteProfessorDialogue;
 import view.dialogue.DeleteStudentDialogue;
 import view.dialogue.DeleteSubjectDialogue;
@@ -57,7 +60,7 @@ public class MenuBar extends JMenuBar {
 		
 		//New option
 		file_new = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("FileNew"));
-		file_new.setIcon(new ImageIcon("images/new.png"));
+		file_new.setIcon(new ImageIcon("images" + File.separator + "new.png"));
 		file_new.setMnemonic(KeyEvent.VK_N);
 		file_new.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		
@@ -88,7 +91,7 @@ public class MenuBar extends JMenuBar {
 		
 		//Save option
 		file_save = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("FileSave"));
-		file_save.setIcon(new ImageIcon("images/save.png"));
+		file_save.setIcon(new ImageIcon("images" + File.separator + "save.png"));
 		file_save.setMnemonic(KeyEvent.VK_S);
 		file_save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		file_save.addActionListener(new ActionListener() {
@@ -104,11 +107,11 @@ public class MenuBar extends JMenuBar {
 		//Open menu
 		file_open = new JMenu(LanguageController.getInstance().getResourceBundle().getString("FileOpen"));
 		file_open.setMnemonic(KeyEvent.VK_O);
-		file_open.setIcon(new ImageIcon("images/open.png"));
+		file_open.setIcon(new ImageIcon("images" + File.separator + "open.png"));
 		
 		//Show student tab
 		students = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("StudentsTab"));
-		students.setIcon(new ImageIcon("images/students.png"));
+		students.setIcon(new ImageIcon("images" + File.separator + "students.png"));
 		students.setMnemonic(KeyEvent.VK_1);
 		students.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.CTRL_MASK));
 		students.addActionListener(new ActionListener() {
@@ -123,7 +126,7 @@ public class MenuBar extends JMenuBar {
 		
 		//Show professor tab
 		professors = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("ProfessorsTab"));
-		professors.setIcon(new ImageIcon("images/professors.png"));
+		professors.setIcon(new ImageIcon("images" + File.separator + "professors.png"));
 		professors.setMnemonic(KeyEvent.VK_2);
 		professors.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.CTRL_MASK));
 		professors.addActionListener(new ActionListener() {
@@ -138,7 +141,7 @@ public class MenuBar extends JMenuBar {
 		
 		//Show subject tab
 		subjects = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("SubjectsTab"));
-		subjects.setIcon(new ImageIcon("images/subjects.png"));
+		subjects.setIcon(new ImageIcon("images" + File.separator + "subjects.png"));
 		subjects.setMnemonic(KeyEvent.VK_3);
 		subjects.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.CTRL_MASK));
 		subjects.addActionListener(new ActionListener() {
@@ -155,7 +158,7 @@ public class MenuBar extends JMenuBar {
 		departments = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("DepartmentsTab"));
 		departments.setMnemonic(KeyEvent.VK_4);
 		departments.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, ActionEvent.CTRL_MASK));
-		departments.setIcon(new ImageIcon("images/departments.png"));
+		departments.setIcon(new ImageIcon("images" + File.separator + "departments.png"));
 		departments.addActionListener(new ActionListener() {
 
 			@Override
@@ -175,7 +178,7 @@ public class MenuBar extends JMenuBar {
 		
 		//Close option
 		file_close = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("FileClose"));
-		file_close.setIcon(new ImageIcon("images/close.png"));
+		file_close.setIcon(new ImageIcon("images" + File.separator + "close.png"));
 		file_close.setMnemonic(KeyEvent.VK_C);
 		file_close.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
 		file_close.addActionListener(new ActionListener() {
@@ -201,7 +204,7 @@ public class MenuBar extends JMenuBar {
 		
 		//Edit option
 		edit_edit = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("Edit"));
-		edit_edit.setIcon(new ImageIcon("images/menubar_edit.png"));
+		edit_edit.setIcon(new ImageIcon("images" + File.separator + "menubar_edit.png"));
 		edit_edit.setMnemonic(KeyEvent.VK_E);
 		edit_edit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
 		
@@ -215,21 +218,21 @@ public class MenuBar extends JMenuBar {
 					if(tables.getStudentTab().getTable().getSelectedRow() != -1) {
 						new EditStudentDialogue(getParent(), tables.getStudentTab());
 					} else {
-						System.out.println("Please select a row to edit");
+						JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("StudentNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 					}
 					break;
 				case 1:
 					if(tables.getProfessorTab().getTable().getSelectedRow() != -1) {
 						new EditProfessorDialogue(getParent(), tables.getProfessorTab());
 					} else {
-						System.out.println("Please select a row to edit");
+						JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("ProfessorNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 					}
 					break;
 				case 2:
 					if(tables.getSubjectTab().getTable().getSelectedRow() != -1) {
 						new EditSubjectDialogue(getParent(), tables.getSubjectTab());
 					} else {
-						System.out.println("Please select a row to edit");
+						JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("SubjectNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 					}
 					break;
 				default:
@@ -241,7 +244,7 @@ public class MenuBar extends JMenuBar {
 		
 		//Delete option
 		edit_delete = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("Delete"));
-		edit_delete.setIcon(new ImageIcon("images/delete.png"));
+		edit_delete.setIcon(new ImageIcon("images" + File.separator + "delete.png"));
 		edit_delete.setMnemonic(KeyEvent.VK_D);
 		edit_delete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
 		
@@ -254,7 +257,7 @@ public class MenuBar extends JMenuBar {
 				switch (tables.getSelectedIndex()) {
 				case 0: 
 					if(tables.getStudentTab().getTable().getSelectedRow() == -1) {
-						System.out.println("Select a student");
+						JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("StudentNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 					} else {
 						new DeleteStudentDialogue(getParent(), tables.getStudentTab());
 					}
@@ -263,14 +266,14 @@ public class MenuBar extends JMenuBar {
 					if(tables.getProfessorTab().getTable().getSelectedRow() != -1) {
 						new DeleteProfessorDialogue(getParent(), tables.getProfessorTab()).setVisible(true);
 					} else {
-						System.out.println("Please select a row to delete");
+						JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("ProfessorNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 					}
 					break;
 				case 2:
 					if(tables.getSubjectTab().getTable().getSelectedRow() != -1) {
 						new DeleteSubjectDialogue(getParent(), tables.getSubjectTab()).setVisible(true);
 					} else {
-						System.out.println("Please select a row to delete");
+						JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("SubjectNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 					}
 					break;
 				default:
@@ -290,7 +293,7 @@ public class MenuBar extends JMenuBar {
 		
 		//Help option
 		help_help = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("Help"));
-		help_help.setIcon(new ImageIcon("images/help.png"));
+		help_help.setIcon(new ImageIcon("images" + File.separator + "help.png"));
 		help_help.setMnemonic(KeyEvent.VK_H);
 		help_help.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.SHIFT_MASK));
 		help_help.addActionListener(new ActionListener() {
@@ -304,9 +307,17 @@ public class MenuBar extends JMenuBar {
 		
 		//About option
 		help_about = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("About"));
-		help_about.setIcon(new ImageIcon("images/about.png"));
+		help_about.setIcon(new ImageIcon("images" + File.separator + "about.png"));
 		help_about.setMnemonic(KeyEvent.VK_A);
 		help_about.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.SHIFT_MASK));
+		help_about.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				new AboutDialogue();
+			}
+		});
 		
 		help.add(help_help);
 		help.addSeparator();
@@ -326,7 +337,7 @@ public class MenuBar extends JMenuBar {
 			}
 		});
 		serbian = new JMenuItem("Serbian");
-		serbian.setIcon(new ImageIcon("images/serbia.png"));
+		serbian.setIcon(new ImageIcon("images" + File.separator + "serbia.png"));
 		serbian.addActionListener(new ActionListener() {
 			
 			@Override

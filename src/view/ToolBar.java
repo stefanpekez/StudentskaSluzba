@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -49,7 +50,7 @@ public class ToolBar extends JToolBar {
 		
 		btnNew = new JButton();
 		btnNew.setToolTipText(LanguageController.getInstance().getResourceBundle().getString("FileNew"));
-		btnNew.setIcon(new ImageIcon("images/upload.png"));
+		btnNew.setIcon(new ImageIcon("images" + File.separator + "upload.png"));
 		btnNew.addActionListener(new ActionListener() {
 
 			@Override
@@ -81,7 +82,7 @@ public class ToolBar extends JToolBar {
 		
 		btnWrite = new JButton();
 		btnWrite.setToolTipText(LanguageController.getInstance().getResourceBundle().getString("Edit"));
-		btnWrite.setIcon(new ImageIcon("images/edit.png"));
+		btnWrite.setIcon(new ImageIcon("images" + File.separator + "edit.png"));
 		btnWrite.addActionListener(new ActionListener() {
 
 			@Override
@@ -99,7 +100,7 @@ public class ToolBar extends JToolBar {
 					if(tables.getProfessorTab().getTable().getSelectedRow() != -1) {
 						new EditProfessorDialogue(getParent(), tables.getProfessorTab());
 					} else {
-						JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("EditProfessorMessage"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
+						JOptionPane.showMessageDialog(getParent(), LanguageController.getInstance().getResourceBundle().getString("ProfessorNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 					}
 					break;
 				case 2:
@@ -122,7 +123,7 @@ public class ToolBar extends JToolBar {
 		
 		btnTrash = new JButton();
 		btnTrash.setToolTipText(LanguageController.getInstance().getResourceBundle().getString("Delete"));
-		btnTrash.setIcon(new ImageIcon("images/garbage.png"));
+		btnTrash.setIcon(new ImageIcon("images" + File.separator + "garbage.png"));
 		btnTrash.addActionListener(new ActionListener() {
 
 			@Override
@@ -190,7 +191,7 @@ public class ToolBar extends JToolBar {
 		
 		btnSearch = new JButton();
 		btnSearch.setToolTipText(LanguageController.getInstance().getResourceBundle().getString("SearchToolTip"));
-		btnSearch.setIcon(new ImageIcon("images/magnifying-glass.png"));
+		btnSearch.setIcon(new ImageIcon("images" + File.separator + "magnifying-glass.png"));
 		btnSearch.addActionListener(new ActionListener() {
 
 			@Override

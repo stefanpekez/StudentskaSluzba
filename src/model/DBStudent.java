@@ -74,8 +74,8 @@ public class DBStudent {
 		//students.add(new Student("Milosevic", "Filip", LocalDate.parse("2001-01-29"), new Address("nme","","",""), "00000000000", 
 				//"milosevicfilip@gmail.com", "ra-193-2019", 2019, 3, StudentStatus.B, 10.0));
 		try {
-			students = deserialize();
-			//students = convertExcel();
+			//students = deserialize();
+			students = convertExcel();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -138,6 +138,10 @@ public class DBStudent {
 	
 	public void addNewStudent(String name, String surname, LocalDate date, String homeAdress, String phoneNumber, 
 		String emailAddress, String index, int yearOfEnrollment, int currentYearOfStudy, int status) {
+		
+		for(Student s: startingStudents)
+			if(index.equals(s.getIndexNum()))
+				return;
 
 		startingStudents.add(new Student(name, surname, date, homeAdress, phoneNumber, emailAddress, 
 				index, yearOfEnrollment, currentYearOfStudy, status));
@@ -149,6 +153,10 @@ public class DBStudent {
 	
 	public void editStudent(int selectedStudentIdx, String name, String surname, LocalDate date, String homeAdress, String phoneNumber, 
 			String emailAddress, String index, int yearOfEnrollment, int currentYearOfStudy, int status) {
+		
+		for(Student s: startingStudents)
+			if(index.equals(s.getIndexNum()))
+				return;
 		
 		Student student = DBStudent.getInstance().getSelectedStudent(selectedStudentIdx);
 		
@@ -257,7 +265,7 @@ public class DBStudent {
 	}
 	
 	public void serialize() throws IOException {
-		File f = new File("saves\\students.json");
+		File f = new File("saves" + File.separator + File.separator + "students.json");
 		OutputStream os = new BufferedOutputStream(new FileOutputStream(f));
 		
 		try {
@@ -293,7 +301,7 @@ public class DBStudent {
 	
   
 	public ArrayList<Student> deserialize() throws IOException {
-		FileInputStream f = new FileInputStream("saves\\students.json");
+		FileInputStream f = new FileInputStream("saves" + File.separator + File.separator + "students.json");
 		try {
 			XStream xstream = new XStream(new JettisonMappedXmlDriver());
 			xstream.addPermission(AnyTypePermission.ANY);
@@ -453,7 +461,7 @@ public class DBStudent {
 			FileInputStream excelFile = new FileInputStream(new File("testpodaci.xlsx"));
 			Workbook workbook = new XSSFWorkbook(excelFile);
 			
-			Sheet sheet = workbook.getSheet("Nepoloûeni predmeti");
+			Sheet sheet = workbook.getSheet("Nepolo≈æeni predmeti");
 			Iterator<Row> rows = sheet.iterator();
 			
 			

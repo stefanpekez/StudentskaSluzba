@@ -40,8 +40,8 @@ public class DBDepartments {
 	
 	private DBDepartments() {
 		try {
-			departments = deserialize();
-			//departments = convertExcel();
+			//departments = deserialize();
+			departments = convertExcel();
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -94,7 +94,7 @@ public class DBDepartments {
 	}
 	
 	public void serialize() throws IOException {
-		File f = new File("saves\\departments.json");
+		File f = new File("saves" + File.separator + File.separator + "departments.json");
 		OutputStream os = new BufferedOutputStream(new FileOutputStream(f));
 		
 		try {
@@ -122,7 +122,7 @@ public class DBDepartments {
 	
 	
 	public ArrayList<Department> deserialize() throws IOException {
-		FileInputStream f = new FileInputStream("saves\\departments.json");
+		FileInputStream f = new FileInputStream("saves" + File.separator + File.separator + "departments.json");
 		try {
 			XStream xstream = new XStream(new JettisonMappedXmlDriver());
 			xstream.addPermission(AnyTypePermission.ANY);

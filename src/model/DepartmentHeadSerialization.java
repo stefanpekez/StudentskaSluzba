@@ -40,7 +40,7 @@ public class DepartmentHeadSerialization {
 	}
 	
 	public void serialize() throws IOException {
-		File f = new File("saves\\departmentHeads.json");
+		File f = new File("saves" + File.separator + File.separator + "departmentHeads.json");
 		OutputStream os = new BufferedOutputStream(new FileOutputStream(f));
 		
 		try {
@@ -56,7 +56,7 @@ public class DepartmentHeadSerialization {
 	}
 	
 	public void deserialize() throws IOException{
-		FileInputStream f = new FileInputStream("saves\\departmentHeads.json");
+		FileInputStream f = new FileInputStream("saves" + File.separator + File.separator + "departmentHeads.json");
 		try {
 			XStream xstream = new XStream(new JettisonMappedXmlDriver());
 			xstream.addPermission(AnyTypePermission.ANY);

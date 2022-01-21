@@ -40,7 +40,7 @@ public class PassedGradeSerialization {
 	}
 	
 	public void serialize() throws IOException {
-		File f = new File("saves\\grades.json");
+		File f = new File("saves" + File.separator + File.separator + "grades.json");
 		OutputStream os = new BufferedOutputStream(new FileOutputStream(f));
 		
 		try {
@@ -56,7 +56,7 @@ public class PassedGradeSerialization {
 	}
 	
 	public void deserialize() throws IOException{
-		FileInputStream f = new FileInputStream("saves\\grades.json");
+		FileInputStream f = new FileInputStream("saves" + File.separator + File.separator + "grades.json");
 		try {
 			XStream xstream = new XStream(new JettisonMappedXmlDriver());
 			xstream.addPermission(AnyTypePermission.ANY);
