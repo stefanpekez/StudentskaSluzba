@@ -65,8 +65,8 @@ public class DBProfessor {
 		//professors.add(new Professor("Rapajic", "Milos", LocalDate.parse("1970-01-11"), new Address("BB","","",""), "21839264", "rapa@uns.ac.rs", new Address("BB","","",""), "02B", "Redovni Profesor", 4));
 		
 		try {
-			//professors = deserialize();
-			professors = convertExcel();
+			professors = deserialize();
+			//professors = convertExcel();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -173,7 +173,8 @@ public class DBProfessor {
 			
 		}
 		
-		professors.remove(row);
+		originalProfessors.remove(professors.remove(row));
+		
 	}
 	
 	public ArrayList<Professor> getProfessors() {
@@ -232,7 +233,7 @@ public class DBProfessor {
 		
 		
 		for(Professor p: professors)
-			if(p.getWorkingYears() >= 5 && dep.getProfessors().contains(p) && p.getTitle().equals("DOCENT")) {
+			if(p.getWorkingYears() >= 5 && dep.getProfessors().contains(p) && !p.getTitle().equals("DOCENT")) {
 				acceptableProfessors.add(p);
 				System.out.println(Integer.toString(p.getDepartmentID()));
 			}
@@ -289,6 +290,7 @@ public class DBProfessor {
 	}
 	
 	public void serialize() throws IOException {
+		professors = originalProfessors;
 		File f = new File("saves" + File.separator + File.separator + "professors.json");
 		OutputStream os = new BufferedOutputStream(new FileOutputStream(f));
 		

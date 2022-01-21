@@ -31,7 +31,7 @@ public class MyApp {
 		
 		//UCITAJ SVE RELACIJE PRE GLAVNIH ENTITETA
 		
-		/*try {
+		try {
 			PassedGradeSerialization.getInstance().deserialize();
 			DepartmentHeadSerialization.getInstance().deserialize();
 			UnpassedSerialization.getInstance().deserialize();
@@ -40,7 +40,7 @@ public class MyApp {
 			
 		} catch(IOException e) {
 			e.printStackTrace();
-		}*/
+		}
 		
 	
 		DBProfessor.getInstance();
@@ -48,13 +48,13 @@ public class MyApp {
 		DBStudent.getInstance();
 		DBDepartments.getInstance();
 		
-		
+		/*
 		try {
 			DBStudent.getInstance().setupUnpassed();
 			DBStudent.getInstance().setupPassed();
 		} catch(IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 }

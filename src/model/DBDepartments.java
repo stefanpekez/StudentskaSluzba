@@ -40,8 +40,8 @@ public class DBDepartments {
 	
 	private DBDepartments() {
 		try {
-			//departments = deserialize();
-			departments = convertExcel();
+			departments = deserialize();
+			//departments = convertExcel();
 		} catch(IOException e) {
 			e.printStackTrace();
 		}

@@ -66,8 +66,8 @@ public class DBSubject {
 		//subjects.add(new Subject("MA", "Matematicka Analiza I", "1", "1", 9));
 		//subjects.add(new Subject("AR", "Arhitektura Racunara", "2", "1", 9));
 		try {
-			//subjects = deserialize();
-			subjects = convertExcel();
+			subjects = deserialize();
+			//subjects = convertExcel();
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -237,7 +237,7 @@ public class DBSubject {
 	}
 	
 	public void deleteSubject(int row) {
-		Subject s = subjects.remove(row);
+		Subject s = subjects.get(row);
 		
 		for(Student stud: DBStudent.getInstance().getStudents()) {
 			for(Grade g: stud.getPassedExams()) {
@@ -263,6 +263,8 @@ public class DBSubject {
 				}
 			}
 		}
+		
+		originalSubjects.remove(subjects.remove(row));
 	}
 	
 	public Subject getSelectedSubject(int index) {
@@ -293,6 +295,7 @@ public class DBSubject {
 	}
 	
 	public void serialize() throws IOException {
+		subjects = originalSubjects;
 		File f = new File("saves" + File.separator + File.separator + "subjects.json");
 		OutputStream os = new BufferedOutputStream(new FileOutputStream(f));
 		
