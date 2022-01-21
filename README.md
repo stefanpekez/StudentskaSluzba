@@ -52,6 +52,7 @@
       23. prikaz katedri
       
    ## Korišćene biblioteke
+      JDK 11
       - flatlaf : 1.6.2
       - xstream : 1.4.18
       - apache poi : 5.2.0 
