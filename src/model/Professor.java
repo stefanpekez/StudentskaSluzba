@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 public class Professor {
 
+		private int primaryId;
+	
 		private String surname;
 		private String name;
 		private LocalDate dateOfBirth;
@@ -44,6 +46,16 @@ public class Professor {
 			this.name = name;
 			this.surname = surname;
 			this.title = title;
+		}
+		
+		
+
+		public int getPrimaryId() {
+			return primaryId;
+		}
+
+		public void setPrimaryId(int primaryId) {
+			this.primaryId = primaryId;
 		}
 
 		public String getSurname() {

@@ -41,6 +41,12 @@ public class DBProfessor {
 	
 	private ArrayList<Professor> originalProfessors;
 	
+	private static int generatedId = 0;
+	
+	public int generateNextID() {
+		return generatedId++;
+	}
+	
 	public DBProfessor() {
 		columns = new ArrayList<String>();
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("ProfessorName"));
@@ -67,6 +73,14 @@ public class DBProfessor {
 		}
 		
 		originalProfessors = professors;
+	}
+	
+	public Professor findByPrimaryId(int id) {
+		for(Professor p: professors) {
+			if(p.getPrimaryId() == id) return p;
+		}
+		
+		return null;
 	}
 	
 	public int getRowCount() {
@@ -106,6 +120,7 @@ public class DBProfessor {
 		}
 		
 		originalProfessors.add(new Professor(surname, name, dateOfBirth,homeAdress, phoneNumber, emailAdress, officeAdress,idNumber, title, workingYears));
+		originalProfessors.get(originalProfessors.size() - 1).setPrimaryId(generateNextID());
 		
 		professors = originalProfessors;
 		
@@ -279,12 +294,26 @@ public class DBProfessor {
 		
 		try {
 			XStream xs = new XStream(new JettisonMappedXmlDriver());
+			xs.setMode(XStream.XPATH_ABSOLUTE_REFERENCES);
 			xs.addPermission(AnyTypePermission.ANY);
+			
+			makeTeacherSerialize();
+			
 			String s = xs.toXML(professors);
 			xs.toXML(professors, os);
 		} finally {
 			os.close();
 		}
+	}
+	
+	private void makeTeacherSerialize() {
+		for(Professor p: professors) {
+			for(Subject s: p.getSubjects()) {
+				SubjectProfessorSerialization.getInstance().addTeacher(new SubjectTeachersRelation(p.getPrimaryId(), s.getPrimaryId()));
+			}
+			p.getSubjects().clear();
+		}
+		
 	}
 	
 	public ArrayList<Professor> deserialize() throws IOException {
@@ -298,6 +327,7 @@ public class DBProfessor {
 			
 			}
 		finally {
+			f.close();
 		}
 	}
 	
@@ -392,6 +422,8 @@ public class DBProfessor {
     				
     				cellIndex++;
     			}
+    			
+    			profa.setPrimaryId(generateNextID());
     			
     			list.add(profa);
     			rowNumber++;

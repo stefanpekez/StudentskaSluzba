@@ -54,6 +54,7 @@ public class DBAddress {
 		
 		try {
 			XStream xs = new XStream(new JettisonMappedXmlDriver());
+			xs.setMode(XStream.XPATH_ABSOLUTE_REFERENCES);
 			xs.addPermission(AnyTypePermission.ANY);
 			String s = xs.toXML(addresses);
 			xs.toXML(addresses, os);

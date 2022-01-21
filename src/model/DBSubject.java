@@ -41,6 +41,12 @@ public class DBSubject {
 	
 	private ArrayList<Subject> originalSubjects;
 	
+	private static int generatedId = 0;
+	
+	public int generateNextID() {
+		return generatedId++;
+	}
+	
 	private DBSubject() {
 		columns = new ArrayList<String>();
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectId"));
@@ -67,6 +73,14 @@ public class DBSubject {
 		}
 		
 		originalSubjects = subjects;
+	}
+	
+	public Subject findByPrimaryId(int id) {
+		for(Subject s: subjects) {
+			if(s.getPrimaryId() == id) return s;
+		}
+		
+		return null;
 	}
 	
 	public ArrayList<Subject> getAllSubjects(){
@@ -107,6 +121,7 @@ public class DBSubject {
 	public void addNewSubject(String subjectID, String subjectName, int espb, String year, String semester) {
 
 		originalSubjects.add(new Subject(subjectID, subjectName, espb, year, semester));
+		originalSubjects.get(originalSubjects.size() - 1).setPrimaryId(generateNextID());
 		
 		subjects = originalSubjects;
 	}
@@ -283,11 +298,26 @@ public class DBSubject {
 		
 		try {
 			XStream xs = new XStream(new JettisonMappedXmlDriver());
+			xs.setMode(XStream.XPATH_ABSOLUTE_REFERENCES);
 			xs.addPermission(AnyTypePermission.ANY);
+			
+			makeHeadSerialize();
+			
 			String s = xs.toXML(subjects);
 			xs.toXML(subjects, os);
 		} finally {
 			os.close();
+		}
+	}
+	
+	private void makeHeadSerialize() {
+		for(Subject s: subjects) {
+			if(s.getSubjectProfessor() != null) {
+				SubjectProfessorSerialization.getInstance().addHead(new SubjectHeadRelation(s.getPrimaryId(), s.getSubjectProfessor().getPrimaryId()));
+				s.setSubjectProfessor(null);
+			}
+			s.getStudentsPASSED().clear();
+			s.getStudentsFAILED().clear();
 		}
 	}
 	
@@ -298,12 +328,31 @@ public class DBSubject {
 			xstream.addPermission(AnyTypePermission.ANY);
 			
 			subjects = (ArrayList<Subject>) xstream.fromXML(f);
+			
+			setupHeadsAndTeachers();
+			
 			return subjects;
 			
 			}
 		finally {
+			f.close();
 		}
 	}
+	
+	private void setupHeadsAndTeachers() {
+		for(SubjectHeadRelation shrel: SubjectProfessorSerialization.getInstance().getHeadRelations()) {
+			findByPrimaryId(shrel.getSubjectId()).setSubjectProfessor(DBProfessor.getInstance().findByPrimaryId(shrel.getProfessorId()));
+		}
+		
+		SubjectProfessorSerialization.getInstance().flushHead();
+		
+		for(SubjectTeachersRelation strel: SubjectProfessorSerialization.getInstance().getTeachersRelation()) {
+			DBProfessor.getInstance().findByPrimaryId(strel.getTeachersId()).addSubject(findByPrimaryId(strel.getSubjectId()));
+		}
+		
+		SubjectProfessorSerialization.getInstance().flushTeachers();
+	}
+	
 	
 	public void initComponents(TablePanel tp) {
 		for(int i = 0; i < columns.size(); ++i) {
@@ -377,7 +426,9 @@ public class DBSubject {
 						break;
 					case 5:
 						try {
-							subj.setSubjectProfessor(DBProfessor.getInstance().getProfessor((int) currentCell.getNumericCellValue() - 1));
+							Professor prof = DBProfessor.getInstance().getProfessor((int) currentCell.getNumericCellValue() - 1);
+							subj.setSubjectProfessor(prof);
+							prof.addSubject(subj);
 						} catch(IllegalStateException e) {
 							subj.setSubjectProfessor(null);
 						}
@@ -392,6 +443,7 @@ public class DBSubject {
     				
     				cellIndex++;
     			}
+    			subj.setPrimaryId(generateNextID());
     			
     			list.add(subj);
     			rowNumber++;

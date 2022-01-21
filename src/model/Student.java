@@ -11,7 +11,9 @@ enum StudentStatus {
 }
 
 public class Student {
-
+	
+	private int primaryId;
+	
 	private String surname;
 	private String name;
 	private LocalDate dateOfBirth;
@@ -97,6 +99,15 @@ public class Student {
 		super();
 		this.passedExams = new ArrayList<Grade>();
 		this.remainingExams = new ArrayList<Subject>();
+	}
+	
+
+	public int getPrimaryId() {
+		return primaryId;
+	}
+
+	public void setPrimaryId(int primaryId) {
+		this.primaryId = primaryId;
 	}
 
 	public String getSurname() {

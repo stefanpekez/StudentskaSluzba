@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Subject {
 	
+	private int primaryId;
+	
 	private String subjectID;
 	private String subjectName;
 	private String currentSemester;
@@ -37,6 +39,16 @@ public class Subject {
 	public Subject() {
 		this.studentsPASSED = new ArrayList<Student>();
 		this.studentsFAILED = new ArrayList<Student>();
+	}
+	
+	
+
+	public int getPrimaryId() {
+		return primaryId;
+	}
+
+	public void setPrimaryId(int primaryId) {
+		this.primaryId = primaryId;
 	}
 
 	public String getSubjectID() {

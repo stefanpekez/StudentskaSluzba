@@ -32,6 +32,12 @@ public class DBDepartments {
 	
 	private ArrayList<Department> departments;
 	
+	private static int generatedId = 0;
+	
+	public int generateNextID() {
+		return generatedId++;
+	}
+	
 	private DBDepartments() {
 		try {
 			departments = deserialize();
@@ -41,6 +47,14 @@ public class DBDepartments {
 		}
 		
 		
+	}
+	
+	public Department findByPrimaryId(int id) {
+		for(Department p: departments) {
+			if(p.getPrimaryId() == id) return p;
+		}
+		
+		return null;
 	}
 	
 	public ArrayList<Department> getAllDepartments() {
@@ -85,13 +99,27 @@ public class DBDepartments {
 		
 		try {
 			XStream xs = new XStream(new JettisonMappedXmlDriver());
+			xs.setMode(XStream.XPATH_ABSOLUTE_REFERENCES);
 			xs.addPermission(AnyTypePermission.ANY);
+			
+			headSerialize();
+			
 			String s = xs.toXML(departments);
 			xs.toXML(departments, os);
 		} finally {
 			os.close();
 		}
 	}
+	
+	private void headSerialize() {
+		for(Department d: departments) {
+			if(d.getDepartmentHead() != null) {
+				DepartmentHeadSerialization.getInstance().addRelation(new DepartmentHeadRelation(d.getPrimaryId(), d.getDepartmentHead().getPrimaryId()));
+				d.setDepartmentHead(null);
+			}
+		}
+	}
+	
 	
 	public ArrayList<Department> deserialize() throws IOException {
 		FileInputStream f = new FileInputStream("saves\\departments.json");
@@ -100,11 +128,24 @@ public class DBDepartments {
 			xstream.addPermission(AnyTypePermission.ANY);
 			
 			departments = (ArrayList<Department>) xstream.fromXML(f);
+				
+			setupHeads();
+			
 			return departments;
 			
 			}
 		finally {
+			f.close();
 		}
+	}
+	
+	private void setupHeads() {
+		for(DepartmentHeadRelation dprel: DepartmentHeadSerialization.getInstance().getRelations3()) {
+			findByPrimaryId(dprel.getDepartmentId()).setDepartmentHead(DBProfessor.getInstance().findByPrimaryId(dprel.getProfessorId()));
+			findByPrimaryId(dprel.getDepartmentId()).addProfessor(DBProfessor.getInstance().findByPrimaryId(dprel.getProfessorId()));
+		}
+		
+		DepartmentHeadSerialization.getInstance().flush();
 	}
 	
 	private ArrayList<Department> convertExcel() throws IOException{
@@ -157,6 +198,8 @@ public class DBDepartments {
     				
     				cellIndex++;
     			}
+    			
+    			dep.setPrimaryId(generateNextID());
     			
     			list.add(dep);
     			rowNumber++;

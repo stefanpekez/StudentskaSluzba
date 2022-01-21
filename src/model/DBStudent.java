@@ -47,6 +47,12 @@ public class DBStudent {
 	private ArrayList<Student> startingStudents;
 	private ArrayList<String> columns;
 	
+	private static int generatedId = 0;
+	
+	public int generateNextID() {
+		return generatedId++;
+	}
+	
 	private DBStudent() {
 		columns = new ArrayList<String>();
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("StudentIndex"));
@@ -58,7 +64,7 @@ public class DBStudent {
 		
 		initStudents();
 		
-	}
+	}	
 	
 	private void initStudents() {
 		students = new ArrayList<Student>();
@@ -76,6 +82,14 @@ public class DBStudent {
 		}
 		
 		startingStudents = students;
+	}
+	
+	public Student findByPrimaryId(int id) {
+		for(Student s: students) {
+			if(s.getPrimaryId() == id) return s;
+		}
+		
+		return null;
 	}
 	
 	public int getRowCount() {
@@ -127,6 +141,8 @@ public class DBStudent {
 
 		startingStudents.add(new Student(name, surname, date, homeAdress, phoneNumber, emailAddress, 
 				index, yearOfEnrollment, currentYearOfStudy, status));
+		
+		startingStudents.get(startingStudents.size() - 1).setPrimaryId(generateNextID());
 		
 		students = startingStudents;
 	}
@@ -246,13 +262,35 @@ public class DBStudent {
 		
 		try {
 			XStream xs = new XStream(new JettisonMappedXmlDriver());
+			xs.setMode(XStream.XPATH_ABSOLUTE_REFERENCES);
 			xs.addPermission(AnyTypePermission.ANY);
+			
+			//make unpassed and passed list
+			makeUnpassedAndGradeSerialize();
+		
+			
 			String s = xs.toXML(students);
 			xs.toXML(students, os);
 		} finally {
 			os.close();
 		}
 	}
+	
+	private void makeUnpassedAndGradeSerialize() {
+		for(Student s: students) {
+			for(Subject sub: s.getRemainingExams()) {
+				UnpassedSerialization.getInstance().addRelation(new UnpassedExamRelation(s.getPrimaryId(), sub.getPrimaryId()));
+			}
+			s.getRemainingExams().clear();
+			
+			for(Grade g: s.getPassedExams()) {
+				PassedGradeSerialization.getInstance().addRelation(new PassedGradeRelation(s.getPrimaryId(), g.getSubject().getPrimaryId(), g.getGradeValue(), g.getDateOfPassingExam()));
+			}
+			s.getPassedExams().clear();
+		}
+	}
+	
+	
   
 	public ArrayList<Student> deserialize() throws IOException {
 		FileInputStream f = new FileInputStream("saves\\students.json");
@@ -261,10 +299,34 @@ public class DBStudent {
 			xstream.addPermission(AnyTypePermission.ANY);
 			
 			students = (ArrayList<Student>) xstream.fromXML(f);
+			
+			setupUnpassedAndPassed();
+			
 			return students;
 			}
 		finally {
+			f.close();
 		}
+	}
+	
+	private void setupUnpassedAndPassed() {
+		for(UnpassedExamRelation urel: UnpassedSerialization.getInstance().getRelations1()) {
+			findByPrimaryId(urel.getStudentId()).addRemainingExam(DBSubject.getInstance().findByPrimaryId(urel.getSubjectId()));
+		}
+		
+		UnpassedSerialization.getInstance().flush();
+		
+		for(PassedGradeRelation pgrel: PassedGradeSerialization.getInstance().getRelations2()) {
+			Grade g = new Grade();
+			g.setStudent(findByPrimaryId(pgrel.getStudentId()));
+			g.setSubject(DBSubject.getInstance().findByPrimaryId(pgrel.getSubjectId()));
+			g.setGradeValue(pgrel.getGrade());
+			g.setDateOfPassingExam(pgrel.getDate());
+			
+			findByPrimaryId(pgrel.getStudentId()).addGrade(g);
+		}
+		
+		PassedGradeSerialization.getInstance().flush();
 	}
 	
 	public void initComponents(TablePanel tp) {
@@ -371,6 +433,8 @@ public class DBStudent {
     				cellIndex++;
     			}
     			
+    			stud.setPrimaryId(generateNextID());
+    			
     			list.add(stud);
     			rowNumber++;
     		}
@@ -389,7 +453,7 @@ public class DBStudent {
 			FileInputStream excelFile = new FileInputStream(new File("testpodaci.xlsx"));
 			Workbook workbook = new XSSFWorkbook(excelFile);
 			
-			Sheet sheet = workbook.getSheet("NepoloÂženi predmeti");
+			Sheet sheet = workbook.getSheet("Nepoloženi predmeti");
 			Iterator<Row> rows = sheet.iterator();
 			
 			
