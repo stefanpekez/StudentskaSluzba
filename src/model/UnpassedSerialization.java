@@ -40,7 +40,7 @@ public class UnpassedSerialization {
 		}
 		
 		public void serialize() throws IOException {
-			File f = new File("saves\\unpassed.json");
+			File f = new File("saves" + File.separator + File.separator + "unpassed.json");
 			OutputStream os = new BufferedOutputStream(new FileOutputStream(f));
 			
 			try {
@@ -56,7 +56,7 @@ public class UnpassedSerialization {
 		}
 		
 		public void deserialize() throws IOException{
-			FileInputStream f = new FileInputStream("saves\\unpassed.json");
+			FileInputStream f = new FileInputStream("saves" + File.separator + File.separator + "unpassed.json");
 			try {
 				XStream xstream = new XStream(new JettisonMappedXmlDriver());
 				xstream.addPermission(AnyTypePermission.ANY);

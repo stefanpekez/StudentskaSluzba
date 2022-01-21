@@ -77,7 +77,6 @@ public class DBExams {
 	
 	public void addUnpassedExam(String selectedSubject, int selectedStudent) {
 		
-		//TODO add student to subjects list of unpassed students
 		String[] parse = selectedSubject.split(",");
 		
 		Subject subject = DBSubject.getInstance().getSelectedSubject(parse[0].replace("\\W", ""));

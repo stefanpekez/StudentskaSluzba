@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
 import java.io.IOException;
 
 import javax.security.auth.callback.LanguageCallback;
@@ -46,7 +47,7 @@ public class MainFrame extends JFrame {
 		
 		setTitle(LanguageController.getInstance().getResourceBundle().getString("StudentService"));
 		
-		Image img = kit.getImage("images/ftn.png");
+		Image img = kit.getImage("images" + File.separator + "ftn.png");
 		setIconImage(img);
 		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

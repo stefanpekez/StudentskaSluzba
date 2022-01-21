@@ -49,7 +49,7 @@ public class DBAddress {
 	}
 	
 	public void serialize() throws IOException {
-		File f = new File("saves\\addresses.json");
+		File f = new File("saves" + File.separator + File.separator + "addresses.json");
 		OutputStream os = new BufferedOutputStream(new FileOutputStream(f));
 		
 		try {

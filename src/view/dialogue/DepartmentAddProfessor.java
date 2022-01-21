@@ -46,8 +46,9 @@ public class DepartmentAddProfessor extends JDialog{
 				// TODO Auto-generated method stub
 				if(professors.getSelectedIndex() != -1) {
 					if(DepartmentController.getInstance().addProfessor(selectedDepartment, professors.getSelectedValue()) < 5) {
-						JOptionPane.showMessageDialog(parent, "Professor added but will not be shown on boss selection list because his years are sub 5", "Not pushin P", 1);
+						JOptionPane.showMessageDialog(parent, LanguageController.getInstance().getResourceBundle().getString("ProfessorAddedButNotEnoughYears"), LanguageController.getInstance().getResourceBundle().getString("PushinP"), 1);
 					}
+					
 					if(bossesList != null) {
 						bossesList.updateList(selectedDepartment);
 					}

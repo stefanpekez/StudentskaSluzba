@@ -91,7 +91,7 @@ private static DBExamsPassed instance = null;
 		
 		DBStudent.getInstance().getSelectedStudent(selectedStudent).setAvgGrade(this.avg);
 		
-		return this.avg;
+		return Math.round(this.avg*100.0)/100.0;
 	}
 	
 	public int getESPB() {

@@ -60,7 +60,7 @@ public class DepartmentListDialogue extends JDialog {
 			}
 		});
 		
-		addProfessor = new JButton("ADD PROFESSOR");
+		addProfessor = new JButton(LanguageController.getInstance().getResourceBundle().getString("AddProfessor"));
 		
 		addProfessor.addActionListener(new ActionListener() {
 

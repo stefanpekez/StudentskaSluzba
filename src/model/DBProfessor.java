@@ -65,8 +65,8 @@ public class DBProfessor {
 		//professors.add(new Professor("Rapajic", "Milos", LocalDate.parse("1970-01-11"), new Address("BB","","",""), "21839264", "rapa@uns.ac.rs", new Address("BB","","",""), "02B", "Redovni Profesor", 4));
 		
 		try {
-			professors = deserialize();
-			//professors = convertExcel();
+			//professors = deserialize();
+			professors = convertExcel();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -232,7 +232,7 @@ public class DBProfessor {
 		
 		
 		for(Professor p: professors)
-			if(p.getWorkingYears() >= 5 && dep.getProfessors().contains(p)) {
+			if(p.getWorkingYears() >= 5 && dep.getProfessors().contains(p) && p.getTitle().equals("DOCENT")) {
 				acceptableProfessors.add(p);
 				System.out.println(Integer.toString(p.getDepartmentID()));
 			}
@@ -289,7 +289,7 @@ public class DBProfessor {
 	}
 	
 	public void serialize() throws IOException {
-		File f = new File("saves\\professors.json");
+		File f = new File("saves" + File.separator + File.separator + "professors.json");
 		OutputStream os = new BufferedOutputStream(new FileOutputStream(f));
 		
 		try {
@@ -317,7 +317,7 @@ public class DBProfessor {
 	}
 	
 	public ArrayList<Professor> deserialize() throws IOException {
-		FileInputStream f = new FileInputStream("saves\\professors.json");
+		FileInputStream f = new FileInputStream("saves" + File.separator + File.separator + "professors.json");
 		try {
 			XStream xstream = new XStream(new JettisonMappedXmlDriver());
 			xstream.addPermission(AnyTypePermission.ANY);
