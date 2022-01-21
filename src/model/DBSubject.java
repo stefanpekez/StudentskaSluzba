@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -104,7 +106,9 @@ public class DBSubject {
 	
 	public void addNewSubject(String subjectID, String subjectName, int espb, String year, String semester) {
 
-		subjects.add(new Subject(subjectID, subjectName, espb, year, semester));
+		originalSubjects.add(new Subject(subjectID, subjectName, espb, year, semester));
+		
+		subjects = originalSubjects;
 	}
 	
 	public void editSubject(int selectedSubject, String subjectID, String subjectName, int espb, String year, String semester) {
@@ -153,26 +157,31 @@ public class DBSubject {
 	
 	public String[] getSubjectListForStudent(int selectedStudent){
 		
-		ArrayList<Subject> possibleUnpassedExams = subjects;
+		ArrayList<Subject> possibleUnpassedExams = new ArrayList<Subject>();
+		int currentYearOfStudent = DBStudent.getInstance().getSelectedStudent(selectedStudent).getCurrentYearOfStudy();
+		
+		for(Subject s: subjects)
+			if(Integer.parseInt(s.getYear()) <= currentYearOfStudent)
+				possibleUnpassedExams.add(s);
+		
 		ArrayList<Subject> remainingExams = DBStudent.getInstance().getSelectedStudent(selectedStudent).getRemainingExams();
 		ArrayList<Grade> passedExamsGrade = DBStudent.getInstance().getSelectedStudent(selectedStudent).getPassedExams();
 		ArrayList<Subject> passedExamsSubject = new ArrayList<Subject>();
-		
-		// TODO Hash seemingly doesn't do anything, should check
-		HashMap<String, Subject> hashSubjects = new HashMap<String, Subject>();
+		ArrayList<Subject> subjectsFinal = new ArrayList<Subject>();
 		
 		for(Grade g: passedExamsGrade)
 			passedExamsSubject.add(g.getSubject());
 		
-		String[] subjectArray = new String[possibleUnpassedExams.size()-(remainingExams.size()+passedExamsSubject.size())];
+		for(Subject s: possibleUnpassedExams)
+			if((!remainingExams.contains(s)) && (!passedExamsSubject.contains(s)))
+				subjectsFinal.add(s);
+		
+		String[] subjectArray = new String[subjectsFinal.size()];
 		
 		int i = 0;
-		for(Subject s: possibleUnpassedExams) {
-			if((!remainingExams.contains(s)) && (!passedExamsSubject.contains(s))) {
-				hashSubjects.put(s.getSubjectID(), s);
-				subjectArray[i] = s.toString();
-				++i;
-			}
+		for(Subject s: subjectsFinal) {
+			subjectArray[i] = s.toString();
+			++i;
 		}
 		
 		return subjectArray;
@@ -343,7 +352,7 @@ public class DBSubject {
     			if(rowNumber == 0) {
     				rowNumber++;
     				continue;
-    			} else if (rowNumber == 30) break;
+    			} else if (rowNumber == 31) break;
     			
     			Iterator<Cell> cellsInRow = currentRow.iterator();
     			Subject subj = new Subject();

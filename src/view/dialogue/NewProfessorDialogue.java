@@ -27,7 +27,7 @@ public class NewProfessorDialogue extends JDialog {
 	private NewTF emailAdress;
 	private NewTF officeAdress;
 	private NewTF idNumber;
-	private NewTF title;
+	private NewCB title;
 	private NewTF workingYears;
 	
 	private JButton ok;
@@ -41,6 +41,8 @@ public class NewProfessorDialogue extends JDialog {
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setLocationRelativeTo(parent);
 		
+		String[] listOfTitles = {"REDOVNI_PROFESOR,", "VANREDNI_PROFESSOR", "DOCENT"};
+		
 		surname = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Surname"), this, "");
 		name = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Name"), this, "");
 		dateOfBirth = new NewTF(LanguageController.getInstance().getResourceBundle().getString("DateOfBirth"), this, "dd/mm/yyyy");
@@ -49,7 +51,7 @@ public class NewProfessorDialogue extends JDialog {
 		emailAdress = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Email"), this, "example@uns.ac.rs");
 		officeAdress = new NewTF(LanguageController.getInstance().getResourceBundle().getString("OfficeAddress"), this, "Street Number, City, Country");
 		idNumber = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Id"), this, "");
-		title = new NewTF(LanguageController.getInstance().getResourceBundle().getString("Title"), this, "");
+		title = new NewCB(LanguageController.getInstance().getResourceBundle().getString("Title"), listOfTitles);
 		workingYears = new NewTF(LanguageController.getInstance().getResourceBundle().getString("WorkingYears"), this, "");
 		
 		ok = new JButton(LanguageController.getInstance().getResourceBundle().getString("AcceptButton"));
@@ -100,7 +102,7 @@ public class NewProfessorDialogue extends JDialog {
 	public void checkAllFields() {
 		if(surname.checkField() && name.checkField() && dateOfBirth.checkField(FormatCheckRegex.DATE_REG) && address.checkField(FormatCheckRegex.ADDRESS_REG) && 
 			phoneNumber.checkField(FormatCheckRegex.PHONE_REG) && emailAdress.checkField(FormatCheckRegex.EMAIL_REG) && officeAdress.checkField(FormatCheckRegex.ADDRESS_REG) && 
-			idNumber.checkField(FormatCheckRegex.NUMBERS_REG) && title.checkField() && workingYears.checkField(FormatCheckRegex.NUMBERS_REG)) {
+			idNumber.checkField(FormatCheckRegex.NUMBERS_REG) && workingYears.checkField(FormatCheckRegex.NUMBERS_REG)) {
 			
 			ok.setEnabled(true);
 			return;

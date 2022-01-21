@@ -43,7 +43,7 @@ public class DeleteStudentDialogue extends JDialog {
 		accept.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 				//TODO implement function to add an object of Student class to DBStudent
-				StudentController.getInstance().deleteStudent(tp.getTable().getSelectedRow());
+				StudentController.getInstance().deleteStudent(tp.getTable().convertRowIndexToModel(tp.getTable().getSelectedRow()));
 				tp.updateView();
 				exitDialog();
 			} 

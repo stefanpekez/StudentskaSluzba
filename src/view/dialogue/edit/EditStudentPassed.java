@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
 
 import controller.LanguageController;
 import controller.StudentController;
@@ -62,6 +63,7 @@ public class EditStudentPassed extends JPanel {
 		
 		// Average
 		JLabel average = new JLabel(LanguageController.getInstance().getResourceBundle().getString("AvgGrade"));
+		average.setBorder(new EmptyBorder(0, 300, 0, 5));
 		
 		averagePanel = new JPanel();
 		averagePanel.add(average);
@@ -69,6 +71,7 @@ public class EditStudentPassed extends JPanel {
 		
 		// ESPB
 		JLabel totalEspb = new JLabel(LanguageController.getInstance().getResourceBundle().getString("TotalEspb"));
+		totalEspb.setBorder(new EmptyBorder(0, 270, 0, 5));
 		
 		espbPanel = new JPanel();
 		espbPanel.add(totalEspb);

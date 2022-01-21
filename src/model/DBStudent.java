@@ -123,10 +123,12 @@ public class DBStudent {
 	}
 	
 	public void addNewStudent(String name, String surname, LocalDate date, String homeAdress, String phoneNumber, 
-			String emailAddress, String index, int yearOfEnrollment, int currentYearOfStudy, int status) {
+		String emailAddress, String index, int yearOfEnrollment, int currentYearOfStudy, int status) {
 
-		students.add(new Student(name, surname, date, homeAdress, phoneNumber, emailAddress, 
+		startingStudents.add(new Student(name, surname, date, homeAdress, phoneNumber, emailAddress, 
 				index, yearOfEnrollment, currentYearOfStudy, status));
+		
+		students = startingStudents;
 	}
 	
 	public void editStudent(int selectedStudentIdx, String name, String surname, LocalDate date, String homeAdress, String phoneNumber, 
@@ -387,7 +389,7 @@ public class DBStudent {
 			FileInputStream excelFile = new FileInputStream(new File("testpodaci.xlsx"));
 			Workbook workbook = new XSSFWorkbook(excelFile);
 			
-			Sheet sheet = workbook.getSheet("Nepoloženi predmeti");
+			Sheet sheet = workbook.getSheet("NepoloÂženi predmeti");
 			Iterator<Row> rows = sheet.iterator();
 			
 			

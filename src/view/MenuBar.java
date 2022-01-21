@@ -16,6 +16,7 @@ import view.dialogue.DeleteProfessorDialogue;
 import view.dialogue.DeleteStudentDialogue;
 import view.dialogue.DeleteSubjectDialogue;
 import view.dialogue.DepartmentListDialogue;
+import view.dialogue.HelpDialogue;
 import view.dialogue.NewProfessorDialogue;
 import view.dialogue.NewStudentDialogue;
 import view.dialogue.NewSubjectDialogue;
@@ -291,7 +292,15 @@ public class MenuBar extends JMenuBar {
 		help_help = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("Help"));
 		help_help.setIcon(new ImageIcon("images/help.png"));
 		help_help.setMnemonic(KeyEvent.VK_H);
-		help_help.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK));
+		help_help.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.SHIFT_MASK));
+		help_help.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				new HelpDialogue();
+			}
+		});
 		
 		//About option
 		help_about = new JMenuItem(LanguageController.getInstance().getResourceBundle().getString("About"));

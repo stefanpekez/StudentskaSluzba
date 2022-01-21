@@ -105,7 +105,9 @@ public class DBProfessor {
 			if(s.getIdNumber().equals(idNumber)) return false;
 		}
 		
-		professors.add(new Professor(surname, name, dateOfBirth,homeAdress, phoneNumber, emailAdress, officeAdress,idNumber, title, workingYears));
+		originalProfessors.add(new Professor(surname, name, dateOfBirth,homeAdress, phoneNumber, emailAdress, officeAdress,idNumber, title, workingYears));
+		
+		professors = originalProfessors;
 		
 		return true;
 	}
