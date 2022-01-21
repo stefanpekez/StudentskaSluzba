@@ -57,6 +57,10 @@ public class Department {
 		this.professors = professors;
 	}
 	
+	public void addProfessor(Professor prof) {
+		professors.add(prof);
+	}
+	
 	
 	
 }

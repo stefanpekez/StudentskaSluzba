@@ -1,4 +1,4 @@
-package view.dialogue.edit;
+package view.dialogue;
 
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
@@ -8,29 +8,31 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import controller.DepartmentController;
 import controller.LanguageController;
 import controller.ProfessorController;
 
-public class SetSubjectProfessorAdd extends JDialog{
-
-	private static final long serialVersionUID = -611281363202888941L;
+public class DepartmentAddProfessor extends JDialog{
 	
-	
+	private JList<String> professors;
 	private JButton ok;
 	private JButton exit;
-	private JList<String> professors;
-	
-	public SetSubjectProfessorAdd(SetSubjectProfessor panel, EditSubjectDialogue parent) {
+
+	DepartmentAddProfessor(DepartmentListDialogue parent, int selectedDepartment, DepartmentAddBoss bossesList) {
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setSize(350, 250);
 		setTitle(LanguageController.getInstance().getResourceBundle().getString("ChooseProfessorTitle"));
 		setLocationRelativeTo(parent);
 		
-		professors = new JList<String>(ProfessorController.getInstance().getProfessorList());
+		String[] list = ProfessorController.getInstance().getProfessorDepartmentList();
+		
+		professors = new JList<String>(list);
+		
 		
 		JScrollPane professorsScrollable = new JScrollPane(professors);
 		professorsScrollable.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -43,12 +45,15 @@ public class SetSubjectProfessorAdd extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(professors.getSelectedIndex() != -1) {
-					panel.setFieldText(professors.getSelectedValue());
-					panel.setSelectedProfessor(professors.getSelectedIndex());
-					panel.settAddFalseRemoveTrue();
+					if(DepartmentController.getInstance().addProfessor(selectedDepartment, professors.getSelectedValue()) < 5) {
+						JOptionPane.showMessageDialog(parent, "Professor added but will not be shown on boss selection list because his years are sub 5", "Not pushin P", 1);
+					}
+					if(bossesList != null) {
+						bossesList.updateList(selectedDepartment);
+					}
 					dispose();
 				} else {
-					System.out.println("Please select a professor");
+					JOptionPane.showMessageDialog(parent, "Please select a professor", "Error", 0);
 				}
 			}
 			
@@ -71,8 +76,9 @@ public class SetSubjectProfessorAdd extends JDialog{
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setResizable(false);
 		
+		
 		add(professorsScrollable);
 		add(buttonz);
-		
+		setVisible(true);
 	}
 }

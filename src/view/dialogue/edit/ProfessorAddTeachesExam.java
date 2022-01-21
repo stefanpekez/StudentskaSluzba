@@ -1,6 +1,7 @@
 package view.dialogue.edit;
 
 import java.awt.FlowLayout;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -72,6 +73,8 @@ public class ProfessorAddTeachesExam extends JDialog {
 		add(labelPanel);
 		add(listPanel);
 		add(buttonPanel);
+		
+		setModalityType(ModalityType.APPLICATION_MODAL);
 		
 		setResizable(false);
 		setVisible(true);

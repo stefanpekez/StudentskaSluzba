@@ -59,8 +59,8 @@ public class DBProfessor {
 		//professors.add(new Professor("Rapajic", "Milos", LocalDate.parse("1970-01-11"), new Address("BB","","",""), "21839264", "rapa@uns.ac.rs", new Address("BB","","",""), "02B", "Redovni Profesor", 4));
 		
 		try {
-			//professors = deserialize();
-			professors = convertExcel();
+			professors = deserialize();
+			//professors = convertExcel();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -131,7 +131,36 @@ public class DBProfessor {
 	}
 	
 	public void deleteProfessor(int row) {
+		Professor p = professors.get(row);
+		
+		for(Subject s: DBSubject.getInstance().getAllSubjects()) {
+			if(s.getSubjectProfessor() == null) continue;
+			
+			if(s.getSubjectProfessor().equals(p)) {
+				s.setSubjectProfessor(null);
+			}
+		}
+		
+		for(Department d: DBDepartments.getInstance().getAllDepartments()) {
+			if(d.getDepartmentHead() != null) {
+				if(d.getDepartmentHead().equals(p)) {
+					d.setDepartmentHead(null);
+					d.getProfessors().remove(p);
+				} 
+			}
+			
+			
+			if(d.getProfessors().contains(p)) {
+				d.getProfessors().remove(p);
+			}
+			
+		}
+		
 		professors.remove(row);
+	}
+	
+	public ArrayList<Professor> getProfessors() {
+		return originalProfessors;
 	}
 	
 	public void professorSearchOne(String query) {
@@ -180,12 +209,17 @@ public class DBProfessor {
 		return null;
 	}
 	
-	public String[] getProfessorsOverWorkingYearLimit() {
+	public String[] getProfessorsOverWorkingYearLimit(int departmentId) {
 		ArrayList<Professor> acceptableProfessors = new ArrayList<Professor>();
+		Department dep = DBDepartments.getInstance().getSelectedDepartment(departmentId);
+		
 		
 		for(Professor p: professors)
-			if(p.getWorkingYears() >= 5)
+			if(p.getWorkingYears() >= 5 && dep.getProfessors().contains(p)) {
 				acceptableProfessors.add(p);
+				System.out.println(Integer.toString(p.getDepartmentID()));
+			}
+				
 		
 		String[] professorList = new String[acceptableProfessors.size()];
 		
@@ -196,6 +230,26 @@ public class DBProfessor {
 		}
 		
 		return professorList;
+	}
+	
+	public String[] getProfessorDepartmentList() {
+		ArrayList<Professor> profs = new ArrayList<Professor>();
+		
+		for(Professor p: professors) {
+			if(p.getDepartmentID() == -1) {
+				profs.add(p);
+			}
+		}
+		
+		String[] list = new String[profs.size()];
+		
+		int i = 0;
+		for(Professor p: profs) {
+			list[i] = p.getIdNumber() + "," + p.getName() + p.getSurname();
+			++i;
+		}
+		
+		return list;
 	}
 		
 	public String[] getProfessorList() {

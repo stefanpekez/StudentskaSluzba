@@ -132,13 +132,17 @@ public class ProfessorController {
 		return DBProfessor.getInstance().getProfessorList();
 	}
 	
+	public String[] getProfessorDepartmentList() {
+		return DBProfessor.getInstance().getProfessorDepartmentList();
+	}
+	
 	public boolean deleteProfessor(int rowindex) {
 		DBProfessor.getInstance().deleteProfessor(rowindex);
 		return true;
 	}
 	
-	public String[] getProfessorsOverWorkingYearLimit() {
-		return DBProfessor.getInstance().getProfessorsOverWorkingYearLimit();
+	public String[] getProfessorsOverWorkingYearLimit(int departmentId) {
+		return DBProfessor.getInstance().getProfessorsOverWorkingYearLimit(departmentId);
 	}
 	
 	public String getSurname(int row){

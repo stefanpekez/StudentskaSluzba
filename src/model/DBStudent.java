@@ -68,8 +68,8 @@ public class DBStudent {
 		//students.add(new Student("Milosevic", "Filip", LocalDate.parse("2001-01-29"), new Address("nme","","",""), "00000000000", 
 				//"milosevicfilip@gmail.com", "ra-193-2019", 2019, 3, StudentStatus.B, 10.0));
 		try {
-			//students = deserialize();
-			students = convertExcel();
+			students = deserialize();
+			//students = convertExcel();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -148,7 +148,17 @@ public class DBStudent {
 	}
 	
 	public void deleteStudent(int deleteIndex) {
-		students.remove(deleteIndex);
+		Student s = students.remove(deleteIndex);
+		
+		for(Subject sub: DBSubject.getInstance().getAllSubjects()) {
+			if(sub.getStudentsFAILED().contains(s)) {
+				sub.getStudentsFAILED().remove(s);
+			}
+			
+			if(sub.getStudentsPASSED().contains(s)) {
+				sub.getStudentsPASSED().remove(s);
+			}
+		}
 	}
 	
 	public Student getSelectedStudent(int row) {

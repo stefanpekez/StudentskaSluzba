@@ -30,15 +30,21 @@ public class DBDepartments {
 		return instance;
 	}
 	
-	ArrayList<Department> departments;
+	private ArrayList<Department> departments;
 	
 	private DBDepartments() {
 		try {
-			//departments = deserialize();
-			departments = convertExcel();
+			departments = deserialize();
+			//departments = convertExcel();
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
+		
+		
+	}
+	
+	public ArrayList<Department> getAllDepartments() {
+		return departments;
 	}
 	
 	public String[] getList() {
@@ -67,6 +73,10 @@ public class DBDepartments {
 		}
 		getSelectedDepartment(selectedDepartment).setDepartmentHead(prof);
 		return true;
+	}
+	
+	public void addProfessorToDepartment(int department, Professor prof) {
+		departments.get(department).addProfessor(prof.setDepartmentID(department));
 	}
 	
 	public void serialize() throws IOException {
@@ -134,7 +144,9 @@ public class DBDepartments {
 						break;
 					case 3:
 						try {
-							dep.setDepartmentHead(DBProfessor.getInstance().getProfessor((int) currentCell.getNumericCellValue() - 1));
+							Professor prof = DBProfessor.getInstance().getProfessor((int) currentCell.getNumericCellValue() - 1);
+							dep.setDepartmentHead(prof);
+							dep.addProfessor(prof.setDepartmentID(rowNumber - 1));
 						} catch(IllegalStateException e) {
 							dep.setDepartmentHead(null);
 						}

@@ -23,16 +23,16 @@ public class MyApp {
 	
 	public static void initializeDB() {
 		DBAddress.getInstance();
-		DBSubject.getInstance();
-		DBProfessor.getInstance();
 		DBStudent.getInstance();
+		DBProfessor.getInstance();
+		DBSubject.getInstance();
 		DBDepartments.getInstance();
-		try {
+		/*try {
 			DBStudent.getInstance().setupUnpassed();
 			DBStudent.getInstance().setupPassed();
 		} catch(IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 }
 

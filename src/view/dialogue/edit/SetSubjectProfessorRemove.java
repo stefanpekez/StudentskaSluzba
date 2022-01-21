@@ -1,5 +1,6 @@
 package view.dialogue.edit;
 
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,7 +24,7 @@ public class SetSubjectProfessorRemove extends JDialog {
 		setTitle(LanguageController.getInstance().getResourceBundle().getString("RemoveProfessorTitle"));
 		setSize(450,100);
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-		setLocationRelativeTo(getParent());
+		setLocationRelativeTo(panel.getParent());
 		
 		JPanel buttons = new JPanel();
 		
@@ -52,6 +53,9 @@ public class SetSubjectProfessorRemove extends JDialog {
 		
 		buttons.add(yes);
 		buttons.add(no);
+		
+		setModalityType(ModalityType.APPLICATION_MODAL);
+		setResizable(false);
 		
 		add(message);
 		add(buttons);
