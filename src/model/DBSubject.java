@@ -60,13 +60,17 @@ public class DBSubject {
 		//subjects.add(new Subject("MA", "Matematicka Analiza I", "1", "1", 9));
 		//subjects.add(new Subject("AR", "Arhitektura Racunara", "2", "1", 9));
 		try {
-			//subjects = deserialize();
-			subjects = convertExcel();
+			subjects = deserialize();
+			//subjects = convertExcel();
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
 		
 		originalSubjects = subjects;
+	}
+	
+	public ArrayList<Subject> getAllSubjects(){
+		return originalSubjects;
 	}
 	
 	public int getRowCount() {
@@ -218,7 +222,32 @@ public class DBSubject {
 	}
 	
 	public void deleteSubject(int row) {
-		originalSubjects.remove(subjects.remove(row));
+		Subject s = subjects.remove(row);
+		
+		for(Student stud: DBStudent.getInstance().getStudents()) {
+			for(Grade g: stud.getPassedExams()) {
+				if(g.getSubject().getSubjectID().equals(s.getSubjectID())) {
+					stud.getPassedExams().remove(g);
+					break;
+				}
+			}
+			
+			for(Subject sub: stud.getRemainingExams()) {
+				if(sub.getSubjectID().equals(s.getSubjectID())) {
+					stud.getRemainingExams().remove(sub);
+					break;
+				}
+			}
+		}
+		
+		for(Professor p: DBProfessor.getInstance().getProfessors()) {
+			for(Subject sub: p.getSubjects()) {
+				if(sub.getSubjectID() == s.getSubjectID()) {
+					p.getSubjects().remove(sub);
+					break;
+				}
+			}
+		}
 	}
 	
 	public Subject getSelectedSubject(int index) {

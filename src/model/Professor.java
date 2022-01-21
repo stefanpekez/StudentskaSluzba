@@ -17,6 +17,8 @@ public class Professor {
 		private int workingYears;
 		private ArrayList<Subject> subjects;
 		
+		int departmentID = -1;
+		
 		public Professor(String surname, String name, LocalDate dateOfBirth, Address homeAdress, String phoneNumber,
 				String emailAdress, Address officeAdress, String idNumber, String title, int workingYears) {
 			super();
@@ -140,6 +142,16 @@ public class Professor {
 			this.subjects.remove(sub);
 		}
 		
+		
+		public int getDepartmentID() {
+			return departmentID;
+		}
+
+		public Professor setDepartmentID(int departmentID) {
+			this.departmentID = departmentID;
+			return this;
+		}
+
 		@Override
 		public String toString() {
 			return this.idNumber + "," + this.name + " " + this.surname + "," + this.title;

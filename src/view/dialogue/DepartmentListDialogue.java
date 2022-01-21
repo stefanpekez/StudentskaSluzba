@@ -23,7 +23,11 @@ public class DepartmentListDialogue extends JDialog {
 
 	private JList<String> departments;
 	private JButton addBoss;
+	private JButton addProfessor;
 	private JLabel currentDH = new JLabel();
+	
+	private DepartmentAddBoss addBossDialogue = null;
+	private boolean addBossOpen = false;
 	
 	public DepartmentListDialogue(MainFrame parent) {
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
@@ -47,16 +51,37 @@ public class DepartmentListDialogue extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(departments.getSelectedIndex() != -1) {
-					new DepartmentAddBoss(thisDialog, listsPanel, departments, currentDH);
+					addBossDialogue = new DepartmentAddBoss(thisDialog, listsPanel, departments, currentDH);
 					addBoss.setEnabled(false);
+					addBossOpen = true;
 				}
 				else
 					JOptionPane.showMessageDialog(parent, LanguageController.getInstance().getResourceBundle().getString("DepartmentNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
 			}
 		});
 		
+		addProfessor = new JButton("ADD PROFESSOR");
+		
+		addProfessor.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(departments.getSelectedIndex() != -1) {
+					new DepartmentAddProfessor(thisDialog, departments.getSelectedIndex(), addBossDialogue);
+					
+					
+				} else {
+					JOptionPane.showMessageDialog(parent, LanguageController.getInstance().getResourceBundle().getString("DepartmentNotSelected"), LanguageController.getInstance().getResourceBundle().getString("ErrorMessageTitle"), 0);
+				}
+			}
+			
+		});
+		
 		
 		buttonPanel.add(addBoss);
+		buttonPanel.add(addProfessor);
+		
 		bossLabelPanel.add(currentDH);
 		
 		add(buttonPanel);

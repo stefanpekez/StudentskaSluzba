@@ -1,6 +1,7 @@
 package view.dialogue.edit;
 
 import java.awt.Dimension;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -77,6 +78,7 @@ public class SetSubjectProfessor extends JPanel {
 		add(text);
 		add(add);
 		add(remove);
+		
 	}
 	
 	public void setFieldText(String s) {

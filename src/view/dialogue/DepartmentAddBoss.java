@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -16,13 +17,13 @@ import javax.swing.JScrollPane;
 import controller.DepartmentController;
 import controller.LanguageController;
 import controller.ProfessorController;
-import model.DBProfessor;
 
 public class DepartmentAddBoss {
 	
 	private JList<String> professors;
 	private JButton plus;
 	private JButton minus;
+	JScrollPane professorScroller;
 	
 	public DepartmentAddBoss(DepartmentListDialogue parent, JPanel listsPanel, JList<String> departments, JLabel label) {
 		
@@ -56,7 +57,7 @@ public class DepartmentAddBoss {
 					minus.setEnabled(true);
 					parent.setCurrenDHText(DepartmentController.getInstance().getSelectedDepartmentHead(departments.getSelectedIndex()).toString());
 				}
-				
+				updateList(departments.getSelectedIndex());
 			}
 			
 			@Override
@@ -78,8 +79,8 @@ public class DepartmentAddBoss {
 			}
 		});
 		
-		professors = new JList<String>(ProfessorController.getInstance().getProfessorsOverWorkingYearLimit());
-		JScrollPane professorScroller = new JScrollPane(professors);
+		professors = new JList<String>(ProfessorController.getInstance().getProfessorsOverWorkingYearLimit(departments.getSelectedIndex()));
+		professorScroller = new JScrollPane(professors);
 		
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
@@ -135,6 +136,17 @@ public class DepartmentAddBoss {
 		
 		listsPanel.add(buttonsPanel);
 		listsPanel.add(professorScroller);
+	}
+	
+	public void updateList(int department) {
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		String[] list = ProfessorController.getInstance().getProfessorsOverWorkingYearLimit(department);
+		
+		for(int i = 0; i < list.length; ++i) {
+			model.addElement(list[i]);
+		}
+		
+		professors.setModel(model);
 	}
 
 }
