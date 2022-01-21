@@ -2,6 +2,7 @@ package model;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -37,6 +38,33 @@ public class SubjectProfessorSerialization {
 		teachersRelation.add(rel);
 	}
 	
+	public void flushHead() {
+		this.headRelations.clear();
+	}
+	public void flushTeachers() {
+		this.teachersRelation.clear();
+	}
+	
+	public ArrayList<SubjectHeadRelation> getHeadRelations() {
+		return headRelations;
+	}
+
+
+	public void setHeadRelations(ArrayList<SubjectHeadRelation> headRelations) {
+		this.headRelations = headRelations;
+	}
+
+
+	public ArrayList<SubjectTeachersRelation> getTeachersRelation() {
+		return teachersRelation;
+	}
+
+
+	public void setTeachersRelation(ArrayList<SubjectTeachersRelation> teachersRelation) {
+		this.teachersRelation = teachersRelation;
+	}
+
+
 	public void serializeHead() throws IOException{
 		File f = new File("saves\\subjectHeads.json");
 		OutputStream os = new BufferedOutputStream(new FileOutputStream(f));
@@ -66,6 +94,34 @@ public class SubjectProfessorSerialization {
 			xs.toXML(teachersRelation, os);
 		} finally {
 			os.close();
+		}
+	}
+	
+	public void deserializeHead() throws IOException{
+		FileInputStream f = new FileInputStream("saves\\subjectHeads.json");
+		try {
+			XStream xstream = new XStream(new JettisonMappedXmlDriver());
+			xstream.addPermission(AnyTypePermission.ANY);
+			
+			headRelations = (ArrayList<SubjectHeadRelation>) xstream.fromXML(f);
+			
+			}
+		finally {
+			f.close();
+		}
+	}
+	
+	public void deserializeTeachers() throws IOException{
+		FileInputStream f = new FileInputStream("saves\\subjectTeachers.json");
+		try {
+			XStream xstream = new XStream(new JettisonMappedXmlDriver());
+			xstream.addPermission(AnyTypePermission.ANY);
+			
+			teachersRelation = (ArrayList<SubjectTeachersRelation>) xstream.fromXML(f);
+			
+			}
+		finally {
+			f.close();
 		}
 	}
 	

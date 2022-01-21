@@ -66,13 +66,21 @@ public class DBSubject {
 		//subjects.add(new Subject("MA", "Matematicka Analiza I", "1", "1", 9));
 		//subjects.add(new Subject("AR", "Arhitektura Racunara", "2", "1", 9));
 		try {
-			//subjects = deserialize();
-			subjects = convertExcel();
+			subjects = deserialize();
+			//subjects = convertExcel();
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
 		
 		originalSubjects = subjects;
+	}
+	
+	public Subject findByPrimaryId(int id) {
+		for(Subject s: subjects) {
+			if(s.getPrimaryId() == id) return s;
+		}
+		
+		return null;
 	}
 	
 	public ArrayList<Subject> getAllSubjects(){
@@ -320,14 +328,31 @@ public class DBSubject {
 			xstream.addPermission(AnyTypePermission.ANY);
 			
 			subjects = (ArrayList<Subject>) xstream.fromXML(f);
-					
+			
+			setupHeadsAndTeachers();
+			
 			return subjects;
 			
 			}
 		finally {
-		
+			f.close();
 		}
 	}
+	
+	private void setupHeadsAndTeachers() {
+		for(SubjectHeadRelation shrel: SubjectProfessorSerialization.getInstance().getHeadRelations()) {
+			findByPrimaryId(shrel.getSubjectId()).setSubjectProfessor(DBProfessor.getInstance().findByPrimaryId(shrel.getProfessorId()));
+		}
+		
+		SubjectProfessorSerialization.getInstance().flushHead();
+		
+		for(SubjectTeachersRelation strel: SubjectProfessorSerialization.getInstance().getTeachersRelation()) {
+			DBProfessor.getInstance().findByPrimaryId(strel.getTeachersId()).addSubject(findByPrimaryId(strel.getSubjectId()));
+		}
+		
+		SubjectProfessorSerialization.getInstance().flushTeachers();
+	}
+	
 	
 	public void initComponents(TablePanel tp) {
 		for(int i = 0; i < columns.size(); ++i) {

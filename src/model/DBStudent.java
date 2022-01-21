@@ -74,14 +74,22 @@ public class DBStudent {
 		//students.add(new Student("Milosevic", "Filip", LocalDate.parse("2001-01-29"), new Address("nme","","",""), "00000000000", 
 				//"milosevicfilip@gmail.com", "ra-193-2019", 2019, 3, StudentStatus.B, 10.0));
 		try {
-			//students = deserialize();
-			students = convertExcel();
+			students = deserialize();
+			//students = convertExcel();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		startingStudents = students;
+	}
+	
+	public Student findByPrimaryId(int id) {
+		for(Student s: students) {
+			if(s.getPrimaryId() == id) return s;
+		}
+		
+		return null;
 	}
 	
 	public int getRowCount() {
@@ -291,10 +299,34 @@ public class DBStudent {
 			xstream.addPermission(AnyTypePermission.ANY);
 			
 			students = (ArrayList<Student>) xstream.fromXML(f);
+			
+			setupUnpassedAndPassed();
+			
 			return students;
 			}
 		finally {
+			f.close();
 		}
+	}
+	
+	private void setupUnpassedAndPassed() {
+		for(UnpassedExamRelation urel: UnpassedSerialization.getInstance().getRelations1()) {
+			findByPrimaryId(urel.getStudentId()).addRemainingExam(DBSubject.getInstance().findByPrimaryId(urel.getSubjectId()));
+		}
+		
+		UnpassedSerialization.getInstance().flush();
+		
+		for(PassedGradeRelation pgrel: PassedGradeSerialization.getInstance().getRelations2()) {
+			Grade g = new Grade();
+			g.setStudent(findByPrimaryId(pgrel.getStudentId()));
+			g.setSubject(DBSubject.getInstance().findByPrimaryId(pgrel.getSubjectId()));
+			g.setGradeValue(pgrel.getGrade());
+			g.setDateOfPassingExam(pgrel.getDate());
+			
+			findByPrimaryId(pgrel.getStudentId()).addGrade(g);
+		}
+		
+		PassedGradeSerialization.getInstance().flush();
 	}
 	
 	public void initComponents(TablePanel tp) {

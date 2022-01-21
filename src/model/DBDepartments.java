@@ -40,13 +40,21 @@ public class DBDepartments {
 	
 	private DBDepartments() {
 		try {
-			//departments = deserialize();
-			departments = convertExcel();
+			departments = deserialize();
+			//departments = convertExcel();
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
 		
 		
+	}
+	
+	public Department findByPrimaryId(int id) {
+		for(Department p: departments) {
+			if(p.getPrimaryId() == id) return p;
+		}
+		
+		return null;
 	}
 	
 	public ArrayList<Department> getAllDepartments() {
@@ -120,24 +128,24 @@ public class DBDepartments {
 			xstream.addPermission(AnyTypePermission.ANY);
 			
 			departments = (ArrayList<Department>) xstream.fromXML(f);
+				
+			setupHeads();
 			
-			/*
-			for(Department d: departments) {
-				for(Professor p: DBProfessor.getInstance().getProfessors()) {
-					if(d.getDepartmentHead().getIdNumber().equals(p.getIdNumber())) {
-						d.setDepartmentHead(p);
-						break;
-					}
-				}
-				
-				
-			}
-			*/
 			return departments;
 			
 			}
 		finally {
+			f.close();
 		}
+	}
+	
+	private void setupHeads() {
+		for(DepartmentHeadRelation dprel: DepartmentHeadSerialization.getInstance().getRelations3()) {
+			findByPrimaryId(dprel.getDepartmentId()).setDepartmentHead(DBProfessor.getInstance().findByPrimaryId(dprel.getProfessorId()));
+			findByPrimaryId(dprel.getDepartmentId()).addProfessor(DBProfessor.getInstance().findByPrimaryId(dprel.getProfessorId()));
+		}
+		
+		DepartmentHeadSerialization.getInstance().flush();
 	}
 	
 	private ArrayList<Department> convertExcel() throws IOException{

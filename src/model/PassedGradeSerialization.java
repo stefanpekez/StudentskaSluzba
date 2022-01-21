@@ -2,6 +2,7 @@ package model;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -20,18 +21,22 @@ public class PassedGradeSerialization {
 		return instance;
 	}
 	
-	ArrayList<PassedGradeRelation> relations;
+	private ArrayList<PassedGradeRelation> relation;
 	
 	public PassedGradeSerialization() {
-		relations = new ArrayList<PassedGradeRelation>();
+		this.relation = new ArrayList<PassedGradeRelation>();
 	}
 	
 	public void addRelation(PassedGradeRelation rel) {
-		relations.add(rel);
+		this.relation.add(rel);
 	}
 	
-	public ArrayList<PassedGradeRelation> getRelations() {
-		return relations;
+	public void flush() {
+		this.relation.clear();
+	}
+	
+	public ArrayList<PassedGradeRelation> getRelations2() {
+		return this.relation;
 	}
 	
 	public void serialize() throws IOException {
@@ -43,10 +48,24 @@ public class PassedGradeSerialization {
 			xs.setMode(XStream.XPATH_ABSOLUTE_REFERENCES);
 			xs.addPermission(AnyTypePermission.ANY);
 
-			String s = xs.toXML(relations);
-			xs.toXML(relations, os);
+			String s = xs.toXML(this.relation);
+			xs.toXML(this.relation, os);
 		} finally {
 			os.close();
+		}
+	}
+	
+	public void deserialize() throws IOException{
+		FileInputStream f = new FileInputStream("saves\\grades.json");
+		try {
+			XStream xstream = new XStream(new JettisonMappedXmlDriver());
+			xstream.addPermission(AnyTypePermission.ANY);
+			
+			this.relation = (ArrayList<PassedGradeRelation>) xstream.fromXML(f);
+			
+		}
+		finally {
+			f.close();
 		}
 	}
 }

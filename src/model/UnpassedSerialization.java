@@ -2,6 +2,7 @@ package model;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -20,18 +21,22 @@ public class UnpassedSerialization {
 			return instance;
 		}
 		
-		ArrayList<UnpassedExamRelation> relations;
+		private ArrayList<UnpassedExamRelation> relations;
 		
 		public UnpassedSerialization() {
-			relations = new ArrayList<UnpassedExamRelation>();
+			this.relations = new ArrayList<UnpassedExamRelation>();
+		}
+		
+		public void flush() {
+			this.relations.clear();
 		}
 		
 		public void addRelation(UnpassedExamRelation rel) {
-			relations.add(rel);
+			this.relations.add(rel);
 		}
 		
-		public ArrayList<UnpassedExamRelation> getRelations() {
-			return relations;
+		public ArrayList<UnpassedExamRelation> getRelations1() {
+			return this.relations;
 		}
 		
 		public void serialize() throws IOException {
@@ -43,10 +48,24 @@ public class UnpassedSerialization {
 				xs.setMode(XStream.XPATH_ABSOLUTE_REFERENCES);
 				xs.addPermission(AnyTypePermission.ANY);
 
-				String s = xs.toXML(relations);
-				xs.toXML(relations, os);
+				String s = xs.toXML(this.relations);
+				xs.toXML(this.relations, os);
 			} finally {
 				os.close();
+			}
+		}
+		
+		public void deserialize() throws IOException{
+			FileInputStream f = new FileInputStream("saves\\unpassed.json");
+			try {
+				XStream xstream = new XStream(new JettisonMappedXmlDriver());
+				xstream.addPermission(AnyTypePermission.ANY);
+				
+				relations = (ArrayList<UnpassedExamRelation>) xstream.fromXML(f);
+				
+			}
+			finally {
+				f.close();
 			}
 		}
 		

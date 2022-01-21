@@ -2,6 +2,7 @@ package model;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -20,18 +21,22 @@ public class DepartmentHeadSerialization {
 		return instance;
 	}
 	
-	ArrayList<DepartmentHeadRelation> relations;
+	private ArrayList<DepartmentHeadRelation> relations1;
 	
 	public DepartmentHeadSerialization() {
-		relations = new ArrayList<DepartmentHeadRelation>();
+		relations1 = new ArrayList<DepartmentHeadRelation>();
 	}
 	
 	public void addRelation(DepartmentHeadRelation rel) {
-		relations.add(rel);
+		relations1.add(rel);
 	}
 	
-	public ArrayList<DepartmentHeadRelation> getRelations() {
-		return relations;
+	public void flush() {
+		this.relations1.clear();
+	}
+	
+	public ArrayList<DepartmentHeadRelation> getRelations3() {
+		return relations1;
 	}
 	
 	public void serialize() throws IOException {
@@ -43,10 +48,24 @@ public class DepartmentHeadSerialization {
 			xs.setMode(XStream.XPATH_ABSOLUTE_REFERENCES);
 			xs.addPermission(AnyTypePermission.ANY);
 
-			String s = xs.toXML(relations);
-			xs.toXML(relations, os);
+			String s = xs.toXML(relations1);
+			xs.toXML(relations1, os);
 		} finally {
 			os.close();
+		}
+	}
+	
+	public void deserialize() throws IOException{
+		FileInputStream f = new FileInputStream("saves\\departmentHeads.json");
+		try {
+			XStream xstream = new XStream(new JettisonMappedXmlDriver());
+			xstream.addPermission(AnyTypePermission.ANY);
+			
+			relations1 = (ArrayList<DepartmentHeadRelation>) xstream.fromXML(f);
+			
+		}
+		finally {
+			f.close();
 		}
 	}
 }

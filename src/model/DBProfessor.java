@@ -65,14 +65,22 @@ public class DBProfessor {
 		//professors.add(new Professor("Rapajic", "Milos", LocalDate.parse("1970-01-11"), new Address("BB","","",""), "21839264", "rapa@uns.ac.rs", new Address("BB","","",""), "02B", "Redovni Profesor", 4));
 		
 		try {
-			//professors = deserialize();
-			professors = convertExcel();
+			professors = deserialize();
+			//professors = convertExcel();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		originalProfessors = professors;
+	}
+	
+	public Professor findByPrimaryId(int id) {
+		for(Professor p: professors) {
+			if(p.getPrimaryId() == id) return p;
+		}
+		
+		return null;
 	}
 	
 	public int getRowCount() {
@@ -305,6 +313,7 @@ public class DBProfessor {
 			}
 			p.getSubjects().clear();
 		}
+		
 	}
 	
 	public ArrayList<Professor> deserialize() throws IOException {
@@ -318,6 +327,7 @@ public class DBProfessor {
 			
 			}
 		finally {
+			f.close();
 		}
 	}
 	
