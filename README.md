@@ -49,3 +49,8 @@
       23. lokalizacija engleski
       24. prikaz katedri
       - dodavanje profesora na katedru
+      
+   ## Korišćene biblioteke
+      - flatlaf : 1.6.2
+      - xstream : 1.4.18
+      - apache poi : 5.2.0 
