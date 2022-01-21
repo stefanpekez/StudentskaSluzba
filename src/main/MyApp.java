@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
+import controller.SerializationController;
 import model.DBAddress;
 import model.DBDepartments;
 import model.DBProfessor;
@@ -27,10 +28,11 @@ public class MyApp {
 	}
 	
 	public static void initializeDB() {
-		DBAddress.getInstance();
+		SerializationController.getInstaince().deserialize();
 		
 		//UCITAJ SVE RELACIJE PRE GLAVNIH ENTITETA
-		
+		/*
+		 * DBAddress.getInstance();
 		try {
 			PassedGradeSerialization.getInstance().deserialize();
 			DepartmentHeadSerialization.getInstance().deserialize();
@@ -47,6 +49,7 @@ public class MyApp {
 		DBSubject.getInstance();
 		DBStudent.getInstance();
 		DBDepartments.getInstance();
+		*/
 		
 		/*
 		try {

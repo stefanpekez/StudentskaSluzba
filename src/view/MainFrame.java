@@ -16,6 +16,7 @@ import javax.swing.WindowConstants;
 
 import controller.AbstractTableModelStudent;
 import controller.LanguageController;
+import controller.SerializationController;
 import model.DBAddress;
 import model.DBDepartments;
 import model.DBExams;
@@ -79,6 +80,7 @@ public class MainFrame extends JFrame {
 	
 	public void serialize() {
 		try {
+			/*
 			DBProfessor.getInstance().serialize();
 			DBStudent.getInstance().serialize();
 			DBSubject.getInstance().serialize();
@@ -89,6 +91,8 @@ public class MainFrame extends JFrame {
 			SubjectProfessorSerialization.getInstance().serializeHead();
 			SubjectProfessorSerialization.getInstance().serializeTeachers();
 			DepartmentHeadSerialization.getInstance().serialize();
+			*/
+			SerializationController.getInstaince().serialize();
 			System.out.println("Serialized!");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
