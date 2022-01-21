@@ -22,6 +22,11 @@ import model.DBExamsPassed;
 import model.DBProfessor;
 import model.DBStudent;
 import model.DBSubject;
+import model.DepartmentHeadSerialization;
+import model.PassedGradeRelation;
+import model.PassedGradeSerialization;
+import model.SubjectProfessorSerialization;
+import model.UnpassedSerialization;
 
 public class MainFrame extends JFrame {
 	
@@ -78,6 +83,11 @@ public class MainFrame extends JFrame {
 			DBSubject.getInstance().serialize();
 			DBDepartments.getInstance().serialize();
 			DBAddress.getInstance().serialize();
+			UnpassedSerialization.getInstance().serialize();
+			PassedGradeSerialization.getInstance().serialize();
+			SubjectProfessorSerialization.getInstance().serializeHead();
+			SubjectProfessorSerialization.getInstance().serializeTeachers();
+			DepartmentHeadSerialization.getInstance().serialize();
 			System.out.println("Serialized!");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

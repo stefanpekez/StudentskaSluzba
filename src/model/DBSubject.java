@@ -41,6 +41,12 @@ public class DBSubject {
 	
 	private ArrayList<Subject> originalSubjects;
 	
+	private static int generatedId = 0;
+	
+	public int generateNextID() {
+		return generatedId++;
+	}
+	
 	private DBSubject() {
 		columns = new ArrayList<String>();
 		columns.add(LanguageController.getInstance().getResourceBundle().getString("SubjectId"));
@@ -60,8 +66,8 @@ public class DBSubject {
 		//subjects.add(new Subject("MA", "Matematicka Analiza I", "1", "1", 9));
 		//subjects.add(new Subject("AR", "Arhitektura Racunara", "2", "1", 9));
 		try {
-			subjects = deserialize();
-			//subjects = convertExcel();
+			//subjects = deserialize();
+			subjects = convertExcel();
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -107,6 +113,7 @@ public class DBSubject {
 	public void addNewSubject(String subjectID, String subjectName, int espb, String year, String semester) {
 
 		originalSubjects.add(new Subject(subjectID, subjectName, espb, year, semester));
+		originalSubjects.get(originalSubjects.size() - 1).setPrimaryId(generateNextID());
 		
 		subjects = originalSubjects;
 	}
@@ -283,11 +290,26 @@ public class DBSubject {
 		
 		try {
 			XStream xs = new XStream(new JettisonMappedXmlDriver());
+			xs.setMode(XStream.XPATH_ABSOLUTE_REFERENCES);
 			xs.addPermission(AnyTypePermission.ANY);
+			
+			makeHeadSerialize();
+			
 			String s = xs.toXML(subjects);
 			xs.toXML(subjects, os);
 		} finally {
 			os.close();
+		}
+	}
+	
+	private void makeHeadSerialize() {
+		for(Subject s: subjects) {
+			if(s.getSubjectProfessor() != null) {
+				SubjectProfessorSerialization.getInstance().addHead(new SubjectHeadRelation(s.getPrimaryId(), s.getSubjectProfessor().getPrimaryId()));
+				s.setSubjectProfessor(null);
+			}
+			s.getStudentsPASSED().clear();
+			s.getStudentsFAILED().clear();
 		}
 	}
 	
@@ -298,10 +320,12 @@ public class DBSubject {
 			xstream.addPermission(AnyTypePermission.ANY);
 			
 			subjects = (ArrayList<Subject>) xstream.fromXML(f);
+					
 			return subjects;
 			
 			}
 		finally {
+		
 		}
 	}
 	
@@ -377,7 +401,9 @@ public class DBSubject {
 						break;
 					case 5:
 						try {
-							subj.setSubjectProfessor(DBProfessor.getInstance().getProfessor((int) currentCell.getNumericCellValue() - 1));
+							Professor prof = DBProfessor.getInstance().getProfessor((int) currentCell.getNumericCellValue() - 1);
+							subj.setSubjectProfessor(prof);
+							prof.addSubject(subj);
 						} catch(IllegalStateException e) {
 							subj.setSubjectProfessor(null);
 						}
@@ -392,6 +418,7 @@ public class DBSubject {
     				
     				cellIndex++;
     			}
+    			subj.setPrimaryId(generateNextID());
     			
     			list.add(subj);
     			rowNumber++;

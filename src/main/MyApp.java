@@ -27,12 +27,12 @@ public class MyApp {
 		DBProfessor.getInstance();
 		DBSubject.getInstance();
 		DBDepartments.getInstance();
-		/*try {
+		try {
 			DBStudent.getInstance().setupUnpassed();
 			DBStudent.getInstance().setupPassed();
 		} catch(IOException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 }
 

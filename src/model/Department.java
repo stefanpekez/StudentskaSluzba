@@ -3,6 +3,9 @@ package model;
 import java.util.ArrayList;
 
 public class Department {
+	
+	private int primaryId;
+	
 	private String serialCode;
 	private String name;
 	private Professor departmentHead;
@@ -18,6 +21,15 @@ public class Department {
 	
 	public Department() {
 		this.professors = new ArrayList<Professor>();
+	}
+	
+
+	public int getPrimaryId() {
+		return primaryId;
+	}
+
+	public void setPrimaryId(int primaryId) {
+		this.primaryId = primaryId;
 	}
 
 	@Override
